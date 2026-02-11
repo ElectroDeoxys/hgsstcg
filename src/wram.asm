@@ -1008,6 +1008,13 @@ wNamingScreenNamePosition::
 wd009::
 	ds $4
 
+SECTION "Stack", WRAM0
+
+	ds $100
+wStack::
+
+SECTION "WRAM1", WRAMX
+
 ; pointers to all decks of current deck machine
 wMachineDeckPtrs::
 	ds 2 * NUM_DECK_SAVE_MACHINE_SLOTS
@@ -1216,8 +1223,6 @@ wBGMapHeight::
 ; TILEMAP_* constant
 wCurTilemap::
 	ds $1
-
-SECTION "WRAM1", WRAMX
 
 UNION
 

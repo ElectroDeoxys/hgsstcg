@@ -185,8 +185,11 @@ WRAM0
 	"WRAM 1"
 	"WRAM Duel 2"
 	"WRAM 2"
+	org $cf00
+	"Stack"
 WRAMX $1
 	"WRAM1"
+WRAMX $7
 	"WRAM Audio"
 VRAM $00
 	"VRAM0"

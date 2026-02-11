@@ -18,6 +18,8 @@ TimerHandler::
 	bit IN_TIMER, [hl]
 	jr nz, .done
 	set IN_TIMER, [hl]
+
+	push_wram BANK("WRAM Audio")
 	ldh a, [hBankROM]
 	push af
 	ld a, BANK(SoundTimerHandler)
@@ -25,6 +27,8 @@ TimerHandler::
 	call SoundTimerHandler
 	pop af
 	call BankswitchROM
+	pop_wram
+
 	; clear in-timer flag
 	ld hl, wReentrancyFlag
 	res IN_TIMER, [hl]

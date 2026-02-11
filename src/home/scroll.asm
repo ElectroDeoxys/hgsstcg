@@ -4,6 +4,7 @@ Func_3e44::
 	push hl
 	push bc
 	push de
+	; TODO this needs to push_wram
 	ld hl, wd657
 	bit 0, [hl]
 	jr nz, .done

@@ -94,3 +94,17 @@ ENDM
 MACRO? ldgbpal
 	ld \1, (\2 << 0) | (\3 << 2) | (\4 << 4) | (\5 << 6)
 ENDM
+
+; used to temporarily switch
+; to the given WRAM bank
+MACRO? push_wram
+	ldh a, [rWBK]
+	push af
+	ld a, \1 ; WRAM bank number
+	ldh [rWBK], a
+ENDM
+
+MACRO? pop_wram
+	pop af
+	ldh [rWBK], a
+ENDM

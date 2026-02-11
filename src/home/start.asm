@@ -27,5 +27,5 @@ Start::
 	call ValidateSRAM
 	ld a, BANK(GameLoop)
 	call BankswitchROM
-	ld sp, $e000
+	ld sp, wStack
 	jp GameLoop

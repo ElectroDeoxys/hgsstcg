@@ -1,5 +1,5 @@
 _SetupSound::
-	jp SetupSound
+	jp SetupSoundEngine
 
 SoundTimerHandler::
 	jp MusicUpdate
@@ -27,12 +27,14 @@ SetCurSong:
 	ld hl, NumberOfSongs
 	cp [hl]
 	jr nc, .invalidID
+	ld a, b
 	ld [wCurSongID], a
 .invalidID
 	pop hl
 	ret
 
 SetCurSFX:
+	ld a, b
 	ld [wCurSfxID], a
 	ret
 
@@ -52,7 +54,7 @@ AssertSFXFinished:
 	xor a
 	ret
 
-SetupSound:
+SetupSoundEngine:
 	xor a
 	ldh [rAUDENA], a
 	ld a, AUDENA_ON

@@ -2,7 +2,7 @@
 ; meant as the main loop, but the game never returns from _GameLoop anyway
 GameLoop::
 	di
-	ld sp, $e000
+	ld sp, wStack
 	call EnableInt_VBlank
 	call EnableInt_Timer
 	call EnableSRAM
