@@ -51,7 +51,7 @@ EmptyScreenAndLoadFontDuelAndHandCardsIcons:
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
 	call LoadHandCardsIcon
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $bf
 	jp SetupText
 
@@ -69,7 +69,7 @@ PrepareMenuGraphics:
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
 	call LoadHandCardsIcon
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $bf
 	jp SetupText
 

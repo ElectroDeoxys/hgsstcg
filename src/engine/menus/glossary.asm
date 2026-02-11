@@ -3,15 +3,11 @@ OpenGlossaryScreen:
 	ld [wGlossaryPageNo], a
 	call .display_menu
 
-	xor a
-	ld [wInPlayAreaCurPosition], a
 	ld de, OpenGlossaryScreen_TransitionTable ; this data is stored in bank 2.
 	ld hl, wMenuInputTablePointer
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld a, $ff
-	ld [wDuelInitialPrizesUpperBitsSet], a
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 .next
@@ -22,18 +18,18 @@ OpenGlossaryScreen:
 	and PAD_SELECT
 	jr nz, .on_select
 
-	farcall YourOrOppPlayAreaScreen_HandleInput
+	farcall Handle2DimensionalMenuInput
 	jr nc, .next
 
 	cp -1 ; b button
 	jr nz, .check_button
 
-	farcall ZeroObjectPositionsWithCopyToggleOn
+	farcall ZeroObjectPositionsAndToggleOAMCopy
 	ret
 
 .check_button
 	push af
-	farcall ZeroObjectPositionsWithCopyToggleOn
+	farcall ZeroObjectPositionsAndToggleOAMCopy
 	pop af
 
 	cp $09 ; $09: next page or prev page

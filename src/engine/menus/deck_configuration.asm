@@ -495,8 +495,6 @@ HandleDeckBuildScreen:
 	jp .wait_input
 
 OpenDeckConfigurationMenu:
-	xor a
-	ld [wYourOrOppPlayAreaCurPosition], a
 	ld de, wDeckConfigurationMenuTransitionTable
 	ld hl, wMenuInputTablePointer
 	ld a, [de]
@@ -504,8 +502,6 @@ OpenDeckConfigurationMenu:
 	inc de
 	ld a, [de]
 	ld [hl], a
-	ld a, $ff
-	ld [wDuelInitialPrizesUpperBitsSet], a
 .skip_init
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
@@ -526,7 +522,7 @@ HandleDeckConfigurationMenu:
 	ld a, $1
 	ld [wVBlankOAMCopyToggle], a
 	call DoFrame
-	call YourOrOppPlayAreaScreen_HandleInput
+	call Handle2DimensionalMenuInput
 	jr nc, .do_frame
 	ld [wced6], a
 	cp $ff
@@ -541,7 +537,7 @@ HandleDeckConfigurationMenu:
 
 .asm_94b5
 	push af
-	call YourOrOppPlayAreaScreen_HandleInput.draw_cursor
+	call Handle2DimensionalMenuInput.draw_cursor
 	ld a, $01
 	ld [wVBlankOAMCopyToggle], a
 	pop af
@@ -1981,6 +1977,130 @@ DrawListCursor_Visible:
 	ld a, [wVisibleCursorTile]
 	jr DrawListCursor
 
+; handles input inside a 2-dimensional menu
+; returns carry if either A or B button were pressed
+; returns -1 in a if B button was pressed
+Handle2DimensionalMenuInput:
+	xor a
+	ld [wMenuInputSFX], a
+
+; get the transition data for the prize card with cursor
+	ld hl, wTransitionTablePtr
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, [wYourOrOppPlayAreaCurPosition]
+	ld l, a
+	ld h, 7 ; length of each transition table item
+	call HtimesL
+	add hl, de
+
+; get the transition index related to the directional input
+	ldh a, [hDPadHeld]
+	or a
+	jp z, .check_button
+	inc hl
+	inc hl
+	inc hl
+
+	bit B_PAD_UP, a
+	jr z, .else_if_down
+
+	; up
+	ld a, [hl]
+	jr .process_dpad
+
+.else_if_down
+	inc hl
+	bit B_PAD_DOWN, a
+	jr z, .else_if_right
+
+	; down
+	ld a, [hl]
+	jr .process_dpad
+
+.else_if_right
+	inc hl
+	bit B_PAD_RIGHT, a
+	jr z, .else_if_left
+
+	; right
+	ld a, [hl]
+	jr .process_dpad
+
+.else_if_left
+	inc hl
+	bit B_PAD_LEFT, a
+	jr z, .check_button
+
+	; left
+	ld a, [hl]
+.process_dpad
+	ld [wYourOrOppPlayAreaCurPosition], a
+
+	ld a, SFX_CURSOR
+	ld [wMenuInputSFX], a
+
+; reset cursor blink
+	xor a
+	ld [wCheckMenuCursorBlinkCounter], a
+.check_button
+	ldh a, [hKeysPressed]
+	and PAD_A | PAD_B
+	jr z, .return
+
+	and PAD_A
+	jr nz, .a_button
+
+	ld a, -1 ; cancel
+	call PlaySFXConfirmOrCancel
+	scf
+	ret
+
+.a_button
+	call .draw_cursor
+	ld a, $01
+	call PlaySFXConfirmOrCancel
+	ld a, [wYourOrOppPlayAreaCurPosition]
+	scf
+	ret
+
+.return
+	ld a, [wMenuInputSFX]
+	or a
+	call nz, PlaySFX
+.skip_sfx
+	ld hl, wCheckMenuCursorBlinkCounter
+	ld a, [hl]
+	inc [hl]
+	and (1 << 4) - 1
+	ret nz
+	bit 4, [hl]
+	jp nz, ZeroObjectPositionsAndToggleOAMCopy
+
+.draw_cursor
+	call ZeroObjectPositions
+	ld hl, wTransitionTablePtr
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+	ld a, [wYourOrOppPlayAreaCurPosition]
+	ld l, a
+	ld h, 7
+	call HtimesL
+	add hl, de
+; hl = [wTransitionTablePtr] + 7 * wce52
+
+	ld d, [hl]
+	inc hl
+	ld e, [hl]
+	inc hl
+	ld b, [hl]
+	ld c, $00
+	call SetOneObjectAttributes
+	or a
+	ret
+
 OpenCardPageFromCardList:
 ; get the card index that is selected
 ; and open its card page
@@ -2005,7 +2125,7 @@ OpenCardPageFromCardList:
 	call LoadCardDataToBuffer1_FromCardID
 	lb de, $38, $9f
 	call SetupText
-	bank1call OpenCardPage_FromCheckHandOrDiscardPile
+	bank1call OpenCardPage_FromCardList
 	pop de
 
 .handle_input
@@ -2087,7 +2207,7 @@ OpenCardPageFromCardList:
 	jr .handle_regular_card_page_input ; unnecessary jr
 .handle_regular_card_page_input
 	push de
-	bank1call OpenCardPage.input_loop
+	bank1call ShowCardPage
 	pop de
 	jp .handle_input
 

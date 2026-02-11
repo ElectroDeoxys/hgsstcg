@@ -1,5 +1,8 @@
-CallHL2::
-	jp hl
-
-CallBC::
-	retbc
+; cp de, bc
+CompareDEtoBC::
+	ld a, d
+	cp b
+	ret nz
+	ld a, e
+	cp c
+	ret

@@ -452,7 +452,7 @@ ClearScreenAndDrawDeckMachineScreen:
 	ld [wVBlankOAMCopyToggle], a
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
 	lb de, 0, 0
@@ -1572,7 +1572,7 @@ HandleAutoDeckMenu:
 	call PlaceTextItems
 .wait_submenu_input
 	call DoFrame
-	call HandleCheckMenuInput_YourOrOppPlayArea
+	call HandleAutoDeckSubmenuInput
 	jp nc, .wait_submenu_input
 	cp $ff
 	jr nz, .submenu_option_selected
@@ -1714,7 +1714,7 @@ HandleAutoDeckMenu:
 	ld [wVBlankOAMCopyToggle], a
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
 	lb de, 0, 0
@@ -1757,3 +1757,160 @@ HandleAutoDeckMenu:
 	dec a
 	jr nz, .loop
 	ret
+
+; works out which cursor coordinate to go to
+; and sets carry flag if A or B are pressed
+; returns a =  $1 if A pressed
+; returns a = $ff if B pressed
+HandleAutoDeckSubmenuInput:
+	xor a
+	ld [wMenuInputSFX], a
+	ld a, [wCheckMenuCursorXPosition]
+	ld d, a
+	ld a, [wCheckMenuCursorYPosition]
+	ld e, a
+
+; d = cursor x position
+; e = cursor y position
+
+	ldh a, [hDPadHeld]
+	or a
+	jr z, .skip
+
+; pad is pressed
+	ld a, [wce5e]
+	and %10000000
+	ldh a, [hDPadHeld]
+	jr nz, .check_vertical
+	bit B_PAD_LEFT, a ; test left button
+	jr nz, .horizontal
+	bit B_PAD_RIGHT, a ; test right button
+	jr z, .check_vertical
+
+; handle horizontal input
+.horizontal
+	ld a, [wce5e]
+	and %01111111
+	or a
+	jr nz, .asm_86dd ; jump if wce5e's lower 7 bits aren't set
+	ld a, e
+	or a
+	jr z, .flip_x ; jump if y is 0
+
+; wce5e = %10000000
+; e = 1
+	dec e ; change y position
+	jr .flip_x
+
+.asm_86dd
+	ld a, e
+	or a
+	jr nz, .flip_x ; jump if y is not 0
+	inc e ; change y position
+.flip_x
+	ld a, d
+	xor $01 ; flip x position
+	ld d, a
+	jr .erase
+
+.check_vertical
+	bit B_PAD_UP, a
+	jr nz, .vertical
+	bit B_PAD_DOWN, a
+	jr z, .skip
+
+; handle vertical input
+.vertical
+	ld a, d
+	or a
+	jr z, .flip_y ; jump if x is 0
+	dec d
+.flip_y
+	ld a, e
+	xor $01 ; flip y position
+	ld e, a
+
+.erase
+	ld a, SFX_CURSOR
+	ld [wMenuInputSFX], a
+	push de
+	call .EraseCheckMenuCursor
+	pop de
+
+; update x and y cursor positions
+	ld a, d
+	ld [wCheckMenuCursorXPosition], a
+	ld a, e
+	ld [wCheckMenuCursorYPosition], a
+
+; reset cursor blink
+	xor a
+	ld [wCheckMenuCursorBlinkCounter], a
+
+.skip
+	ldh a, [hKeysPressed]
+	and PAD_A | PAD_B
+	jr z, .sfx
+	and PAD_A
+	jr nz, .a_pressed
+
+; B pressed
+	ld a, $ff ; cancel
+	call PlaySFXConfirmOrCancel
+	scf
+	ret
+
+.a_pressed
+	call .DisplayCheckMenuCursor
+	ld a, $01
+	call PlaySFXConfirmOrCancel
+	scf
+	ret
+
+.sfx
+	ld a, [wMenuInputSFX]
+	or a
+	call nz, PlaySFX
+.draw_cursor
+	ld hl, wCheckMenuCursorBlinkCounter
+	ld a, [hl]
+	inc [hl]
+	and %00001111
+	ret nz ; only update cursor if blink's lower nibble is 0
+
+	ld a, SYM_CURSOR_R ; cursor byte
+	bit 4, [hl] ; only draw cursor if blink counter's fourth bit is not set
+	jr z, .DrawCheckMenuCursor
+; fallthrough
+
+; transforms cursor position into coordinates
+; in order to draw byte on menu cursor
+.EraseCheckMenuCursor:
+	ld a, SYM_SPACE ; white tile
+.DrawCheckMenuCursor:
+	ld e, a
+	ld a, 10
+	ld l, a
+	ld a, [wCheckMenuCursorXPosition]
+	ld h, a
+	call HtimesL
+; h = 10 * cursor x pos
+
+	ld a, l
+	add 1
+	ld b, a
+	ld a, [wCheckMenuCursorYPosition]
+	sla a
+	add 14
+	ld c, a
+; c = 11 + 2 * cursor y pos + 14
+
+; draw tile loaded in e
+	ld a, e
+	call WriteByteToBGMap0
+	or a
+	ret
+
+.DisplayCheckMenuCursor:
+	ld a, SYM_CURSOR_R ; load cursor byte
+	jr .DrawCheckMenuCursor

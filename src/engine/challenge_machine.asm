@@ -175,7 +175,7 @@ ChallengeMachine_Duel:
 	xor a
 	ld [wSongOverride], a
 	call SaveGeneralSaveData
-	bank1call StartDuel_VSAIOpp
+	bank1call StartDuel
 	ret
 
 ChallengeMachine_SongIDs:

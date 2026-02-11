@@ -49,12 +49,12 @@ _ShowPromotionalCardScreen:
 	ld a, PLAYER_TURN
 	ldh [hWhoseTurn], a
 	pop hl
-	bank1call _DisplayCardDetailScreen
+	bank1call DisplayLoadedCard1DetailScreen
 .loop
 	call AssertSongFinished
 	or a
 	jr nz, .loop
 
 	call ResumeSong
-	bank1call OpenCardPage_FromHand
+	bank1call OpenCardPage_NotCardList
 	ret

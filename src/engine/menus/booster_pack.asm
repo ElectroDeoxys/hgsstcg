@@ -31,13 +31,14 @@ _OpenBoosterPack:
 	ld a, $ff ; terminator byte
 	ld [de], a
 
-	lb de, $38, $9f
-	call SetupText
-	bank1call InitAndDrawCardListScreenLayout
-	ldtx hl, ChooseTheCardYouWishToExamineText
-	ldtx de, BoosterPackText
-	bank1call SetCardListHeaderText
-	ld a, PAD_A | PAD_START
-	ld [wNoItemSelectionMenuKeys], a
-	bank1call DisplayCardList
+	; TODO
+	;lb de, $38, $9f
+	;call SetupText
+	;bank1call InitAndDrawCardListScreenLayout
+	;ldtx hl, ChooseTheCardYouWishToExamineText
+	;ldtx de, BoosterPackText
+	;bank1call SetCardListHeaderText
+	;ld a, PAD_A | PAD_START
+	;ld [wNoItemSelectionMenuKeys], a
+	;bank1call DisplayCardList
 	ret

@@ -118,3 +118,53 @@ CopyCGBPalettes::
 	dec b
 	jr nz, .next_byte
 	ret
+
+; set the default game palettes
+; BGP0 to BGP5 and OBP1 on CGB
+SetDefaultConsolePalettes::
+	ld a, $1
+	ld [wTextBoxFrameType], a
+	ld de, CGBDefaultPalettes
+	ld hl, wBackgroundPalettesCGB
+	ld c, 5 palettes
+	call .copy_de_to_hl
+	ld de, CGBDefaultPalettes
+	ld hl, wObjectPalettesCGB
+	ld c, PAL_SIZE
+	call .copy_de_to_hl
+	jp FlushAllPalettes
+
+.copy_de_to_hl
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec c
+	jr nz, .copy_de_to_hl
+	ret
+
+CGBDefaultPalettes:
+; BGP0 and OBP0
+	rgb 28, 28, 24
+	rgb 21, 21, 16
+	rgb 10, 10, 8
+	rgb 0, 0, 0
+; BGP1
+	rgb 28, 28, 24
+	rgb 26, 10, 0
+	rgb 28, 0, 0
+	rgb 0, 0, 0
+; BGP2
+	rgb 28, 28, 24
+	rgb 30, 29, 0
+	rgb 30, 3, 0
+	rgb 0, 0, 0
+; BGP3
+	rgb 28, 28, 24
+	rgb 0, 18, 0
+	rgb 12, 11, 20
+	rgb 0, 0, 0
+; BGP4
+	rgb 28, 28, 24
+	rgb 22, 0, 22
+	rgb 27, 7, 3
+	rgb 0, 0, 0

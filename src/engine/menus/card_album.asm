@@ -518,7 +518,7 @@ HandleCardAlbumCardPage:
 	call LoadCardDataToBuffer1_FromCardID
 	lb de, $38, $9f
 	call SetupText
-	bank1call OpenCardPage_FromCheckHandOrDiscardPile
+	bank1call OpenCardPage_FromCardList
 	pop de
 
 .handle_input
@@ -621,7 +621,7 @@ HandleCardAlbumCardPage:
 	pop af
 .open_card_page
 	push de
-	bank1call OpenCardPage.input_loop
+	bank1call ShowCardPage
 	pop de
 	jp .handle_input
 
@@ -817,7 +817,7 @@ CardAlbum:
 	call LoadCursorTile
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
 	lb de, 1, 1
@@ -922,7 +922,7 @@ CardAlbum:
 	call LoadCursorTile
 	call LoadSymbolsFont
 	call LoadDuelCardSymbolTiles
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	lb de, $3c, $ff
 	call SetupText
 
@@ -980,3 +980,13 @@ CardAlbum:
 	textitem 5,  9, Item4LaboratoryText
 	textitem 5, 11, Item5PromotionalCardText
 	db $ff
+
+LoadCursorTile:
+	ld de, v0Tiles0
+	ld hl, .tile_data
+	ld b, 16
+	jp SafeCopyDataHLtoDE
+
+.tile_data:
+	db $e0, $c0, $98, $b0, $84, $8c, $83, $82
+	db $86, $8f, $9d, $be, $f4, $f8, $50, $60

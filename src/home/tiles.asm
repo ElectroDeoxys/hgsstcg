@@ -72,13 +72,6 @@ LoadCardSet2Tiles::
 	; PRO/NONE, JUNGLE, FOSSIL, -1, -1, -1, -1, GB
 	db -1, $0 tiles, $4 tiles, -1, -1, -1, -1, $8 tiles
 
-; loads the Deck and Hand icons for the "Draw X card(s) from the deck." screen
-LoadDuelDrawCardsScreenTiles::
-	ld hl, DuelOtherGraphics + $29 tiles
-	ld de, v0Tiles1 + $74 tiles
-	ld b, $08
-	jp CopyFontsOrDuelGraphicsTiles
-
 ; loads the 8 tiles that make up the border of the main duel menu as well as the border
 ; of a large card picture (displayed after drawing the card or placing it in the arena).
 LoadCardOrDuelMenuBorderTiles::
@@ -113,40 +106,12 @@ LoadDuelCardSymbolTiles2::
 	ld b, $c
 	jr CopyFontsOrDuelGraphicsTiles
 
-; load the face down basic / stage1 / stage2 card images shown in the check Pokemon screens
-LoadDuelFaceDownCardTiles::
-	ld b, $10
-	jr LoadDuelCheckPokemonScreenTiles.got_num_tiles
-
 ; same as LoadDuelFaceDownCardTiles, plus also load the ACT / BPx tiles
 LoadDuelCheckPokemonScreenTiles::
 	ld b, $24
 .got_num_tiles
 	ld hl, DuelCgbSymbolGraphics + $30 tiles - $4000
 	ld de, v0Tiles1 + $50 tiles
-	jr CopyFontsOrDuelGraphicsTiles
-
-; load the tiles for the "Placing the prizes..." screen
-LoadPlacingThePrizesScreenTiles::
-	; load the Pokeball field tiles
-	ld hl, DuelOtherGraphics
-	ld de, v0Tiles1 + $20 tiles
-	ld b, $d
-	call CopyFontsOrDuelGraphicsTiles
-; fallthrough
-
-; load the Deck and the Discard Pile icons
-LoadDeckAndDiscardPileIcons::
-	ld hl, DuelCgbSymbolGraphics + $54 tiles - $4000
-	ld de, v0Tiles1 + $50 tiles
-	ld b, $30
-	jr CopyFontsOrDuelGraphicsTiles
-
-; load the tiles for the [O] and [X] symbols used to display the results of a coin toss
-LoadDuelCoinTossResultTiles::
-	ld hl, DuelOtherGraphics + $d tiles
-	ld de, v0Tiles2 + $30 tiles
-	ld b, $8
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; load the tiles of the text characters used with TX_SYMBOL
@@ -168,21 +133,3 @@ CopyFontsOrDuelGraphicsTiles::
 	call BankpopROM
 	ret
 
-; load the graphics and draw the duel box message given a BOXMSG_* constant in a
-DrawDuelBoxMessage::
-	ld l, a
-	ld h, 40 tiles / 4 ; boxes are 10x4 tiles
-	call HtimesL
-	add hl, hl
-	add hl, hl
-	; hl = a * 40 tiles
-	ld de, DuelBoxMessages
-	add hl, de
-	ld de, v0Tiles1 + $20 tiles
-	ld b, 40
-	call CopyFontsOrDuelGraphicsTiles
-	ld a, $a0
-	lb hl, 1, 10
-	lb bc, 10, 4
-	lb de, 5, 4
-	jp FillRectangle

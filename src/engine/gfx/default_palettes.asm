@@ -24,7 +24,7 @@ SetDefaultPalettes:
 	ld [wOBP1], a
 	ld a, $1
 	ld [wTextBoxFrameType], a
-	bank1call SetDefaultConsolePalettes
+	call SetDefaultConsolePalettes
 	call FlushAllPalettes
 	pop de
 	pop bc

@@ -41,7 +41,7 @@ wDeckToBuild:: ; c000
 
 ENDU
 
-SECTION "WRAM Duels 1", WRAM0
+SECTION "WRAM Duel 1", WRAM0
 
 ; In order to be identified during a duel, the 60 cards of each duelist are given an index between 0 and 59.
 ; These indexes are assigned following the order of the card list in wPlayerDeck or wOpponentDeck,
@@ -296,17 +296,8 @@ wObjectPalettesCGB:: ; cb30
 
 	ds $2
 
-; stores a pointer to a temporary list of elements (e.g. pointer to wDuelTempList)
-; to be read or written sequentially
-wListPointer:: ; cb72
-	ds $2
 
-SECTION "WRAM Duels 2", WRAM0
-
-; In a duel, the main menu current or last selected menu item
-; From 0 to 5: Hand, Attack, Check, Pkmn Power, Retreat, Done
-wCurrentDuelMenuItem:: ; cbc6
-	ds $1
+SECTION "WRAM Duel 2", WRAM0
 
 ; When we're viewing a card's information, the page we are currently at.
 ; For Pokemon cards, values from $1 to $6 (two pages for attack descriptions)
@@ -316,53 +307,9 @@ wCurrentDuelMenuItem:: ; cbc6
 wCardPageNumber:: ; cbc7
 	ds $1
 
-; how many selectable items are in a play area screen. used to set wNumMenuItems
-; in order to navigate through a play area screen. this becomes the number of bench
-; Pokemon cards if wExcludeArenaPokemon is 1, and that number plus 1 if it's 0.
-wNumPlayAreaItems:: ; cbc8
-	ds $1
-
 ; selects a PLAY_AREA_* slot in order to display information related to it. used by functions
 ; such as PrintPlayAreaCardLocation, PrintPlayAreaCardInformation and PrintPlayAreaCardHeader
 wCurPlayAreaSlot:: ; cbc9
-
-; X position to display the attached energies, HP bar, and PlusPower/Defender icons
-; obviously different for player and opponent side. used by DrawDuelHUD.
-wHUDEnergyAndHPBarsX:: ; cbc9
-	ds $1
-
-; current Y coordinate where some play area information is being printed at. used by functions
-; such as PrintPlayAreaCardLocation, PrintPlayAreaCardInformation and PrintPlayAreaCardHeader
-wCurPlayAreaY:: ; cbca
-
-; Y position to display the attached energies, HP bar, and PlusPower/Defender icons
-; obviously different for player and opponent side. used by DrawDuelHUD.
-wHUDEnergyAndHPBarsY:: ; cbca
-
-wPracticeDuelTextY:: ; cbca
-	ds $1
-
-; selected bench slot (1-5, that is, a PLAY_AREA_BENCH_* constant)
-wBenchSelectedPokemon:: ; cbcb
-	ds $1
-
-; used by CheckIfEnoughEnergiesToRetreat and DisplayRetreatScreen
-wEnergyCardsRequiredToRetreat:: ; cbcc
-	ds $1
-
-wNumRetreatEnergiesSelected:: ; cbcd
-	ds $1
-
-; used in CheckIfEnoughEnergiesToAttack for the calculation
-wAttachedEnergiesAccum:: ; cbce
-	ds $1
-
-; when you're in a duel submenu like the cards in your hand and you press A,
-; the following two addresses keep track of which item was selected by the cursor
-wSelectedDuelSubMenuItem:: ; cbcf
-	ds $1
-
-wSelectedDuelSubMenuScrollOffset:: ; cbd0
 	ds $1
 
 ; CARDPAGETYPE_PLAY_AREA or CARDPAGETYPE_NOT_PLAY_AREA
@@ -370,113 +317,10 @@ wSelectedDuelSubMenuScrollOffset:: ; cbd0
 wCardPageType:: ; cbd1
 	ds $1
 
-; when processing or displaying the play area Pokemon cards of a duelist,
-; whether to account for only the benched Pokemon ($01) or also the arena Pokemon ($00).
-wExcludeArenaPokemon:: ; cbd2
-	ds $1
-
-wPlayAreaScreenLoaded:: ; cbd3
-	ds $1
-
-; determines what to do when player presses the Select button
-; while viewing the Play Area:
-; - if $0 or $2: no action
-; - if $1: menu is accessible where player can examine Hand or other screens
-; $2 is reserved for OpenVariousPlayAreaScreens_FromSelectPresses
-wPlayAreaSelectAction:: ; cbd4
-	ds $1
-
-; low byte of the address of the next slot in the hTempRetreatCostCards array to be used
-wTempRetreatCostCardsPos:: ; cbd5
-	ds $1
-
-; in a card list, which keys (among PAD_START and PAD_A) do not open the item selection
-; menu when a card is selected, directly "submitting" the selected card instead.
-wNoItemSelectionMenuKeys:: ; cbd6
-	ds $1
-
 ; when viewing a card page, which keys (among PAD_B, PAD_UP, and PAD_DOWN) will exit the page,
 ; either to go back to the previous menu or list, or to load the card page of the card above/below it
 wCardPageExitKeys:: ; cbd7
 	ds $1
-
-; used to store function pointer for printing card order
-; in card list reordering screen.
-wPrintSortNumberInCardListPtr:: ; cbd8
-	ds $2
-
-; in the hand or discard pile card screen, id of the text printed in the bottom-left box
-wCardListInfoBoxText:: ; cbda
-	ds $2
-
-; in the hand or discard pile card screen, id of the text printed as the header title
-wCardListHeaderText:: ; cbdc
-	ds $2
-
-; when selecting an item of a list of cards which type of menu shows up.
-; PLAY_CHECK, SELECT_CHECK, or $00 for none.
-wCardListItemSelectionMenuType:: ; cbde
-	ds $1
-
-; flag indicating whether a list of cards should be sorted by ID
-wSortCardListByID:: ; cbdf
-	ds $1
-
-wEnergyDiscardPlayAreaLocation:: ; cbe0
-	ds $1
-
-wOpponentTurnEnded:: ; cbe1
-	ds $1
-
-	ds $5
-
-; if non-zero, duel menu input is not checked
-wDebugSkipDuelMenuInput:: ; cbe7
-	ds $1
-
-wNumCardsTryingToDraw:: ; cbe8
-	ds $1
-
-; number of cards being drawn in order to animate the number of cards in
-; the hand and in the deck in the draw card screen
-wNumCardsBeingDrawn:: ; cbe9
-	ds $1
-
-	ds $b
-
-; when non-0, AIMakeDecision doesn't wait 60 frames and print DuelistIsThinkingText
-wSkipDuelistIsThinkingDelay:: ; cbf9
-	ds $1
-
-wEnergyDiscardMenuDenominator:: ; cbfa
-	ds $1
-
-wEnergyDiscardMenuNumerator:: ; cbfb
-	ds $1
-
-; used by TurnDuelistTakePrizes to store the remaining Prizes, so that if more than that
-; amount would be taken, only the remaining amount is taken
-wTempNumRemainingPrizeCards:: ; cbfc
-	ds $1
-
-; if FALSE, player is placing initial arena pokemon
-; if TRUE, player is placing initial bench pokemon
-wPlacingInitialBenchPokemon:: ; cbfd
-	ds $1
-
-; during a practice duel, identifies an entry of PracticeDuelActionTable
-wPracticeDuelAction:: ; cbfe
-	ds $1
-
-wDuelMainSceneSelectHotkeyAction:: ; cbff
-	ds $1
-
-wPracticeDuelTurn:: ; cc00
-	ds $1
-
-; pointer from PracticeDuelTextPointerTable
-wPracticeDuelTextPointer:: ; cc01
-	ds $2
 
 ; used to print a Pokemon card's length in feet and inches
 wPokemonLengthPrintOffset:: ; cc03
@@ -488,44 +332,6 @@ wPokemonLengthPrintOffset:: ; cc03
 wAttackPageNumber:: ; cc04
 	ds $1
 
-; the value of hWhoseTurn gets loaded here at the beginning of each duelist's turn.
-; more reliable than hWhoseTurn, as hWhoseTurn may change temporarily in order to handle status
-; conditions or other events of the non-turn duelist. used mostly between turns (to check which
-; duelist's turn just finished), or to restore the value of hWhoseTurn at some point.
-wWhoseTurn:: ; cc05
-	ds $1
-
-; number of turns taken by both players
-wDuelTurns:: ; cc06
-	ds $1
-
-; used to signal that the current duel has finished, not to be mistaken with wDuelResult
-; 0 = no one has won duel yet
-; 1 = player whose turn it is has won the duel
-; 2 = player whose turn it is has lost the duel
-; 3 = duel ended in a draw (start sudden death match)
-wDuelFinished:: ; cc07
-	ds $1
-
-; current duel is a [wDuelInitialPrizes]-prize match
-wDuelInitialPrizes:: ; cc08
-	ds $1
-
-; a DUELTYPE_* constant. note that for a practice duel, wIsPracticeDuel must also be set to $1
-wDuelType:: ; cc09
-	ds $1
-
-; set to 1 if the coin toss during the CheckSandAttackOrSmokescreenSubstatus check is heads
-wGotHeadsFromSandAttackOrSmokescreenCheck:: ; cc0a
-	ds $1
-
-wAlreadyPlayedEnergy:: ; cc0b
-	ds $1
-
-; set to TRUE if the confusion check coin toss in AttemptRetreat is tails
-wConfusionRetreatCheckWasUnsuccessful:: ; cc0c
-	ds $1
-
 ; DUELIST_TYPE_* of the turn holder
 wDuelistType:: ; cc0d
 	ds $1
@@ -533,29 +339,6 @@ wDuelistType:: ; cc0d
 ; this holds the current opponent's deck minus 2 (that is, a *_DECK_ID constant),
 ; in order to account for the two unused pointers at the beginning of DeckPointers.
 wOpponentDeckID:: ; cc0e
-	ds $1
-
-wUnused_cc0f:: ; cc0f
-	ds $1
-
-; index (0-1) of the attack or Pokemon Power being used by the player's arena card
-; set to $ff when the duel starts and at the end of the opponent's turn
-wPlayerAttackingAttackIndex:: ; cc10
-	ds $1
-
-; deck index of the player's arena card that is attacking or using a Pokemon Power
-; set to $ff when the duel starts and at the end of the opponent's turn
-wPlayerAttackingCardIndex:: ; cc11
-	ds $1
-
-; ID of the player's arena card that is attacking or using a Pokemon Power
-wPlayerAttackingCardID:: ; cc12
-	ds $2
-
-wIsPracticeDuel:: ; cc13
-	ds $1
-
-wNPCDuelistCopy:: ; cc14
 	ds $1
 
 wOpponentPortrait:: ; cc15
@@ -577,152 +360,15 @@ wNPCDuelDeckID:: ; cc19
 wDuelTheme:: ; cc1a
 	ds $1
 
-; holds the energies attached to a given pokemon card. 1 byte for each of the
-; 8 energy types (includes the unused one that shares byte with the colorless energy)
-wAttachedEnergies:: ; cc1b
-	ds NUM_TYPES
-
-; holds the total amount of energies attached to a given pokemon card
-wTotalAttachedEnergies:: ; cc23
-	ds $1
-
 ; Used as temporary storage for a card's data
 wLoadedCard1:: ; cc24
 	card_data_struct wLoadedCard1
 wLoadedCard2:: ; cc65
 	card_data_struct wLoadedCard2
-wLoadedAttack:: ; cca6
-	atk_data_struct wLoadedAttack
-
-; the damage field of a used attack is loaded here
-; doubles as "wAIAverageDamage" when complementing wAIMinDamage and wAIMaxDamage
-; little-endian
-; second byte may have UNAFFECTED_BY_WEAKNESS_RESISTANCE_F set/unset
-wDamage:: ; ccb9
-	ds $2
-
-; wAIMinDamage and wAIMaxDamage appear to be used for AI scoring
-; they are updated with the minimum (or floor) damage of the current attack
-; and with the maximum (or ceiling) damage of the current attack
-wAIMinDamage:: ; ccbb
-	ds $1
-
-wAIMaxDamage:: ; ccbc
-	ds $1
-
-; holds amount of HP recovered in ApplyAndAnimateHPRecovery
-; only written to, never read
-wUnused_HPRecoverAmount:: ; ccbd
-	ds $2
-
-; damage dealt by an attack to a target
-wDealtDamage:: ; ccbf
-	ds $2
-
-; WEAKNESS and RESISTANCE flags for a damaging attack
-wDamageEffectiveness:: ; ccc1
-	ds $1
-
-; used in damage related functions
-wTempCardID_ccc2:: ; ccc2
-	ds $2
-
-wTempTurnDuelistCardID:: ; ccc3
-	ds $2
-
-wTempNonTurnDuelistCardID:: ; ccc4
-	ds $2
-
-; the status condition of the defending Pokemon is loaded here after an attack
-; only written to, never read
-wUnused_DefendingPkmnStatus:: ; ccc5
-	ds $1
-
-; *_ATTACK constants for selected attack
-; 0 for the first attack (or PKMN Power)
-; 1 for the second attack
-wSelectedAttack:: ; ccc6
-	ds $1
-
-; if affected by a no damage or effect substatus, this flag indicates what the cause was
-wNoDamageOrEffect:: ; ccc7
-	ds $1
-
-; used by CountKnockedOutPokemon and TurnDuelistTakePrizes to store the amount
-; of prizes to take (equal to the number of Pokemon knocked out)
-wNumberPrizeCardsToTake:: ; ccc8
-	ds $1
-
-; set to TRUE if the coin toss in the confusion check is tails (CheckSelfConfusionDamage)
-wConfusionAttackCheckWasUnsuccessful:: ; ccc9
-	ds $1
-
-; used to store card indices of all stages, in order, of a Play Area Pokémon
-wAllStagesIndices:: ; ccca
-	ds $3
-
-wStatusConditionQueueIndex:: ; cccd
-	ds $1
-
-; 3-byte array used in effect functions with wStatusConditionQueueIndex as the index,
-; used to inflict a variable number of status conditions to Arena Pokemon (max 8)
-; byte 1: which duelist side
-; byte 2: conditions to remove (e.g. paralysis removes poison condition)
-; byte 3: conditions to inflict
-wStatusConditionQueue:: ; ccce
-	ds 3 * 8
-
-; this is 1 (non-0) if dealing damage to self due to confusion
-; or a self-destruct type attack
-wIsDamageToSelf:: ; cce6
-	ds $1
-
-; set to 0, never used
-wUnused_cce7:: ; cce7
-	ds $1
-
-wDuelFinishParam:: ; cce8
-	ds $1
 
 ; text ID of the name of the deck loaded by CopyDeckData
 wDeckName:: ; cce9
 	ds $2
-
-; a PLAY_AREA_* constant (0: arena card, 1-5: bench card)
-wTempPlayAreaLocation_cceb:: ; cceb
-	ds $1
-
-; when sending attack data to opponent, is set to TRUE
-; seems to be used to avoid sending duplicate data
-; when using an attack through Metronome
-wSentAttackDataToLinkOpponent:: ; ccec
-	ds $1
-
-; used by the effect functions to return the cause of an effect to fail
-; in order print the appropriate text
-wEffectFailed:: ; cced
-	ds $1
-
-wPreEvolutionPokemonCard:: ; ccee
-	ds $1
-
-; whether Defending Pokemon was forced to switch due to an attack
-; determines whether DUELVARS_ARENA_CARD_LAST_TURN_DAMAGE
-; gets zeroed or gets updated with wDealtDamage
-wDefendingWasForcedToSwitch:: ; ccef
-	ds $1
-
-; stores the energy cost of the Metronome attack being used.
-; it's used to know how many attached Energy cards are being used
-; to pay for the attack for damage calculation.
-; if equal to 0, then the attack wasn't invoked by Metronome.
-wMetronomeEnergyCost:: ; ccf0
-	ds $1
-
-; effect functions return a status condition constant here when it had no effect
-; on the target, in order to print one of the ThereWasNoEffectFrom* texts
-wNoEffectFromWhichStatus:: ; ccf1
-	ds $1
 
 ; when non-0, allows the player to skip some delays during a duel by pressing B.
 ; value read from sSkipDelayAllowed. probably only used for debugging.

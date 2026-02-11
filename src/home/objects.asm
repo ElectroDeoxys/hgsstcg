@@ -40,3 +40,9 @@ ZeroObjectPositions::
 	dec c
 	jr nz, .loop
 	ret
+
+ZeroObjectPositionsAndToggleOAMCopy::
+	call ZeroObjectPositions
+	ld a, $01
+	ld [wVBlankOAMCopyToggle], a
+	ret

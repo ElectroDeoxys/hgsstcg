@@ -35,21 +35,6 @@ InitializeCardListParameters::
 	ld [wMenuYSeparation], a
 	ret
 
-; similar to HandleMenuInput, but conveniently returns parameters related to the
-; state of the list in a, d, and e if A or B were pressed. also returns carry
-; if A or B were pressed, nc otherwise. returns -1 in a if B was pressed.
-; used for example in the Hand card list and Discard Pile card list screens.
-HandleCardListInput::
-	call HandleMenuInput
-	ret nc
-	ld a, [wListScrollOffset]
-	ld d, a
-	ld a, [wCurMenuItem]
-	ld e, a
-	ldh a, [hCurMenuItem]
-	scf
-	ret
-
 ; initializes parameters for a menu, given the 8 bytes starting at hl,
 ; which are loaded to the following addresses:
 ;	wMenuCursorXOffset, wMenuCursorYOffset, wMenuYSeparation, wNumMenuItems,
@@ -214,101 +199,6 @@ DrawCursor2::
 	ld a, [wMenuVisibleCursorTile]
 	jr DrawCursor
 
-; set wCurMenuItem, and hCurMenuItem to a, and zero wCursorBlinkCounter
-SetMenuItem::
-	ld [wCurMenuItem], a
-	ldh [hCurMenuItem], a
-	xor a
-	ld [wCursorBlinkCounter], a
-	ret
-
-; handle input for the 2-row 3-column duel menu.
-; only handles input not involving the B, PAD_START, or PAD_SELECT buttons, that is,
-; navigating through the menu or selecting an item with the A button.
-; other input in handled by PrintDuelMenuAndHandleInput.handle_input
-HandleDuelMenuInput::
-	ldh a, [hDPadHeld]
-	or a
-	jr z, .blink_cursor
-	ld b, a
-	ld hl, wCurMenuItem
-	and PAD_UP | PAD_DOWN
-	jr z, .check_left
-	ld a, [hl]
-	xor 1 ; move to the other menu item in the same column
-	jr .dpad_pressed
-.check_left
-	bit B_PAD_LEFT, b
-	jr z, .check_right
-	ld a, [hl]
-	sub 2
-	jr nc, .dpad_pressed
-	; wrap to the rightmost item in the same row
-	and 1
-	add 4
-	jr .dpad_pressed
-.check_right
-	bit B_PAD_RIGHT, b
-	jr z, .dpad_not_pressed
-	ld a, [hl]
-	add 2
-	cp 6
-	jr c, .dpad_pressed
-	; wrap to the leftmost item in the same row
-	and 1
-.dpad_pressed
-	push af
-	ld a, SFX_CURSOR
-	call PlaySFX
-	call .erase_cursor
-	pop af
-	ld [wCurMenuItem], a
-	ldh [hCurMenuItem], a
-	xor a
-	ld [wCursorBlinkCounter], a
-	jr .blink_cursor
-.dpad_not_pressed
-	ldh a, [hDPadHeld]
-	and PAD_A
-	jp nz, HandleMenuInput.A_pressed
-.blink_cursor
-	; blink cursor every 16 frames
-	ld hl, wCursorBlinkCounter
-	ld a, [hl]
-	inc [hl]
-	and $f
-	ret nz
-	ld a, SYM_CURSOR_R
-	bit 4, [hl]
-	jr z, .draw_cursor
-.erase_cursor
-	ld a, SYM_SPACE
-.draw_cursor
-	ld e, a
-	ld a, [wCurMenuItem]
-	add a
-	ld c, a
-	ld b, $0
-	ld hl, DuelMenuCursorCoords
-	add hl, bc
-	ld b, [hl]
-	inc hl
-	ld c, [hl]
-	ld a, e
-	call WriteByteToBGMap0
-	ld a, [wCurMenuItem]
-	ld e, a
-	or a
-	ret
-
-DuelMenuCursorCoords::
-	db  2, 14 ; Hand
-	db  2, 16 ; Attack
-	db  8, 14 ; Check
-	db  8, 16 ; Pkmn Power
-	db 14, 14 ; Retreat
-	db 14, 16 ; Done
-
 ; print the items of a list of cards (hand cards in a duel, cards from a booster pack...)
 ; and initialize the parameters of the list given:
   ; wDuelTempList = card list source
@@ -378,7 +268,8 @@ ReloadCardListItems::
 	push hl
 	push bc
 	push de
-	call LoadCardDataToBuffer1_FromDeckIndex
+	; TODO
+	;call LoadCardDataToBuffer1_FromDeckIndex
 	call DrawCardSymbol
 	call InitTextPrinting
 	ld a, [wListItemNameMaxLength]
@@ -674,14 +565,6 @@ CardSymbolTable::
 CopyCardNameAndLevel::
 	farcall _CopyCardNameAndLevel
 	ret
-
-; sets cursor parameters for navigating in a text box, but using
-; default values for the cursor tile (SYM_CURSOR_R) and the tile behind it (SYM_SPACE).
-; d,e: coordinates of the cursor
-SetCursorParametersForTextBox_Default::
-	lb bc, SYM_CURSOR_R, SYM_SPACE ; cursor tile, tile behind cursor
-	call SetCursorParametersForTextBox
-;	fallthrough
 
 ; wait until A or B is pressed.
 ; return carry if A is pressed, nc if B is pressed. erase the cursor either way

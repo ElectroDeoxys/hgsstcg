@@ -68,7 +68,7 @@ GameEvent_Duel::
 	ld [sPlayerInChallengeMachine], a
 	call DisableSRAM
 	call SaveGeneralSaveData
-	bank1call StartDuel_VSAIOpp
+	bank1call StartDuel
 	scf
 	ret
 

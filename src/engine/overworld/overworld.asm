@@ -405,7 +405,7 @@ ReturnToOverworld:
 	ld a, [hld]
 	ld l, [hl]
 	ld h, a
-	call CallHL2
+	call CallHL
 .no_callback
 	farcall FadeScreenFromWhite
 	pop de

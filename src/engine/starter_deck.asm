@@ -18,15 +18,8 @@ _AddStarterDeck:
 	push hl
 	ld hl, sDeck1
 	call StoreDeckIDInSRAM
-	pop hl
-	call SwapTurn
-	ld a, [hli] ; extra deck
-	add 2
-	call LoadDeck
-	call SwapTurn
 
 ; wPlayerDeck = main starter deck
-; wOpponentDeck = extra cards
 	call EnableSRAM
 	ld hl, sCardCollection
 	ld de, wPlayerDeck
@@ -46,8 +39,12 @@ _AddStarterDeck:
 	dec c
 	jr nz, .loop_main_cards
 
+	pop hl
+	ld a, [hli] ; extra deck
+	add 2
+	call LoadDeck
 	ld hl, sCardCollection
-	ld de, wOpponentDeck
+	ld de, wPlayerDeck
 	ld c, 30 ; number of extra cards
 .loop_extra_cards
 	push hl

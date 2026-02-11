@@ -866,14 +866,6 @@ SECTION "Anims 2", ROMX
 SECTION "Anims 3", ROMX
 	INCLUDE "data/duel/animations/anims3.asm"
 
-Palette31::
-	db 1
-
-	rgb  0,  0,  0
-	rgb 31, 31,  7
-	rgb 31, 24,  6
-	rgb 11,  3,  0
-
 SECTION "Anims 4", ROMX
 	INCLUDE "data/duel/animations/anims4.asm"
 

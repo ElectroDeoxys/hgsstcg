@@ -118,29 +118,3 @@ RunOverworldScript::
 	call BankswitchROM
 	pop bc
 	jp hl
-
-ResetAnimationQueue::
-	ldh a, [hBankROM]
-	push af
-	ld a, BANK(_ResetAnimationQueue)
-	call BankswitchROM
-	call _ResetAnimationQueue
-	pop af
-	jp BankswitchROM
-
-FinishQueuedAnimations::
-	ldh a, [hBankROM]
-	push af
-	ld a, BANK(ClearAndDisableQueuedAnimations)
-	call BankswitchROM
-	call ClearAndDisableQueuedAnimations
-	jr c, .skip_clear_frame_func
-	xor a
-	ld [wDoFrameFunction + 0], a
-	ld [wDoFrameFunction + 1], a
-.skip_clear_frame_func
-	call ZeroObjectPositions
-	ld a, 1
-	ld [wVBlankOAMCopyToggle], a
-	pop af
-	jp BankswitchROM

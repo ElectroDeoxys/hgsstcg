@@ -4,14 +4,15 @@ INCLUDE "constants.asm"
 SECTION "Game Loop", ROMX
 INCLUDE "engine/game_loop.asm"
 
-SECTION "Duel Core", ROMX
-INCLUDE "engine/duel/core.asm"
-
 SECTION "Menus Common", ROMX
 INCLUDE "engine/menus/common.asm"
 
+SECTION "Duel Core", ROMX
+INCLUDE "engine/menus/display_card.asm"
+INCLUDE "engine/duel/core.asm"
+INCLUDE "engine/duel/saved_duel.asm"
+
 SECTION "Menus 1", ROMX
-INCLUDE "engine/menus/duel.asm"
 INCLUDE "engine/menus/deck_selection.asm"
 INCLUDE "engine/menus/deck_check.asm"
 INCLUDE "engine/menus/deck_configuration.asm"
@@ -74,20 +75,9 @@ SECTION "Map Objects", ROMX
 INCLUDE "data/npc_map_data.asm"
 INCLUDE "data/map_objects.asm"
 
-SECTION "AI Logic 1", ROMX
-INCLUDE "data/deck_ai_pointers.asm"
-INCLUDE "engine/duel/ai/core.asm"
-
 SECTION "Menus 4", ROMX
 INCLUDE "engine/copy_card_name.asm"
-INCLUDE "engine/menus/play_area.asm"
 INCLUDE "engine/menus/glossary.asm"
-
-SECTION "Effect Commands", ROMX
-INCLUDE "engine/duel/effect_commands.asm"
-
-SECTION "Animation Commands", ROMX
-INCLUDE "engine/duel/animations/commands.asm"
 
 SECTION "Starter Deck", ROMX
 INCLUDE "engine/starter_deck.asm"
@@ -111,8 +101,6 @@ INCLUDE "engine/overworld/npc_core.asm"
 INCLUDE "engine/masters_beaten_list.asm"
 
 SECTION "Duel Animations", ROMX
-INCLUDE "engine/duel/animations/core.asm"
-INCLUDE "engine/duel/animations/screen_effects.asm"
 INCLUDE "data/duel/animations/duel_animations.asm"
 
 SECTION "Start Menu", ROMX
@@ -129,14 +117,6 @@ INCLUDE "data/sequences/credits.asm"
 
 SECTION "Booster Packs", ROMX
 INCLUDE "engine/booster_packs.asm"
-
-SECTION "AI Logic 2", ROMX
-INCLUDE "engine/duel/ai/trainer_cards.asm"
-INCLUDE "engine/duel/ai/pkmn_powers.asm"
-INCLUDE "engine/duel/ai/common.asm"
-
-SECTION "Effect Functions", ROMX
-INCLUDE "engine/duel/effect_functions.asm"
 
 SECTION "Decks", ROMX
 INCLUDE "data/decks.asm"
