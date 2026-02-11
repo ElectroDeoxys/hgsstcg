@@ -132,7 +132,7 @@ FillTileMap::
 ; zero work RAM, stack area, and high RAM ($C000-$DFFF, $FF80-$FFEF)
 ZeroRAM::
 	ld hl, STARTOF(WRAM0)
-	ld bc, SIZEOF(WRAM0)
+	ld bc, SIZEOF(WRAM0) + SIZEOF(WRAMX)
 .zero_wram_loop
 	xor a
 	ld [hli], a

@@ -7,14 +7,14 @@ SECTION "WRAM", WRAM0
 
 UNION
 
-wTempCardCollection:: ; c000
+wTempCardCollection::
 	ds CARD_COLLECTION_SIZE
 
 NEXTU
 
 ; used in DrawLabeledTextBox to draw the top border
 ; of a label text box (with top border symbols and NPC name)
-wLabeledTextBoxTopBorder:: ; c000
+wLabeledTextBoxTopBorder::
 	ds $100
 
 NEXTU
@@ -28,15 +28,15 @@ NEXTU
 ; to wDecompressionSecondaryBuffer.
 ; this is used so that $00 can be "looked back", since anything
 ; before $ef is initialized to 0 when starting decompression.
-wDecompressionSecondaryBuffer:: ; c000
+wDecompressionSecondaryBuffer::
 	ds $ef
-wDecompressionSecondaryBufferStart:: ; c0ef
+wDecompressionSecondaryBufferStart::
 	ds $11
 
 NEXTU
 
 ; buffer used to store a deck that will be built
-wDeckToBuild:: ; c000
+wDeckToBuild::
 	ds DECK_STRUCT_SIZE
 
 ENDU
@@ -59,37 +59,37 @@ wOpponentDuelVariables:: duel_vars wOpponent ; c300
 UNION
 
 ; temporary list of the cards drawn from a booster pack
-wBoosterCardsDrawn:: ; c400
-wBoosterTempNonEnergiesDrawn:: ; c400
+wBoosterCardsDrawn::
+wBoosterTempNonEnergiesDrawn::
 	ds 2 * 11
-wBoosterTempEnergiesDrawn:: ; c40b
+wBoosterTempEnergiesDrawn::
 	ds 2 * 11
-wBoosterCardsDrawnEnd:: ; c416
+wBoosterCardsDrawnEnd::
 
 NEXTU
 
-wPlayerDeck:: ; c400
+wPlayerDeck::
 	ds DECK_SIZE * 2
 
 ENDU
 
-wOpponentDeck:: ; c480
+wOpponentDeck::
 	ds DECK_SIZE * 2
 
 ; this holds names like player's or opponent's.
-wNameBuffer:: ; c500
+wNameBuffer::
 	ds NAME_BUFFER_LENGTH
 
 ; this holds an $ff-terminated list of card deck indexes (e.g. cards in hand or in bench)
 ; or (less often) the attack list of a Pokemon card
-wDuelTempList:: ; c510
+wDuelTempList::
 	ds $80
 
 UNION
 
 ; this is kept updated with some default text that is used
 ; when the text printing functions are called with text id $0000
-wDefaultText:: ; c590
+wDefaultText::
 	ds $3c
 
 NEXTU
@@ -97,111 +97,111 @@ NEXTU
 ; used in CheckIfCurrentDeckWasChanged to determine whether
 ; wCurDeckCards was changed from the original
 ; deck it was based on
-wCurDeckCardChanges:: ; c590
+wCurDeckCardChanges::
 	ds (DECK_SIZE + 1) * 2
 
 ENDU
 
 SECTION "WRAM Text Engine", WRAM0
 
-wc600:: ; c600
+wc600::
 	ds $100
 
-wc700:: ; c700
+wc700::
 	ds $100
 
-wc800:: ; c800
+wc800::
 	ds $100
 
-wc900:: ; c900
+wc900::
 	ds $100
 
 SECTION "WRAM 1", WRAM0
 
-wOAM:: ; ca00
+wOAM::
 	ds OAM_SIZE
 
 ; 16-byte buffer to store text, usually a name or a number
 ; used by TX_RAM1 but not exclusively
-wStringBuffer:: ; caa0
+wStringBuffer::
 	ds $10
 
-wcab0:: ; cab0
+wcab0::
 	ds $1
 
-wcab1:: ; cab1
+wcab1::
 	ds $1
 
-wcab2:: ; cab2
+wcab2::
 	ds $1
 
 ; initial value of the A register. used to tell the console when reset
-wInitialA:: ; cab3
+wInitialA::
 	ds $1
 
 ; what console we are playing on, either 0 (DMG), 1 (SGB) or 2 (CGB)
 ; use constants CONSOLE_DMG, CONSOLE_SGB and CONSOLE_CGB for checks
-wConsole:: ; cab4
+wConsole::
 	ds $1
 
 ; used to select a sprite or a starting sprite from wOAM
-wOAMOffset:: ; cab5
+wOAMOffset::
 	ds $1
 
 ; FillTileMap fills VRAM0 BG Maps with the tile stored here
-wTileMapFill:: ; cab6
+wTileMapFill::
 	ds $1
 
-wIE:: ; cab7
+wIE::
 	ds $1
 
 ; incremented whenever the vblank handler ends. used to wait for it to end,
 ; or to delay a specific amount of frames
-wVBlankCounter:: ; cab8
+wVBlankCounter::
 	ds $1
 
 	ds $1
 
 ; bit0: is in vblank interrupt?
 ; bit1: is in timer interrupt?
-wReentrancyFlag:: ; caba
+wReentrancyFlag::
 	ds $1
 
-wLCDC:: ; cabb
+wLCDC::
 	ds $1
 
-wBGP:: ; cabc
+wBGP::
 	ds $1
 
-wOBP0:: ; cabd
+wOBP0::
 	ds $1
 
-wOBP1:: ; cabe
+wOBP1::
 	ds $1
 
 ; used to request palette(s) to be flushed by FlushPalettes from wBGP, wOBP0, wOBP1,
 ; wBackgroundPalettesCGB, and/or wBackgroundPalettesCGB to the corresponding hw registers
-wFlushPaletteFlags:: ; cabf
+wFlushPaletteFlags::
 	ds $1
 
 ; set to non-0 to request OAM copy during vblank
-wVBlankOAMCopyToggle:: ; cac0
+wVBlankOAMCopyToggle::
 	ds $1
 
 ; used by WriteByteToBGMap0
-wTempByte:: ; cac1
+wTempByte::
 	ds $1
 
 ; which screen or interface is currently displayed in the screen during a duel
 ; used to prevent loading graphics or drawing stuff more times than necessary
-wDuelDisplayedScreen:: ; cac2
+wDuelDisplayedScreen::
 	ds $1
 
 ; used to increase the play time counter every four timer interrupts (60.24 Hz)
-wTimerCounter:: ; cac3
+wTimerCounter::
 	ds $1
 
-wPlayTimeCounterEnable:: ; cac4
+wPlayTimeCounterEnable::
 	ds $1
 
 ; byte0: 1/60ths of a second
@@ -209,48 +209,48 @@ wPlayTimeCounterEnable:: ; cac4
 ; byte2: minutes
 ; byte3: hours (lower byte)
 ; byte4: hours (upper byte)
-wPlayTimeCounter:: ; cac5
+wPlayTimeCounter::
 	ds $5
 
-wRNG1:: ; caca
+wRNG1::
 	ds $1
 
-wRNG2:: ; cacb
+wRNG2::
 	ds $1
 
-wRNGCounter:: ; cacc
+wRNGCounter::
 	ds $1
 
 ; the LCDC status interrupt is always disabled and this always reads as jp $0000
-wLCDCFunctionTrampoline:: ; cacd
+wLCDCFunctionTrampoline::
 	ds $3
 
 ; a jp $nnnn instruction called by the vblank handler. calls a single ret by default
-wVBlankFunctionTrampoline:: ; cad0
+wVBlankFunctionTrampoline::
 	ds $3
 
 ; pointer to a function to be called by DoFrame
-wDoFrameFunction:: ; cad3
+wDoFrameFunction::
 	ds $2
 
 ; if non-zero, the game screen can be paused at any time with the select button
-wDebugPauseAllowed:: ; cad5
+wDebugPauseAllowed::
 	ds $1
 
 ; pointer to keep track of where
 ; in the source data we are while
 ; running the decompression algorithm
-wDecompSourcePosPtr:: ; cad6
+wDecompSourcePosPtr::
 	ds $2
 
 ; number of bits that are still left
 ; to read from the current command byte
-wDecompNumCommandBitsLeft:: ; cad8
+wDecompNumCommandBitsLeft::
 	ds $1
 
 ; command byte from which to read the bits
 ; to decompress source data
-wDecompCommandByte:: ; cad9
+wDecompCommandByte::
 	ds $1
 
 ; if bit 7 is changed from off to on, then
@@ -258,27 +258,27 @@ wDecompCommandByte:: ; cad9
 ; for repeating previous sequence (length, offset)
 ; if it changes from on to off, then the routine
 ; will only read one byte, and reuse previous length byte
-wDecompRepeatModeToggle:: ; cada
+wDecompRepeatModeToggle::
 	ds $1
 
 ; stores in both nybbles the length of the
 ; sequences to copy in decompression
 ; the high nybble is used first, then the low nybble
 ; for a subsequent sequence repetition
-wDecompRepeatLengths:: ; cadb
+wDecompRepeatLengths::
 	ds $1
 
-wDecompNumBytesToRepeat:: ; cadc
+wDecompNumBytesToRepeat::
 	ds $1
 
-wDecompSecondaryBufferPtrHigh:: ; cadd
+wDecompSecondaryBufferPtrHigh::
 	ds $1
 
 ; offset to repeat byte from decompressed data
-wDecompRepeatSeqOffset:: ; cade
+wDecompRepeatSeqOffset::
 	ds $1
 
-wDecompSecondaryBufferPtrLow:: ; cadf
+wDecompSecondaryBufferPtrLow::
 	ds $1
 
 	ds $f
@@ -287,11 +287,11 @@ wDecompSavedDeckCount::
 	ds $1
 
 ; temporary CGB palette data buffer to eventually save into BGPD registers.
-wBackgroundPalettesCGB:: ; caf0
+wBackgroundPalettesCGB::
 	ds NUM_BACKGROUND_PALETTES palettes
 
 ; temporary CGB palette data buffer to eventually save into OBPD registers.
-wObjectPalettesCGB:: ; cb30
+wObjectPalettesCGB::
 	ds NUM_OBJECT_PALETTES palettes
 
 	ds $2
@@ -304,563 +304,230 @@ SECTION "WRAM Duel 2", WRAM0
 ; For Energy cards, it's always $9
 ; For Trainer cards, $d or $e (two pages for trainer card descriptions)
 ; see CARDPAGE_* constants
-wCardPageNumber:: ; cbc7
+wCardPageNumber::
 	ds $1
 
 ; selects a PLAY_AREA_* slot in order to display information related to it. used by functions
 ; such as PrintPlayAreaCardLocation, PrintPlayAreaCardInformation and PrintPlayAreaCardHeader
-wCurPlayAreaSlot:: ; cbc9
+wCurPlayAreaSlot::
 	ds $1
 
 ; CARDPAGETYPE_PLAY_AREA or CARDPAGETYPE_NOT_PLAY_AREA
 ; some of the elements displayed in a card page change depending on which value
-wCardPageType:: ; cbd1
+wCardPageType::
 	ds $1
 
 ; when viewing a card page, which keys (among PAD_B, PAD_UP, and PAD_DOWN) will exit the page,
 ; either to go back to the previous menu or list, or to load the card page of the card above/below it
-wCardPageExitKeys:: ; cbd7
+wCardPageExitKeys::
 	ds $1
 
 ; used to print a Pokemon card's length in feet and inches
-wPokemonLengthPrintOffset:: ; cc03
+wPokemonLengthPrintOffset::
 	ds $1
 
 ; used when opening the card page of an attack when attacking,
 ; serving as an index for AttackPageDisplayPointerTable.
 ; see ATTACKPAGE_* constants
-wAttackPageNumber:: ; cc04
+wAttackPageNumber::
 	ds $1
 
 ; DUELIST_TYPE_* of the turn holder
-wDuelistType:: ; cc0d
+wDuelistType::
 	ds $1
 
 ; this holds the current opponent's deck minus 2 (that is, a *_DECK_ID constant),
 ; in order to account for the two unused pointers at the beginning of DeckPointers.
-wOpponentDeckID:: ; cc0e
+wOpponentDeckID::
 	ds $1
 
-wOpponentPortrait:: ; cc15
+wOpponentPortrait::
 	ds $1
 
 ; text id of the opponent's name
-wOpponentName:: ; cc16
+wOpponentName::
 	ds $2
 
 ; an overworld script starting a duel sets this address to the value to be written into wDuelInitialPrizes
-wNPCDuelPrizes:: ; cc18
+wNPCDuelPrizes::
 	ds $1
 
 ; an overworld script starting a duel sets this address to the value to be written into wOpponentDeckID
-wNPCDuelDeckID:: ; cc19
+wNPCDuelDeckID::
 	ds $1
 
 ; song played during a duel
-wDuelTheme:: ; cc1a
+wDuelTheme::
 	ds $1
 
 ; Used as temporary storage for a card's data
-wLoadedCard1:: ; cc24
+wLoadedCard1::
 	card_data_struct wLoadedCard1
-wLoadedCard2:: ; cc65
+wLoadedCard2::
 	card_data_struct wLoadedCard2
 
 ; text ID of the name of the deck loaded by CopyDeckData
-wDeckName:: ; cce9
+wDeckName::
 	ds $2
 
 ; when non-0, allows the player to skip some delays during a duel by pressing B.
 ; value read from sSkipDelayAllowed. probably only used for debugging.
-wSkipDelayAllowed:: ; ccf2
+wSkipDelayAllowed::
 	ds $1
 
 SECTION "WRAM 2", WRAM0
 
 ; on CGB, attributes of the text box borders. (values 0-7 seem to be used, which only affect palette)
-wTextBoxFrameType:: ; ccf3
+wTextBoxFrameType::
 	ds $1
 
 ; pixel data of a tile used for text
 ; either a combination of two half-width characters or a full-width character
-wTextTileBuffer:: ; ccf4
+wTextTileBuffer::
 	ds TILE_SIZE
 
-wcd04:: ; cd04
+wcd04::
 	ds $1
 
 ; used by PlaceNextTextTile
-wCurTextTile:: ; cd05
+wCurTextTile::
 	ds $1
 
 ; VRAM tile patterns selector for text tiles
 ; if wTilePatternSelector == $80 and wTilePatternSelectorCorrection == $00 -> select tiles at $8000-$8FFF
 ; if wTilePatternSelector == $88 and wTilePatternSelectorCorrection == $80 -> select tiles at $8800-$97FF
-wTilePatternSelector:: ; cd06
+wTilePatternSelector::
 	ds $1
 
 ; complements wTilePatternSelector by correcting the VRAM tile order when $8800-$97FF is selected
 ; a value of $80 in wTilePatternSelectorCorrection reflects tiles $00-$7f being located after tiles $80-$ff
-wTilePatternSelectorCorrection:: ; cd07
+wTilePatternSelectorCorrection::
 	ds $1
 
 ; if 0 (DOUBLE_SPACED), text lines are separated by a blank line
 ; uses constants DOUBLE_SPACED and SINGLE_SPACED
-wLineSeparation:: ; cd08
+wLineSeparation::
 	ds $1
 
 ; line number in which text is being printed as an offset to
 ; the topmost line, including separator lines
-wCurTextLine:: ; cd09
+wCurTextLine::
 	ds $1
 
 ; how to process the current text tile
 ; 0: full-width font | non-0: half-width font
-wFontWidth:: ; cd0a
+wFontWidth::
 	ds $1
 
 ; when printing half-width text, this variable alternates between 0 and the value
 ; of the first character. 0 signals that no text should be printed in the current
 ; iteration of Func_235e, while non-0 means to print the character pair
 ; made of [wHalfWidthPrintState] (first char) and register e (second char).
-wHalfWidthPrintState:: ; cd0b
+wHalfWidthPrintState::
 	ds $1
 
 ; used by CopyTextData
-wTextMaxLength:: ; cd0c
+wTextMaxLength::
 	ds $1
 
 ; half-width font letters become uppercase if non-0, lowercase if 0
-wUppercaseHalfWidthLetters:: ; cd0d
+wUppercaseHalfWidthLetters::
 	ds $1
 
 	ds $1
 
 ; handles timing of (horizontal or vertical) arrow blinking while waiting for user input.
-wCursorBlinkCounter:: ; cd0f
+wCursorBlinkCounter::
 	ds $1
 
-wCurMenuItem:: ; cd10
+wCurMenuItem::
 	ds $1
 
-wMenuParams:: ; cd11
+wMenuParams::
 
-wMenuCursorXOffset:: ; cd11
+wMenuCursorXOffset::
 	ds $1
 
-wMenuCursorYOffset:: ; cd12
+wMenuCursorYOffset::
 	ds $1
 
-wMenuYSeparation:: ; cd13
+wMenuYSeparation::
 	ds $1
 
-wNumMenuItems:: ; cd14
+wNumMenuItems::
 	ds $1
 
-wMenuVisibleCursorTile:: ; cd15
+wMenuVisibleCursorTile::
 	ds $1
 
-wMenuInvisibleCursorTile:: ; cd16
+wMenuInvisibleCursorTile::
 	ds $1
 
 ; if non-NULL, the function loaded here is called once per frame by HandleMenuInput
-wMenuUpdateFunc:: ; cd17
+wMenuUpdateFunc::
 	ds $2
 
 wMenuParamsEnd::
 
-wListScrollOffset:: ; cd19
+wListScrollOffset::
 	ds $1
 
-wListItemXPosition:: ; cd1a
+wListItemXPosition::
 	ds $1
 
-wNumListItems:: ; cd1b
+wNumListItems::
 	ds $1
 
-wListItemNameMaxLength:: ; cd1c
+wListItemNameMaxLength::
 	ds $1
 
 ; if not NULL, the function loaded here is called once per frame by CardListMenuFunction,
 ; which is the function loaded to wMenuUpdateFunc for card lists
-wListFunctionPointer:: ; cd1d
+wListFunctionPointer::
 	ds $2
 
 	ds $50
 
 ; in a card list, the Y position where the <sel_item>/<num_items> indicator is placed
 ; if wCardListIndicatorYPosition == $ff, no indicator is displayed
-wCardListIndicatorYPosition:: ; cd97
+wCardListIndicatorYPosition::
 	ds $1
 
 ; x coord of the leftmost item in a horizontal menu
-wLeftmostItemCursorX:: ; cd98
+wLeftmostItemCursorX::
 	ds $1
 
 ; used in RefreshMenuCursor_CheckPlaySFX to play a sound during any frame when this address is non-0
-wRefreshMenuCursorSFX:: ; cd99
+wRefreshMenuCursorSFX::
 	ds $1
 
 ; when printing a YES/NO menu, whether the cursor is
 ; initialized to the YES ($01) or to the NO ($00) item
-wDefaultYesOrNo:: ; cd9a
+wDefaultYesOrNo::
 	ds $1
 
 ; used in _CopyCardNameAndLevel to keep track of the remaining space to copy the text
-wCardNameLength:: ; cd9b
+wCardNameLength::
 	ds $1
 
 ; stores the total number of coins to flip
-wCoinTossTotalNum:: ; cd9c
+wCoinTossTotalNum::
 	ds $1
 
 ; this stores the result from a coin toss (number of heads)
-wCoinTossNumHeads:: ; cd9d
+wCoinTossNumHeads::
 	ds $1
 
 ; stores type of the duelist that is tossing coins
-wCoinTossDuelistType:: ; cd9e
+wCoinTossDuelistType::
 	ds $1
 
 ; holds the number of coins that have already been tossed
-wCoinTossNumTossed:: ; cd9f
-	ds $1
-
-	ds $5
-
-wAIDuelVars::
-; saves the prizes that the AI already used Peek on
-; each bit corresponds to a Prize card
-wAIPeekedPrizes:: ; cda5
-	ds $1
-
-; this is used by AI in order to determine whether
-; it should use Pokedex Trainer card.
-; starts with 5 when Duel starts and counts up by 1 every turn.
-; only when it's higher than 5 is AI allowed to use Pokedex,
-; in which case it sets the counter to 0.
-; this stops the AI from using Pokedex right after using another one
-; while still drawing cards that were ordered.
-wAIPokedexCounter:: ; cda6
-	ds $1
-
-; variable to keep track of MewtwoLv53's Barrier usage during Player' turn.
-; AI_MEWTWO_MILL set means Player is running MewtwoLv53 mill deck.
-; 	- when flag is not set, this counts how many turns in a row
-;	  Player used MewtwoLv53's Barrier attack;
-;	- when flag is set, this counts how many turns in a row
-;	  Player has NOT used Barrier attack.
-wAIBarrierFlagCounter:: ; cda7
-	ds $1
-
-; pointer to $00-terminated list of card IDs
-; to avoid being placed as prize cards
-; when setting up AI duelist's cards at duel start.
-; (see SetUpBossStartingHandAndDeck)
-wAICardListAvoidPrize:: ; cda8
-	ds $2
-
-; pointer to $00-terminated list of card IDs
-; sorted by priority of AI placing in the Arena
-; at duel start (see TrySetUpBossStartingPlayArea)
-wAICardListArenaPriority:: ; cdaa
-	ds $2
-
-; pointer to $00-terminated list of card IDs
-; sorted by priority of AI placing in the Bench
-; at duel start (see TrySetUpBossStartingPlayArea)
-wAICardListBenchPriority:: ; cdac
-	ds $2
-
-; pointer to $00-terminated list of card IDs
-; sorted by priority of AI playing it from Hand
-; to the Bench (see AIDecidePlayPokemonCard)
-wAICardListPlayFromHandPriority:: ; cdae
-	ds $2
-
-; pointer to $00-terminated list of card IDs and AI scores.
-; these are for giving certain cards more or less
-; likelihood of being picked by AI to switch to.
-; (see AIDecideBenchPokemonToSwitchTo)
-wAICardListRetreatBonus:: ; cdb0
-	ds $2
-
-; pointer to $00-terminated list of card IDs,
-; number of energy cards and AI score.
-; these are for giving certain cards more or less
-; likelihood of being picked for AI to attach energy.
-; also has the maximum number of energy cards that
-; the AI is willing to provide for it.
-; (see AIProcessEnergyCards)
-wAICardListEnergyBonus:: ; cdb2
-	ds $2
-
-; used by the AI to track how viable
-; retreating the current Active card is
-wAIRetreatScore:: ; cdb4
-	ds $1
-
-wAIDuelVarsEnd::
-
-; information about various properties of
-; loaded attack for AI calculations
-wTempLoadedAttackEnergyCost:: ; cdb5
-	ds $1
-wTempLoadedAttackEnergyNeededType:: ; cdb6
-	ds $1
-wTempLoadedAttackEnergyNeededAmount:: ; cdb7
-	ds $1
-
-; used for the AI to store various
-; details about a given card
-wTempCardRetreatCost:: ; cdb8
-	ds $1
-wTempCardID:: ; cdb9
-	ds $2
-wTempCardType:: ; cdba
-	ds $1
-
-	ds $2
-
-; used for AI to score decisions for actions
-wAIScore:: ; cdbe
-	ds $1
-
-UNION
-
-; used for AI decisions that involve
-; each card in the Play Area.
-wPlayAreaAIScore:: ; cdbf
-	ds MAX_PLAY_AREA_POKEMON
-
-NEXTU
-
-; stores the score determined by AI for first attack
-wFirstAttackAIScore:: ; cdbf
-	ds $1
-
-ENDU
-
-	ds $a
-
-; information about the defending Pokémon and
-; the prize card count on both sides for AI:
-; player's active Pokémon color
-wAIPlayerColor:: ; cdcf
-	ds $1
-; player's active Pokémon weakness
-wAIPlayerWeakness:: ; cdd0
-	ds $1
-; player's active Pokémon resistance
-wAIPlayerResistance:: ; cdd1
-	ds $1
-; player's prize count
-wAIPlayerPrizeCount:: ; cdd2
-	ds $1
-; opponent's prize count
-wAIOpponentPrizeCount:: ; cdd3
-	ds $1
-
-; AI stores the card ID to look for here
-wTempCardIDToLook:: ; cdd4
-	ds $2
-
-; when AI decides which Bench Pokemon to switch to
-; it stores it Play Area location here.
-wAIPlayAreaCardToSwitch:: ; cdd5
-	ds $1
-
-; the index of attack chosen by AI
-; to use with PlusPower.
-wAIPlusPowerAttack:: ; cdd6
-	ds $1
-
-; whether AI is allowed to play an energy card
-; from the hand in order to retreat arena card
-;	FALSE = not allowed
-;	TRUE  = allowed
-wAIPlayEnergyCardForRetreat:: ; cdd7
-	ds $1
-
-; flags defined by AI_ENERGY_FLAG_* constants
-; used as input for AIProcessEnergyCards
-; to determine what to check in the routine.
-wAIEnergyAttachLogicFlags:: ; cdd8
-	ds $1
-
-; used as input to AIProcessAttacks.
-; if 0, execute the attack chosen by the AI.
-; if not 0, return without executing attack.
-wAIExecuteProcessedAttack:: ; cdd9
-	ds $1
-
-; flags used by AI for retreat logic
-; if bit 0 set, then it means the current Pokémon
-; can KO the defending card with one of its attacks
-; if bit 7 is set, then it means the switch is due
-; to the effect of an attack (not Pkmn Power)
-wAIRetreatFlags:: ; cdda
-	ds $1
-
-wAITriedAttack:: ; cddb
-	ds $1
-
-; set to 0, never used
-wUnused_cddc:: ; cddc
-	ds $1
-
-; used to temporarily backup wPlayAreaAIScore values.
-wTempPlayAreaAIScore:: ; cddd
-	ds MAX_PLAY_AREA_POKEMON
-
-wTempAIScore:: ; cde3
-	ds $1
-
-; used for AI decisions that involve
-; each card in the Play Area involving
-; attaching Energy cards.
-wPlayAreaEnergyAIScore:: ; cde4
-	ds MAX_PLAY_AREA_POKEMON
-
-wSamePokemonEnergyScore:: ; cdea
-	ds MAX_PLAY_AREA_POKEMON
-
-; whether AI cannot inflict damage on player's active Pokémon
-; (due to No Damage or Effect substatus).
-;	$00 = can damage
-;	$01 = can't damage
-wAICannotDamage:: ; cdf0
-	ds $1
-
-; used by AI to store variable information
-wTempAI:: ; cdf1
-	ds $2
-
-; used for AI to store whether this card can use any attack
-; $00 = can't attack
-; $01 = can attack
-wCurCardCanAttack:: ; cdf2
-wTempAI2::
-	ds $2
-
-; used to temporarily store the card deck index
-; while AI is deciding whether to evolve Pokémon
-; or deciding whether to play Pokémon card from hand
-wTempAIPokemonCard:: ; cdf3
-	ds $1
-
-; used for AI to store whether this card can KO defending Pokémon
-; $00 = can't KO
-; $01 = can KO
-wCurCardCanKO:: ; cdf4
-	ds $1
-
-; stores HP difference between a pre-evolution
-; and its evolution, for AI damage calculations
-wEvolutionHPDifference:: ; cdf8
-       ds $1
-
-wSamePokemonCardID:: ; cdf9
-	ds $2
-
-wSamePokemonEnergyScoreHandled:: ; cdfa
-	ds MAX_PLAY_AREA_POKEMON
-
-wAIFirstAttackDamage:: ; ce00
-	ds $1
-wAISecondAttackDamage:: ; ce01
-	ds $1
-
-; whether AI's attack is damaging or not
-; (attacks that only damages bench are treated as non-damaging)
-; $00 = is a damaging attack
-; $01 = is a non damaging attack
-wAIAttackIsNonDamaging:: ; ce02
-	ds $1
-
-; whether AI already retreated this turn or not.
-;	- $0 has not retreated;
-;	- $1 has retreated.
-wAIRetreatedThisTurn:: ; ce03
-	ds $1
-
-; used by AI to store information of VenusaurLv67
-; while handling Energy Trans logic.
-wAIVenusaurLv67DeckIndex:: ; ce04
-	ds $1
-wAIVenusaurLv67PlayAreaLocation:: ; ce05
-	ds $1
-
-wce06:: ; ce06
-; number of cards to be transferred by AI using Energy Trans.
-wAINumberOfEnergyTransCards:: ; ce06
-; used for storing weakness of Player's Arena card
-; in AI routine dealing with Shift Pkmn Power.
-wAIDefendingPokemonWeakness:: ; ce06
-; number of Basic Pokemon cards when
-; setting up AI Boss deck
-wAISetupBasicPokemonCount:: ; ce06
-	ds $1
-
-wce07:: ; ce07
-	ds $1
-
-wce08:: ; ce08
-; number of Energy cards when
-; setting up AI Boss deck
-wAISetupEnergyCount:: ; ce08
-	ds $7
-
-wce0f:: ; ce0f
-	ds $7
-
-; stores the deck index (0-59) of the Trainer card
-; the AI intends to play from hand.
-wAITrainerCardToPlay:: ; ce16
-	ds $1
-
-wAITrainerCardPhase:: ; ce18
-	ds $1
-
-; parameters output by AI Trainer card logic routines
-; (e.g. what Pokemon in Play Area to use card on, etc)
-wAITrainerCardParameter:: ; ce19
-	ds $1
-
-wce1a:: ; ce1a
-	ds $1
-
-wce1b:: ; ce1b
-	ds $1
-
-wce1c:: ; ce1c
-	ds $1
-
-wce1d:: ; ce1d
-	ds $1
-
-wce1e:: ; ce1e
-	ds $1
-
-wce1f:: ; ce1f
-	ds $1
-
-; used to store previous/current flags of AI actions
-; see AI_FLAG_* constants
-wPreviousAIFlags:: ; ce20
-	ds $1
-wCurrentAIFlags:: ; ce21
-	ds $1
-
-; During a duel, this is always $b after the first attack.
-; $b is the bank where the functions associated to card or effect commands are.
-; Its only purpose seems to be store this value to be read by TryExecuteEffectCommandFunction.
-; possibly used in other contexts too
-wEffectFunctionsBank:: ; ce22
+wCoinTossNumTossed::
 	ds $1
 
 ; LoadLoaded1CardGfx loads the card's palette here
-wCardPalette:: ; ce23
+wCardPalette::
 	ds 3 palettes
 wCardAttrMap::
 	ds $30
@@ -868,186 +535,186 @@ wCardAttrMap::
 ; information about the text being currently processed, including font width,
 ; the rom bank, and the memory address of the next character to be printed.
 ; supports up to four nested texts (used with TX_RAM).
-wTextHeader1:: ; ce2b
+wTextHeader1::
 	text_header wTextHeader1
-wTextHeader2:: ; ce30
+wTextHeader2::
 	text_header wTextHeader2
-wTextHeader3:: ; ce35
+wTextHeader3::
 	text_header wTextHeader3
-wTextHeader4:: ; ce3a
+wTextHeader4::
 	text_header wTextHeader4
 
 ; text id for the first TX_RAM2 of a text
 ; prints from wDefaultText if $0000
-wTxRam2:: ; ce3f
+wTxRam2::
 	ds $2
 
 ; text id for the second TX_RAM2 of a text
-wTxRam2_b:: ; ce41
+wTxRam2_b::
 	ds $2
 
 ; text id for the first TX_RAM3 of a text
 ; a number between 0 and 65535
-wTxRam3:: ; ce43
+wTxRam3::
 	ds $2
 
 ; text id for the second TX_RAM3 of a text
 ; a number between 0 and 65535
-wTxRam3_b:: ; ce45
+wTxRam3_b::
 	ds $2
 
 ; when printing text, number of frames to wait between each text tile
-wTextSpeed:: ; ce47
+wTextSpeed::
 	ds $1
 
 ; a number between 0 and 3 to select a wTextHeader to use for the current text
-wWhichTextHeader:: ; ce48
+wWhichTextHeader::
 	ds $1
 
 ; selects wTxRam2 or wTxRam2_b
-wWhichTxRam2:: ; ce49
+wWhichTxRam2::
 	ds $1
 
 ; selects wTxRam3 or wTxRam3_b
-wWhichTxRam3:: ; ce4a
+wWhichTxRam3::
 	ds $1
 
-wIsTextBoxLabeled:: ; ce4b
+wIsTextBoxLabeled::
 	ds $1
 
 ; text id of a text box's label
-wTextBoxLabel:: ; ce4c
+wTextBoxLabel::
 	ds $2
 
-wCoinTossScreenTextID:: ; ce4e
+wCoinTossScreenTextID::
 	ds $2
 
 ; set to PLAYER_TURN in the "Your Play Area" screen
 ; set to OPPONENT_TURN in the "Opp Play Area" screen
 ; alternates when drawing the "In Play Area" screen
-wCheckMenuPlayAreaWhichDuelist:: ; ce50
+wCheckMenuPlayAreaWhichDuelist::
 	ds $1
 
 ; apparently complements wCheckMenuPlayAreaWhichDuelist to be able to combine
 ; the usual player or opponent layout with the opposite duelist information
 ; appears not to be relevant in the "In Play Area" screen
-wCheckMenuPlayAreaWhichLayout:: ; ce51
+wCheckMenuPlayAreaWhichLayout::
 	ds $1
 
 ; the position of cursor in the "In Play Area" screen
-wInPlayAreaCurPosition:: ; ce52
+wInPlayAreaCurPosition::
 
 ; holds the position of the cursor when selecting
 ; in the "Your Play Area" or "Opp Play Area" screens
-wYourOrOppPlayAreaCurPosition:: ; ce52
+wYourOrOppPlayAreaCurPosition::
 	ds $1
 
 ; pointer to the table which contains information for each key-press.
-wMenuInputTablePointer:: ; ce53
+wMenuInputTablePointer::
 
 ; pointer to transition table data
-wTransitionTablePtr:: ; ce53
+wTransitionTablePtr::
 	ds $2
 
 ; same as wDuelInitialPrizes but with upper 2 bits set
-wDuelInitialPrizesUpperBitsSet:: ; ce55
+wDuelInitialPrizesUpperBitsSet::
 	ds $1
 
 ; if TRUE, SwapTurn is called
 ; after some operations are concluded
-wIsSwapTurnPending:: ; ce56
+wIsSwapTurnPending::
 	ds $1
 
 ; it's used for restore the position of cursor
 ; when going into another view, and returning to
 ; the previous view.
-wInPlayAreaPreservedPosition:: ; ce57
+wInPlayAreaPreservedPosition::
 	ds $1
 
 ; it's used for checking if the player changed
 ; the cursor in the play area view.
-wInPlayAreaTemporaryPosition:: ; ce58
+wInPlayAreaTemporaryPosition::
 	ds $1
 
 ; number of prize cards still to be
 ; picked by the player
-wNumberOfPrizeCardsToSelect:: ; ce59
+wNumberOfPrizeCardsToSelect::
 	ds $1
 
 ; pointer to a $ff-terminated list
 ; of the prize cards selected by the player
-wSelectedPrizeCardListPtr:: ; ce5a
+wSelectedPrizeCardListPtr::
 	ds $2
 
-wce5c:: ; ce5c
+wce5c::
 	ds $1
 
 ; stores whether there are Pokemon in play area
 ; player arena Pokemon sets bit 0
 ; opponent arena Pokemon sets bit 1
-wArenaCardsInPlayArea:: ; ce5d
+wArenaCardsInPlayArea::
 	ds $1
 
-wce5e:: ; ce5e
+wce5e::
 	ds $1
 
 ; this is used to store last cursor position
 ; in the "Your Play Area" and the "Opp. Play Area" screens
-wYourOrOppPlayAreaLastCursorPosition:: ; ce5f
+wYourOrOppPlayAreaLastCursorPosition::
 	ds $1
 
 ; $00 when the "In Play Area" screen has been opened from the Check menu
 ; $01 when the "In Play Area" screen has been opened by pressing the select button
-wInPlayAreaFromSelectButton:: ; ce60
+wInPlayAreaFromSelectButton::
 	ds $1
 
 ; it's used only in one function,
 ; which means that it's a kind of local variable, but defined in wram.
-wPrizeCardCursorTemporaryPosition:: ; ce61
+wPrizeCardCursorTemporaryPosition::
 	ds $1
 
-wGlossaryPageNo:: ; ce62
+wGlossaryPageNo::
 	ds $1
 
 	ds $3
 
 ; keeps track of which Bench Pokemon is pointed
 ; by the cursor during Gigashock selection screen
-wCurGigashockItem:: ; ce72
+wCurGigashockItem::
 	ds $1
 
 ; card index and its attack index chosen
 ; to be used by Metronome.
-wMetronomeSelectedAttack:: ; ce73
+wMetronomeSelectedAttack::
 	ds $2
 
 ; stores the amount of cards that are being ordered.
-wNumberOfCardsToOrder:: ; ce75
+wNumberOfCardsToOrder::
 	ds $1
 
 	ds $6
 
 ; used in CountPokemonIDInPlayArea
-wTempPokemonID_ce7c:: ; ce7c
+wTempPokemonID_ce7c::
 	ds $2
 
-wAttackAnimationIsPlaying:: ; ce7e
+wAttackAnimationIsPlaying::
 	ds $1
 
-wDamageAnimAmount:: ; ce7f
+wDamageAnimAmount::
 	ds $2
 
-wDamageAnimEffectiveness:: ; ce81
+wDamageAnimEffectiveness::
 	ds $1
 
-wDamageAnimPlayAreaLocation:: ; ce82
+wDamageAnimPlayAreaLocation::
 	ds $1
 
 ; this value is never read
-wDamageAnimPlayAreaSide:: ; ce83
+wDamageAnimPlayAreaSide::
 	ds $1
 
-wDamageAnimCardID:: ; ce84
+wDamageAnimCardID::
 	ds $1
 
 	ds $d
@@ -1055,67 +722,67 @@ wDamageAnimCardID:: ; ce84
 ; first index in the current card list that is visible
 ; used to calculate which element to get based
 ; on the cursor position
-wCardListVisibleOffset:: ; cea1
+wCardListVisibleOffset::
 	ds $1
 
 ; it's used when the player enters check menu, and its sub-menus.
 ; increases from 0x00 to 0xff. the game makes its blinking cursor by this.
 ; note that the check menu also contains the pokemon glossary.
-wCheckMenuCursorBlinkCounter:: ; cea3
+wCheckMenuCursorBlinkCounter::
 	ds $1
 
 ; used to temporarily store wCurCardTypeFilter
 ; to check whether a new filter is to be applied
-wTempCardTypeFilter:: ; cea4
+wTempCardTypeFilter::
 
-wCardListCursorPos:: ; cea4
+wCardListCursorPos::
 
-wNamingScreenCursorY:: ; cea4
+wNamingScreenCursorY::
 	ds $1
 
-wCardListCursorXPos:: ; cea5
+wCardListCursorXPos::
 	ds $1
 
-wCardListCursorYPos:: ; cea6
+wCardListCursorYPos::
 	ds $1
 
-wCardListYSpacing:: ; cea7
+wCardListYSpacing::
 	ds $1
 
-wCardListXSpacing:: ; cea8
+wCardListXSpacing::
 	ds $1
 
-wCardListNumCursorPositions:: ; cea9
+wCardListNumCursorPositions::
 
-wNamingScreenKeyboardHeight:: ; cea9
+wNamingScreenKeyboardHeight::
 	ds $1
 
 ; tile to draw when cursor is blinking
-wVisibleCursorTile:: ; ceaa
+wVisibleCursorTile::
 	ds $1
 
 ; tile to draw when cursor is visible
-wInvisibleCursorTile:: ; ceab
+wInvisibleCursorTile::
 	ds $1
 
 ; unknown handler function run in HandleDeckCardSelectionList
 ; is always NULL
-wCardListHandlerFunction:: ; ceac
+wCardListHandlerFunction::
 	ds $2
 
 ; number of cards that are listed
 ; in the current filtered list
-wNumEntriesInCurFilter:: ; ceae
+wNumEntriesInCurFilter::
 	ds $1
 
-wCheckMenuCursorXPosition:: ; ceaf
+wCheckMenuCursorXPosition::
 	ds $1
 
-wCheckMenuCursorYPosition:: ; ceb0
+wCheckMenuCursorYPosition::
 	ds $1
 
 ; deck selected by the player in the Decks screen
-wCurDeck:: ; ceb1
+wCurDeck::
 	ds $1
 
 ; each of these are a boolean to
@@ -1130,20 +797,20 @@ wDeck4Valid:: ds $1 ; ceb5
 ; holds symbols for representing a number in decimal
 ; goes up in magnitude (first byte is ones place,
 ; second byte is tens place, etc) up to 5 digits
-wDecimalDigitsSymbols:: ; ceb6
+wDecimalDigitsSymbols::
 	ds $5
 
 ; each of these stores the card count
 ; of each filter in the deck building screen
 ; the order follows CardTypeFilters
-wCardFilterCounts:: ; cebb
+wCardFilterCounts::
 	ds NUM_FILTERS
 
 UNION
 
 ; buffer used to show which card IDs
 ; are visible in a given list
-wVisibleListCardIDs:: ; cec4
+wVisibleListCardIDs::
 	ds NUM_DECK_CONFIRMATION_VISIBLE_CARDS * 2
 
 NEXTU
@@ -1151,69 +818,69 @@ NEXTU
 ; whether a given Card Set is unavailable in the Card Album screen
 ; used only for CARD_SET_PROMOTIONAL, in which case
 ; if it's unavailable, will print "----------" as the Card Set name
-wUnavailableAlbumCardSets:: ; cec4
+wUnavailableAlbumCardSets::
 	ds NUM_CARD_SETS
 
 ENDU
 
 ; number of visible entries
 ; when showing a list of cards
-wNumVisibleCardListEntries:: ; cecb
+wNumVisibleCardListEntries::
 	ds $1
 
-wTotalCardCount:: ; cecc
+wTotalCardCount::
 	ds $1
 
 ; is TRUE if list cannot be scrolled down
 ; past the last visible entry
-wUnableToScrollDown:: ; cecd
+wUnableToScrollDown::
 	ds $1
 
 ; pointer to a function that should be called
 ; to update the card list being shown
-wCardListUpdateFunction:: ; cece
+wCardListUpdateFunction::
 	ds $2
 
 ; holds y and x coordinates (in that order)
 ; of start of card list (top-left corner)
-wCardListCoords:: ; ced0
+wCardListCoords::
 	ds $2
 
-wced2:: ; ced2
+wced2::
 	ds $1
 
 ; the current filter being used
 ; from the CardTypeFilters list
-wCurCardTypeFilter:: ; ced3
+wCurCardTypeFilter::
 	ds $1
 
 ; temporarily stores wCardListNumCursorPositions value
-wTempCardListCursorPos:: ; ced4
+wTempCardListCursorPos::
 	ds $1
 
-wTempFilteredCardListNumCursorPositions:: ; ced5
+wTempFilteredCardListNumCursorPositions::
 	ds $1
 
-wced6:: ; ced6
+wced6::
 	ds $1
 
 ; maybe unused, is written to but never read
-wced7:: ; ced7
+wced7::
 	ds $1
 
-wCardListVisibleOffsetBackup:: ; ced8
+wCardListVisibleOffsetBackup::
 	ds $1
 
 ; stores how many different cards there are in a deck
-wNumUniqueCards:: ; ced9
+wNumUniqueCards::
 	ds $1
 
 ; stores AI temporary hand card list
-wHandTempList:: ; ceda
+wHandTempList::
 	ds DECK_SIZE + 1
 
 ; holds cards for the current deck
-wCurDeckCards:: ; cf17
+wCurDeckCards::
 	ds (DECK_CONFIG_BUFFER_SIZE + 1) * 2
 
 wCurDeckCardsEnd::
@@ -1221,26 +888,26 @@ wCurDeckCardsEnd::
 ; stores the count number of cards owned
 ; can be 0 in the case that a card is not available
 ; i.e. already inside a built deck
-wOwnedCardsCountList:: ; cf68
+wOwnedCardsCountList::
 
 ; used by _AIProcessHandTrainerCards, AI related
-wTempHandCardList:: ; cf68
+wTempHandCardList::
 	ds DECK_SIZE
 
 	ds $15
 
 ; name of the selected deck
-wCurDeckName:: ; cfb9
+wCurDeckName::
 	ds DECK_NAME_SIZE
 
 ; max number of cards that are allowed
 ; to include when building a deck configuration
-wMaxNumCardsAllowed:: ; cfd1
+wMaxNumCardsAllowed::
 	ds $1
 
 ; max number of cards with same name that are allowed
 ; to be included when building a deck configuration
-wSameNameCardsLimit:: ; cfd2
+wSameNameCardsLimit::
 	ds $1
 
 ; whether to include the cards in the selected deck
@@ -1248,26 +915,26 @@ wSameNameCardsLimit:: ; cfd2
 ; is TRUE when building a deck (since the cards should be shown for removal)
 ; is FALSE when choosing a deck configuration to send through Gift Center
 ; (can't select cards that are included in already built decks)
-wIncludeCardsInDeck:: ; cfd3
+wIncludeCardsInDeck::
 	ds $1
 
 ; pointer to a function that handles the menu
 ; when building a deck configuration
-wDeckConfigurationMenuHandlerFunction:: ; cfd4
+wDeckConfigurationMenuHandlerFunction::
 	ds $2
 
 ; pointer to a transition table for the
 ; function in wDeckConfigurationMenuHandlerFunction
-wDeckConfigurationMenuTransitionTable:: ; cfd6
+wDeckConfigurationMenuTransitionTable::
 	ds $2
 
 ; pointer to a list of cards that
 ; is currently being shown/manipulated
-wCurCardListPtr:: ; cfd8
+wCurCardListPtr::
 	ds $2
 
 ; text ID to print in the card confirmation screen text box
-wCardConfirmationText:: ; cfda
+wCardConfirmationText::
 	ds $2
 
 wDeckCompressionCmdByte::
@@ -1277,285 +944,285 @@ wDeckCompressionCmdByte::
 
 ; the tile to draw in place of the cursor, in case
 ; the cursor is not to be drawn
-wCursorAlternateTile:: ; cfde
+wCursorAlternateTile::
 	ds $1
 
 ; temporarily stores value of wCardListNumCursorPositions
-wTempCardListNumCursorPositions:: ; cfdf
+wTempCardListNumCursorPositions::
 	ds $1
 
 ; which Card Set selected by the player to view
-wSelectedCardSet:: ; cfe0
+wSelectedCardSet::
 	ds $1
 
 ; number of cards the player owns from the given Card Set
-wNumOwnedCardsInSet:: ; cfe1
+wNumOwnedCardsInSet::
 	ds $1
 
 ; flags that corresponds to each Phantom Card owned by the player
 ; see src/constants/menu_constants.asm
-wOwnedPhantomCardFlags:: ; cfe2
+wOwnedPhantomCardFlags::
 	ds $1
 
 ; value containing a SFX to play
 ; due to a menu input
-wMenuInputSFX:: ; cfe3
+wMenuInputSFX::
 	ds $1
 
 ; collection index of the first owned card
-wFirstOwnedCardIndex:: ; cfe5
+wFirstOwnedCardIndex::
 	ds $1
 
-wNumCardListEntries:: ; cfe6
+wNumCardListEntries::
 	ds $1
 
 ; a name buffer in the naming screen.
-wNamingScreenBuffer:: ; cfe7
+wNamingScreenBuffer::
 	ds NAMING_SCREEN_BUFFER_LENGTH
 
 ; current name length in the naming screen.
-wNamingScreenBufferLength:: ; cfff
+wNamingScreenBufferLength::
 	ds $1
 
-wNamingScreenDestPointer:: ; d000
+wNamingScreenDestPointer::
 	ds $2
 
-wNamingScreenQuestionPointer:: ; d002
+wNamingScreenQuestionPointer::
 	ds $2
 
 ; max length of name buffer.
 ; it's given for limiting the player's input.
-wNamingScreenBufferMaxLength:: ; d004
+wNamingScreenBufferMaxLength::
 	ds $1
 
-wNamingScreenNumColumns:: ; d005
+wNamingScreenNumColumns::
 	ds $1
 
-wNamingScreenCursorX:: ; d006
+wNamingScreenCursorX::
 	ds $1
 
 ; the position to display the input on.
-wNamingScreenNamePosition:: ; d007
+wNamingScreenNamePosition::
 	ds $2
 
-wd009:: ; d009
+wd009::
 	ds $4
 
 ; pointers to all decks of current deck machine
-wMachineDeckPtrs:: ; d00d
+wMachineDeckPtrs::
 	ds 2 * NUM_DECK_SAVE_MACHINE_SLOTS
 
-wNumSavedDecks:: ; d085
+wNumSavedDecks::
 	ds $1
 
 ; temporarily holds value of wCardListCursorPos
-wTempDeckMachineCursorPos:: ; d086
+wTempDeckMachineCursorPos::
 	ds $1
 
 ; temporarily holds value of wCardListVisibleOffset
-wTempCardListVisibleOffset:: ; d087
+wTempCardListVisibleOffset::
 	ds $1
 
 ; which list entry was selected in the Deck Machine screen
-wSelectedDeckMachineEntry:: ; d088
+wSelectedDeckMachineEntry::
 	ds $1
 
-wDismantledDeckName:: ; d089
+wDismantledDeckName::
 	ds DECK_NAME_SIZE
 
 ; which deck slot to be used to
 ; build a new deck
-wDeckSlotForNewDeck:: ; d0a1
+wDeckSlotForNewDeck::
 	ds $1
 
-wDeckMachineTitleText:: ; d0a2
+wDeckMachineTitleText::
 	ds $2
 
-wTempBankSRAM:: ; d0a4
+wTempBankSRAM::
 	ds $1
 
-wNumDeckMachineEntries:: ; d0a5
+wNumDeckMachineEntries::
 	ds $1
 
 ; DECK_* flags to be dismantled to build a given deck
-wDecksToBeDismantled:: ; d0a6
+wDecksToBeDismantled::
 	ds $1
 
 ; text ID to print in the text box when
 ; inside the Deck Machine menu
-wDeckMachineText:: ; d0a7
+wDeckMachineText::
 	ds $2
 
 ; which deck machine is being used
-wCurAutoDeckMachine:: ; d0a9
+wCurAutoDeckMachine::
 	ds $1
 
 ; text IDs for each deck descriptions of the
 ; Auto Deck Machine currently being shown
-wAutoDeckMachineTextDescriptions:: ; d0aa
+wAutoDeckMachineTextDescriptions::
 	ds 2 * NUM_DECK_MACHINE_SLOTS
 
 ; if bit 4 is set, transition to another map via a warp
 ; if bit 6 is set, transition to a special screen
 ;   (duel, challenge machine, battle center, gift center, credits)
 ; bit 7 may also be used for some unknown purpose
-wOverworldTransition:: ; d0b4
+wOverworldTransition::
 	ds $1
 
 ; a GAME_EVENT_* constant corresponding to an entry in GameEventPointerTable
 ; overworld, duel, credits...
-wGameEvent:: ; d0b5
+wGameEvent::
 	ds $1
 
-wSCX:: ; d0b6
+wSCX::
 	ds $1
 
-wSCY:: ; d0b7
+wSCY::
 	ds $1
 
-wSelectedPauseMenuItem:: ; d0b8
+wSelectedPauseMenuItem::
 	ds $1
 
-wSelectedPCMenuItem:: ; d0b9
+wSelectedPCMenuItem::
 	ds $1
 
 	ds $1
 
-wTempMap:: ; d0bb
+wTempMap::
 	ds $1
 
-wTempPlayerXCoord:: ; d0bc
+wTempPlayerXCoord::
 	ds $1
 
-wTempPlayerYCoord:: ; d0bd
+wTempPlayerYCoord::
 	ds $1
 
-wTempPlayerDirection:: ; d0be
+wTempPlayerDirection::
 	ds $1
 
 ; See constants/misc_constants.asm for OWMODE's
-wOverworldMode:: ; d0bf
+wOverworldMode::
 	ds $1
 
-wOverworldModeBackup:: ; d0c0
+wOverworldModeBackup::
 	ds $1
 
 ; overworld npc flag options
 ; bit 0; auto-close textbox when finished talking to npc
 ; bit 1; restore npc facing direction when finished talking to npc
 ; bit 7; hide all npc sprites (for screens like pause menu, opening boosters, entering deck machine, etc.)
-wOverworldNPCFlags:: ; d0c1
+wOverworldNPCFlags::
 	ds $1
 
 ; only used with GAME_EVENT_DUEL
-wActiveGameEvent:: ; d0c2
+wActiveGameEvent::
 	ds $1
 
 ; stores the player's result in a duel (0: win, 1: loss, 2: ???, -1: transmission error?)
 ; to be read by the overworld caller
-wDuelResult:: ; d0c3
+wDuelResult::
 	ds $1
 
-wNPCDuelist:: ; d0c4
+wNPCDuelist::
 	ds $1
 
-wNPCDuelistDirection:: ; d0c5
+wNPCDuelistDirection::
 	ds $1
 
 ; used to store the location of an overworld script, which is jumped to later
-wNextScript:: ; d0c6
+wNextScript::
 	ds $2
 
-wCurrentNPCNameTx:: ; d0c8
+wCurrentNPCNameTx::
 	ds $2
 
-wDefaultObjectText:: ; d0ca
+wDefaultObjectText::
 	ds $2
 
-wObjectPalettesCGBBackup:: ; d0cc
+wObjectPalettesCGBBackup::
 	ds 8 palettes
 
-wOBP0Backup:: ; d10c
+wOBP0Backup::
 	ds $1
 
-wOBP1Backup:: ; d10d
+wOBP1Backup::
 	ds $1
 
 	ds $1
 
-wReloadOverworldCallbackPtr:: ; d10f
+wReloadOverworldCallbackPtr::
 	ds $2
 
-wDefaultSong:: ; d111
+wDefaultSong::
 	ds $1
 
-wSongOverride:: ; d112
+wSongOverride::
 	ds $1
 
-wMatchStartTheme:: ; d113
+wMatchStartTheme::
 	ds $1
 
-wMedalScreenYOffset:: ; d114
+wMedalScreenYOffset::
 	ds $1
 
-wWhichMedal:: ; d115
+wWhichMedal::
 	ds $1
 
-wMedalDisplayTimer:: ; d116
+wMedalDisplayTimer::
 	ds $1
 
 ; if FALSE, first booster being given
 ; if TRUE, additional booster being given
 ; used to control the text that is displayed when booster is opened
-wAnotherBoosterPack:: ; d117
+wAnotherBoosterPack::
 	ds $1
 
-wConfigMessageSpeedCursorPos:: ; d118
+wConfigMessageSpeedCursorPos::
 	ds $1
 
-wConfigDuelAnimationCursorPos:: ; d119
+wConfigDuelAnimationCursorPos::
 	ds $1
 
-wConfigExitSettingsCursorPos:: ; d11a
+wConfigExitSettingsCursorPos::
 	ds $1
 
-wConfigCursorYPos:: ; d11b
+wConfigCursorYPos::
 	ds $1
 
 ; cursor is invisible if bit 4 is set (every $10 ticks)
-wCursorBlinkTimer:: ; d11c
+wCursorBlinkTimer::
 	ds $1
 
-wPCPackSelection:: ; d11d
+wPCPackSelection::
 	ds $1
 
 ; 7th bit of each pack corresponds to whether or not it's been read
-wPCPacks:: ; d11e
+wPCPacks::
 	ds NUM_PC_PACKS
 
-wPCLastDirectionPressed:: ; d12d
+wPCLastDirectionPressed::
 	ds $1
 
-wSelectedPCPack:: ; d12e
+wSelectedPCPack::
 	ds $1
 
-wBGMapWidth:: ; d12f
+wBGMapWidth::
 	ds $1
 
-wBGMapHeight:: ; d130
+wBGMapHeight::
 	ds $1
 
 ; current tilemap to load
 ; TILEMAP_* constant
-wCurTilemap:: ; d131
+wCurTilemap::
 	ds $1
 
-	ds $1
+SECTION "WRAM1", WRAMX
 
 UNION
 
 ; when opening a booster pack, list of cards available in the booster pack of a specific rarity
-wBoosterViableCardList:: ; d133
+wBoosterViableCardList::
 	ds $100
 
 NEXTU
@@ -1565,190 +1232,190 @@ NEXTU
 ; $10: text/menu box tile
 ; $40: impassable and talkable (NPC or talkable wall)
 ; $80: impassable and untalkable (wall)
-wPermissionMap:: ; d133
+wPermissionMap::
 	ds $100
 
 ENDU
 
-wd233:: ; d233
+wd233::
 	ds $1
 
-wd234:: ; d234
+wd234::
 	ds $1
 
-wSCXBuffer:: ; d235
+wSCXBuffer::
 	ds $1
 
-wSCYBuffer:: ; d236
+wSCYBuffer::
 	ds $1
 
-wd237:: ; d237
+wd237::
 	ds $1
 
-wd238:: ; d238
+wd238::
 	ds $1
 
 ; current tileset to load to VRAM
 ; TILESET_* constant
-wCurTileset:: ; d239
+wCurTileset::
 	ds $1
 
 ; pointer to compressed data
 ; of the current map's permission map
-wBGMapPermissionDataPtr:: ; d23a
+wBGMapPermissionDataPtr::
 	ds $2
 
 ; whether the  BG Map is in CGB mode
 ; this means half of the width is for
 ; VRAM0 and the other half is for VRAM1
-wBGMapCGBMode:: ; d23c
+wBGMapCGBMode::
 	ds $1
 
-wBGMapBank:: ; d23d
+wBGMapBank::
 	ds $1
 
 ; palette loaded from Palette* data
-wLoadedPalData:: ; d23e
+wLoadedPalData::
 
 ; temporary frame data loaded in HandleAnimationFrame
-wLoadedFrameData:: ; d23e
+wLoadedFrameData::
 
 ; where BG map data or other compressed data is decompressed
-wDecompressionBuffer:: ; d23e
+wDecompressionBuffer::
 	ds $50
 
-wDecompressionRowWidth:: ; d28e
+wDecompressionRowWidth::
 	ds $1
 
-wCurMapInitialPalette:: ; d28f
+wCurMapInitialPalette::
 	ds $1
 
-wCurMapPalette:: ; d290
+wCurMapPalette::
 	ds $1
 
-wd291:: ; d291
+wd291::
 	ds $1
 
 ; determines where to copy BG Map data
 ; $0 = copies to VRAM
 ; $1 = copies to SRAM
-wWriteBGMapToSRAM:: ; d292
+wWriteBGMapToSRAM::
 	ds $1
 
 	ds $1
 
-wTempBGP:: ; d294
+wTempBGP::
 	ds $1
 
-wTempOBP0:: ; d295
+wTempOBP0::
 	ds $1
 
-wTempOBP1:: ; d296
+wTempOBP1::
 	ds $1
 
 ; temporarily holds the palettes from
 ; wBackgroundPalettesCGB
-wTempBackgroundPalettesCGB:: ; d297
+wTempBackgroundPalettesCGB::
 	ds NUM_BACKGROUND_PALETTES palettes
 
 ; temporarily holds the palettes from
 ; wObjectPalettesCGB
-wTempObjectPalettesCGB:: ; d2d7
+wTempObjectPalettesCGB::
 	ds NUM_OBJECT_PALETTES palettes
 
-wd317:: ; d317
+wd317::
 	ds $1
 
 ; pointer to the data of current map OW frameset
-wCurMapOWFrameset:: ; d318
+wCurMapOWFrameset::
 	ds $2
 
 ; stored data for each OW frameset subgroup
 ; has frame data offset and duration
-wOWFramesetSubgroups:: ; d31a
+wOWFramesetSubgroups::
 	ds NUM_OW_FRAMESET_SUBGROUPS * $2
 
 ; address offset of current OW frame
 ; relative to wCurMapOWFrameset
-wCurOWFrameDataOffset:: ; d320
+wCurOWFrameDataOffset::
 	ds $1
 
 ; duration of the current map OW frame
-wCurOWFrameDuration:: ; d321
+wCurOWFrameDuration::
 	ds $1
 
 ; number of valid subgroups
 ; that are currently loaded in wOWFramesetSubgroups
-wNumLoadedFramesetSubgroups:: ; d322
+wNumLoadedFramesetSubgroups::
 	ds $1
 
 ; holds the current state of each event
 ; each corresponding to a MAP_EVENT_* constant
 ; if FALSE, doors are closed / deck machines are deactivated
 ; if TRUE, doors are open / deck machines are activated
-wOWMapEvents:: ; d323
+wOWMapEvents::
 	ds NUM_MAP_EVENTS
 
 ; the OWMAP_* value for the current overworld map selection
-wOverworldMapSelection:: ; d32e
+wOverworldMapSelection::
 	ds $1
 
-wCurMap:: ; d32f
+wCurMap::
 	ds $1
 
-wPlayerXCoord:: ; d330
+wPlayerXCoord::
 	ds $1
 
-wPlayerYCoord:: ; d331
+wPlayerYCoord::
 	ds $1
 
-wPlayerXCoordPixels:: ; d332
+wPlayerXCoordPixels::
 	ds $1
 
-wPlayerYCoordPixels:: ; d333
+wPlayerYCoordPixels::
 	ds $1
 
-wPlayerDirection:: ; d334
+wPlayerDirection::
 	ds $1
 
 ; seems to be 1 if moving 0 otherwise
-wPlayerCurrentlyMoving:: ; d335
+wPlayerCurrentlyMoving::
 	ds $1
 
-wPlayerSpriteIndex:: ; d336
+wPlayerSpriteIndex::
 	ds $1
 
-wPlayerSpriteBaseAnimation:: ; d337
+wPlayerSpriteBaseAnimation::
 	ds $1
 
-wd338:: ; d338
+wd338::
 	ds $1
 
-wd339:: ; d339
+wd339::
 	ds $1
 
-wd33a:: ; d33a
+wd33a::
 	ds $1
 
-wOverworldMapCursorSprite:: ; d33b
+wOverworldMapCursorSprite::
 	ds $1
 
-wOverworldMapCursorAnimation:: ; d33c
+wOverworldMapCursorAnimation::
 	ds $1
 
-wOverworldMapStartingPosition:: ; d33d
+wOverworldMapStartingPosition::
 	ds $1
 
 ; 0: selection not made, controlling cursor
 ; 1: selection made, animating player across map
 ; 2: player arrived at new map
-wOverworldMapPlayerAnimationState:: ; d33e
+wOverworldMapPlayerAnimationState::
 	ds $1
 
-wOverworldMapPlayerMovementPtr:: ; d33f
+wOverworldMapPlayerMovementPtr::
 	ds $2
 
-wOverworldMapPlayerMovementCounter:: ; d341
+wOverworldMapPlayerMovementCounter::
 	ds $1
 
 	ds $1
@@ -1760,24 +1427,24 @@ wOverworldMapPlayerMovementCounter:: ; d341
 ; where the high byte represents the number of pixels
 ; to travel per frame and the low byte represents the
 ; fraction of a pixel to travel per frame
-wOverworldMapPlayerPathHorizontalMovement:: ; d343
+wOverworldMapPlayerPathHorizontalMovement::
 	ds $2
 
 ; works the same as above, but for vertical distance
-wOverworldMapPlayerPathVerticalMovement:: ; d345
+wOverworldMapPlayerPathVerticalMovement::
 	ds $2
 
-wOverworldMapPlayerHorizontalSubPixelPosition:: ; d347
+wOverworldMapPlayerHorizontalSubPixelPosition::
 	ds $1
 
-wOverworldMapPlayerVerticalSubPixelPosition:: ; d348
+wOverworldMapPlayerVerticalSubPixelPosition::
 	ds $1
 
 ; total number of NPCs that are currently loaded
-wNumLoadedNPCs:: ; d349
+wNumLoadedNPCs::
 	ds $1
 
-wLoadedNPCs:: ; d34a
+wLoadedNPCs::
 	loaded_npc_struct wLoadedNPC1
 	loaded_npc_struct wLoadedNPC2
 	loaded_npc_struct wLoadedNPC3
@@ -1787,283 +1454,186 @@ wLoadedNPCs:: ; d34a
 	loaded_npc_struct wLoadedNPC7
 	loaded_npc_struct wLoadedNPC8
 
-wLoadedNPCTempIndex:: ; d3aa
+wLoadedNPCTempIndex::
 	ds $1
 
-wTempNPC:: ; d3ab
+wTempNPC::
 	ds $1
 
-wLoadNPCXPos:: ; d3ac
+wLoadNPCXPos::
 	ds $1
 
-wLoadNPCYPos:: ; d3ad
+wLoadNPCYPos::
 	ds $1
 
-wLoadNPCDirection:: ; d3ae
+wLoadNPCDirection::
 	ds $1
 
-wLoadNPCFunction:: ; d3af
+wLoadNPCFunction::
 	ds $2
 
-wNPCAnim:: ; d3b1
+wNPCAnim::
 	ds $1
 
-wNPCAnimFlags:: ; d3b2
+wNPCAnimFlags::
 	ds $1
 
 ; sprite ID of the NPC to load
-wNPCSpriteID:: ; d3b3
+wNPCSpriteID::
 	ds $1
 
 	ds $2
 
 ; ID of the NPC being interacted with in Script
-wScriptNPC:: ; d3b6
+wScriptNPC::
 	ds $1
 
 ; bit 6 will be set if an NPC is currently moving
-wIsAnNPCMoving:: ; d3b7
+wIsAnNPCMoving::
 	ds $1
 
 ; whether Ronald is in the current map
 ; is used to load his theme whenever he is present
-wRonaldIsInMap:: ; d3b8
+wRonaldIsInMap::
 	ds $1
 
-wd3b9:: ; d3b9
+wd3b9::
 	ds $2
 
-wMastersBeatenList:: ; d3bb
+wMastersBeatenList::
 	ds $a
 
-wGeneralSaveDataCheckSum:: ; d3c5
+wGeneralSaveDataCheckSum::
 	ds $2
 
-wNumSRAMValidationErrors:: ; d3c7
+wNumSRAMValidationErrors::
 	ds $1
 
 ; play time hours and minutes
 ; byte 0: minutes
 ; byte 1: hours (lower byte)
 ; byte 2: hours (higher byte)
-wPlayTimeHourMinutes:: ; d3c8
+wPlayTimeHourMinutes::
 	ds $3
 
-wCurOverworldMap:: ; d3cb
+wCurOverworldMap::
 	ds $1
 
-wMedalCount:: ; d3cc
+wMedalCount::
 	ds $1
 
 ; total number of cards the player has collected
-wTotalNumCardsCollected:: ; d3cd
+wTotalNumCardsCollected::
 	ds $2
 
 ; total number of cards to be collected
 ; doesn't count the Phantom cards (VenusaurLv64 and MewLv15)
 ; unless they have already been collected
-wTotalNumCardsToCollect:: ; d3ce
+wTotalNumCardsToCollect::
 	ds $2
 
 	ds $1
 
-wd3d0:: ; d3d0
+wd3d0::
 	ds $1
 
 ; the bits relevant to the currently worked on event, obtained from EventVarMasks
-wLoadedEventBits:: ; d3d1
+wLoadedEventBits::
 	ds $1
 
-wEventVars:: ; d3d2
+wEventVars::
 	ds $40
 
 ; 0 keeps looping, other values break the loop in RST20
-wBreakScriptLoop:: ; d412
+wBreakScriptLoop::
 	ds $1
 
-wScriptPointer:: ; d413
+wScriptPointer::
 	ds $2
 
 ; generally set to ff when an event check passes, 0 otherwise
-wScriptControlByte:: ; d415
+wScriptControlByte::
 	ds $1
 
-wd416:: ; d416
+wd416::
 	ds $1
 
-wd417:: ; d417
+wd417::
 	ds $1
 
 	ds $7
 
 ; store settings for animation enabled/disabled
 ; FALSE means enabled, TRUE means disabled
-wAnimationsDisabled:: ; d421
-	ds $1
-
-; holds an animation to play
-wTempAnimation:: ; d422
-	ds $1
-
-; holds a list of animations to play
-; as long as any of the slot isn't $ff, there's something to play
-; it may actually not be a queue
-wAnimationQueue:: ; d423
-	ds ANIMATION_QUEUE_LENGTH
-
-wActiveScreenAnim:: ; d42a
-	ds $1
-
-wAnimFlags:: ; d42b
-	ds $1
-
-wDuelAnimBuffer:: ; d42c
-	duel_anim_struct wDuelAnim1
-	duel_anim_struct wDuelAnim2
-	duel_anim_struct wDuelAnim3
-	duel_anim_struct wDuelAnim4
-	duel_anim_struct wDuelAnim5
-	duel_anim_struct wDuelAnim6
-	duel_anim_struct wDuelAnim7
-	duel_anim_struct wDuelAnim8
-	duel_anim_struct wDuelAnim9
-	duel_anim_struct wDuelAnim10
-	duel_anim_struct wDuelAnim11
-	duel_anim_struct wDuelAnim12
-	duel_anim_struct wDuelAnim13
-	duel_anim_struct wDuelAnim14
-	duel_anim_struct wDuelAnim15
-	duel_anim_struct wDuelAnim16
-
-wDuelAnimBufferCurPos:: ; d4ac
-	ds $1
-
-wDuelAnimBufferSize:: ; d4ad
-	ds $1
-
-; used to know what coordinate offsets to use to place animations
-; for use in GetAnimCoordsAndFlags
-; DUEL_ANIM_SCREEN_MAIN_SCENE       = main scene
-; DUEL_ANIM_SCREEN_PLAYER_PLAY_AREA = Player's Play Area screen
-; DUEL_ANIM_SCREEN_OPP_PLAY_AREA    = Opponent's Play Area screen
-wDuelAnimationScreen:: ; d4ae
-	ds $1
-
-; which side to play animation
-; uses PLAYER_TURN and OPPONENT_TURN constants
-wDuelAnimDuelistSide:: ; d4af
-	ds $1
-
-; used in GetAnimCoordsAndFlags to determine
-; what coordinates to draw the animation in.
-; e.g. used to know what Play Area card
-; to draw a hit animation in the Play Area screen.
-wDuelAnimLocationParam:: ; d4b0
-	ds $1
-
-; damage value to display with animation
-wDuelAnimDamage:: ; d4b1
-	ds $2
-
-wDuelAnimSetScreen:: ; d4b3
-wDuelAnimEffectiveness:: ; d4b3
+wAnimationsDisabled::
 	ds $1
 
 ; stores the character symbols of some
 ; value that was converted to decimal
 ; through ConvertWordToNumericalDigits
-wDecimalChars:: ; d4b4
+wDecimalChars::
 	ds $3
-
-wDamageCharIndex:: ; d4b7
-	ds $1
-
-wDamageCharAnimDelay:: ; d4b8
-	ds $1
-
-; pointer to a function to update
-; the current screen animation
-wScreenAnimUpdatePtr:: ; d4b9
-	ds $2
-
-; duration of the current screen animation
-wScreenAnimDuration:: ; d4bb
-	ds $1
-
-wScreenShakeOffsetsPtr:: ; d4bc
-wTempWhiteFlashBGP:: ; d4bc
-	ds $2
-
-; bank number to return to after processing animation
-wDuelAnimReturnBank:: ; d4be
-	ds $1
-
-wd4bf:: ; d4bf
-	ds $1
-
-wd4c0:: ; d4c0
-	ds $1
 
 	ds $1
 
 ; pointer to address in VRAM
-wVRAMPointer:: ; d4c2
+wVRAMPointer::
 	ds $2
 
 ; these next 3 seem to be an address (bank @ end) for copying bg data
-wTempPointer:: ; d4c4
+wTempPointer::
 	ds $2
 
-wTempPointerBank:: ; d4c6
+wTempPointerBank::
 	ds $1
 
 ; stores number of bytes per tile for current sprite
-wCurSpriteTileSize:: ; d4c7
+wCurSpriteTileSize::
 	ds $1
 
 ; stores number of tiles that current sprite/tileset has
-wTotalNumTiles:: ; d4c8
+wTotalNumTiles::
 
 ; checksum?
-wGeneralSaveDataByteCount:: ; d4c8
+wGeneralSaveDataByteCount::
 	ds $2
 
 ; stores tile offset in VRAM
-wVRAMTileOffset:: ; d4ca
+wVRAMTileOffset::
 
 ; for LoadOBPalette
 ; which object palette to load to (DMG)
-wWhichOBP:: ; d4ca
+wWhichOBP::
 
 ; temporary storage of variables when
 ; calculating booster chances of cards
-wTempBoosterChances:: ; d4ca
+wTempBoosterChances::
 
 ; current frame to load when processing an animation
-wWhichAnimationFrame:: ; d4ca
+wWhichAnimationFrame::
 	ds $1
 
 ; for LoadOBPalette
 ; which object palette index to load to (CGB)
-wWhichOBPalIndex:: ; d4cb
+wWhichOBPalIndex::
 
 ; for LoadBGPalette
 ; which background palette index to load to (CGB)
-wWhichBGPalIndex:: ; d4cb
+wWhichBGPalIndex::
 
 ; stores which VRAM bank to draw certain gfx
 ; $0 = VRAM0, $1 = VRAM1
-wWhichVRAMBank:: ; d4cb
+wWhichVRAMBank::
 	ds $1
 
 	ds $3
 
 ; used as an index to manipulate a sprite from wSpriteAnimBuffer
-wWhichSprite:: ; d4cf
+wWhichSprite::
 	ds $1
 
 ; 16-byte data for up to 16 sprites
-wSpriteAnimBuffer:: ; d4d0
+wSpriteAnimBuffer::
 	sprite_anim_struct wSprite1
 	sprite_anim_struct wSprite2
 	sprite_anim_struct wSprite3
@@ -2081,35 +1651,35 @@ wSpriteAnimBuffer:: ; d4d0
 	sprite_anim_struct wSprite15
 	sprite_anim_struct wSprite16
 
-wCurrSpriteAttributes:: ; d5d0
+wCurrSpriteAttributes::
 	ds $1
 
-wCurrSpriteXPos:: ; d5d1
+wCurrSpriteXPos::
 	ds $1
 
-wCurrSpriteYPos:: ; d5d2
+wCurrSpriteYPos::
 	ds $1
 
-wCurrSpriteTileID:: ; d5d3
+wCurrSpriteTileID::
 	ds $1
 
-wCurrSpriteRightEdgeCheck:: ; d5d4
+wCurrSpriteRightEdgeCheck::
 	ds $1
 
-wCurrSpriteBottomEdgeCheck:: ; d5d5
+wCurrSpriteBottomEdgeCheck::
 	ds $1
 
-wCurrSpriteFrameBank:: ; d5d6
+wCurrSpriteFrameBank::
 	ds $1
 
 ; when non-0, skips all routines
 ; related to animating sprites
 ; (perhaps used during testing)
 ; it is always set to 0
-wAllSpriteAnimationsDisabled:: ; d5d7
+wAllSpriteAnimationsDisabled::
 	ds $1
 
-wSpriteVRAMBuffer:: ; d5d8
+wSpriteVRAMBuffer::
 	sprite_vram_struct wSpriteVRAM1
 	sprite_vram_struct wSpriteVRAM2
 	sprite_vram_struct wSpriteVRAM3
@@ -2128,216 +1698,216 @@ wSpriteVRAMBuffer:: ; d5d8
 	sprite_vram_struct wSpriteVRAM16
 
 ; seems to be the amount of entries in wSpriteVRAMBuffer
-wSpriteVRAMBufferSize:: ; d618
+wSpriteVRAMBufferSize::
 	ds $1
 
-wSceneSprite:: ; d619
+wSceneSprite::
 	ds $1
 
-wSceneSpriteAnimation:: ; d61a
+wSceneSpriteAnimation::
 	ds $1
 
-wSceneSpriteIndex:: ; d61b
+wSceneSpriteIndex::
 	ds $1
 
 ; base X position in pixels of loaded scene
-wSceneBaseX:: ; d61c
+wSceneBaseX::
 	ds $1
 
 ; base Y position in pixels of loaded scene
-wSceneBaseY:: ; d61d
+wSceneBaseY::
 	ds $1
 
-wCurPortrait:: ; d61e
+wCurPortrait::
 	ds $1
 wPortraitSlot::
 	ds $1
 wPortraitEmotion::
 	ds $1
 
-wd61f:: ; d61f
+wd61f::
 	ds $1
 
 	ds $2
 
 ; whether there exists valid save data
-wHasSaveData:: ; d624
+wHasSaveData::
 	ds $1
 
 ; whether has valid duel save data
-wHasDuelSaveData:: ; d625
+wHasDuelSaveData::
 	ds $1
 
 ; keep track of which Start Menu item
 ; is currently highlighted
-wCurHighlightedStartMenuItem:: ; d626
+wCurHighlightedStartMenuItem::
 
 ; used to keep track of the time
 ; in which the Title Screen ignores
 ; the player's input
-wTitleScreenIgnoreInputCounter:: ; d626
+wTitleScreenIgnoreInputCounter::
 	ds $1
 
-wLastSelectedStartMenuItem:: ; d627
+wLastSelectedStartMenuItem::
 	ds $1
 
 ; START_MENU_* constant chosen
 ; by the player in the Start Menu
-wStartMenuChoice:: ; d628
+wStartMenuChoice::
 	ds $1
 
 ; list of sprites used in the Title Screen
-wTitleScreenSprites:: ; d629
+wTitleScreenSprites::
 	ds $7
 
 	ds $1
 
 ; pointer to commands used by opening and credits sequence
 ; (see IntroSequence and CreditsSequence)
-wSequenceCmdPtr:: ; d631
+wSequenceCmdPtr::
 	ds $2
 
 ; when non-zero, is decremented and only
 ; executes the next sequence command when it's 0
 ; when it's $ff, it is interpreted as end of sequence
-wSequenceDelay:: ; d633
+wSequenceDelay::
 	ds $1
 
-wIntroSequencePalsNeedUpdate:: ; d634
+wIntroSequencePalsNeedUpdate::
 	ds $1
 
 ; counter that increments each frame in the Title screen
 ; if bottom 6 bits are 0, then spawn a new orb
-wTitleScreenOrbCounter:: ; d635
+wTitleScreenOrbCounter::
 	ds $1
 
 ; has parameters used for the Start Menu
 ; check SetStartMenuParams for what parameters are set
-wStartMenuParams:: ; d636
+wStartMenuParams::
 	ds $11
 
-wd647:: ; d647
+wd647::
 	ds $1
 
-wd648:: ; d648
+wd648::
 	ds $1
 
-wd649:: ; d649
+wd649::
 	ds $1
 
-wd64a:: ; d64a
+wd64a::
 	ds $1
 
 ; wd64b to wd665 used by Func_3e44
-wd64b:: ; d64b
+wd64b::
 	ds $6
 
-wd651:: ; d651
+wd651::
 	ds $6
 
-wd657:: ; d657
+wd657::
 	ds $1
 
-wd658:: ; d658
+wd658::
 	ds $1
 
-wd659:: ; d659
+wd659::
 	ds $6
 
-wd65f:: ; d65f
+wd65f::
 	ds $6
 
-wd665:: ; d665
+wd665::
 	ds $1
 
 ; used by GetNextBackgroundScroll
-wBGScrollMod:: ; d666
+wBGScrollMod::
 	ds $1
 
 ; used by ApplyBackgroundScroll
-wApplyBGScroll:: ; d667
+wApplyBGScroll::
 	ds $1
 
 ; used by ApplyBackgroundScroll
-wNextScrollLY:: ; d668
+wNextScrollLY::
 	ds $1
 
 ; which BoosterPack_* corresponds to the booster pack that the player is opening
-wBoosterPackID:: ; d669
+wBoosterPackID::
 	ds $1
 
 ; card being currently processed by the booster pack engine functions
-wBoosterCurrentCard:: ; d66a
+wBoosterCurrentCard::
 	ds $2
 
 ; BOOSTER_CARD_TYPE_* of the card that has just been drawn from the pack
-wBoosterJustDrawnCardType:: ; d66b
+wBoosterJustDrawnCardType::
 	ds $1
 
 ; rarity of the cards being currently generated (non-energy cards are generated ordered by rarity)
-wBoosterCurrentRarity:: ; d66c
+wBoosterCurrentRarity::
 	ds $1
 
 ; the averaged value of all values in wBoosterData_TypeChances
 ; used to recalculate the chances of a booster card type when a card of said type is drawn from the pack
-wBoosterAveragedTypeChances:: ; d66d
+wBoosterAveragedTypeChances::
 	ds $1
 
 ; data of the booster pack copied from the corresponding BoosterSetRarityAmountsTable entry
-wBoosterData_CommonAmount:: ; d66e
+wBoosterData_CommonAmount::
 	ds $1
-wBoosterData_UncommonAmount:: ; d66f
+wBoosterData_UncommonAmount::
 	ds $1
-wBoosterData_RareAmount:: ; d670
+wBoosterData_RareAmount::
 	ds $1
 
 ; how many cards of each type are available of a certain rarity in the booster pack's set
-wBoosterAmountOfCardTypeTable:: ; d671
+wBoosterAmountOfCardTypeTable::
 	ds NUM_BOOSTER_CARD_TYPES
 
 ; holds information similar to wBoosterData_TypeChances, except that it contains 00 on any type
 ; of which there are no cards remaining in the set for the current rarity
-wBoosterTempTypeChancesTable:: ; d67a
+wBoosterTempTypeChancesTable::
 	ds NUM_BOOSTER_CARD_TYPES
 
 ; properties of the card being currently processed by the booster pack engine functions
-wBoosterCurrentCardType:: ; d683
+wBoosterCurrentCardType::
 	ds $1
-wBoosterCurrentCardRarity:: ; d684
+wBoosterCurrentCardRarity::
 	ds $1
-wBoosterCurrentCardSet:: ; d685
+wBoosterCurrentCardSet::
 	ds $1
 
 ; data of the booster pack copied from the corresponding BoosterPack_* structure.
 ; wBoosterData_TypeChances is updated after each card is drawn, to re-balance the type chances.
-wBoosterData_Set:: ; d686
+wBoosterData_Set::
 	ds $1
-wBoosterData_EnergyFunctionPointer:: ; d687
+wBoosterData_EnergyFunctionPointer::
 	ds $2
-wBoosterData_TypeChances:: ; d689
+wBoosterData_TypeChances::
 	ds NUM_BOOSTER_CARD_TYPES
 
 ; index into ChallengeMachine_OpponentDeckIDs
 ; not the typical NPC duelist ID
-wChallengeMachineOpponent:: ; d692
+wChallengeMachineOpponent::
 	ds $1
 
-wStarterDeckChoice:: ; d693
+wStarterDeckChoice::
 	ds $1
 
-wMultichoiceTextboxResult_Sam:: ; d694
+wMultichoiceTextboxResult_Sam::
 	ds $1
 
-wMultichoiceTextboxResult_ChooseDeckToDuelAgainst:: ; d695
+wMultichoiceTextboxResult_ChooseDeckToDuelAgainst::
 	ds $1
 
-wChallengeHallNPC:: ; d696
+wChallengeHallNPC::
 	ds $1
 
-wCardReceived:: ; d697
+wCardReceived::
 	ds $1
 
-wd698:: ; d698
+wd698::
 	ds $4
 
 ; stores the list of all card IDs that filtered by its card type
@@ -2349,302 +1919,302 @@ wFilteredCardList::
 wUniqueDeckCardList::
 	ds DECK_SIZE * 2
 
-SECTION "WRAM Audio", WRAM0
+SECTION "WRAM Audio", WRAMX
 
 ; bit 7 is set once the song has been started
-wCurSongID:: ; dd80
+wCurSongID::
 	ds $1
 
-wCurSongBank:: ; dd81
+wCurSongBank::
 	ds $1
 
 ; bit 7 is set once the sfx has been started
-wCurSfxID:: ; dd82
+wCurSfxID::
 	ds $1
 
 ; 8-bit output enable mask for left/right output for each channel
-wMusicStereoPanning:: ; dd84
+wMusicStereoPanning::
 	ds $1
 
-wdd85:: ; dd85
+wdd85::
 	ds $1
 
-wMusicDuty1:: ; dd86
+wMusicDuty1::
 	ds $1
 
-wMusicDuty2:: ; dd87
+wMusicDuty2::
 	ds $1
 
 	ds $2
 
-wMusicWave:: ; dd8a
+wMusicWave::
 	ds $1
 
-wMusicWaveChange:: ; dd8b
+wMusicWaveChange::
 	ds $1
 
-wdd8c:: ; dd8c
+wdd8c::
 	ds $1
 
-wMusicIsPlaying:: ; dd8d
+wMusicIsPlaying::
 	ds $4
 
-wMusicTie:: ; dd91
+wMusicTie::
 	ds $4
 
 ; 4 pointers to the current music commands being executed
-wMusicChannelPointers:: ; dd95
+wMusicChannelPointers::
 	ds $8
 
 ; 4 pointers to the addresses of the beginning of the main loop for each channel
-wMusicMainLoopStart:: ; dd9d
+wMusicMainLoopStart::
 	ds $8
 
-wMusicCh1CurPitch:: ; dda5
+wMusicCh1CurPitch::
 	ds $1
 
-wMusicCh1CurOctave:: ; dda6
+wMusicCh1CurOctave::
 	ds $1
 
-wMusicCh2CurPitch:: ; dda7
+wMusicCh2CurPitch::
 	ds $1
 
-wMusicCh2CurOctave:: ; dda8
+wMusicCh2CurOctave::
 	ds $1
 
-wMusicCh3CurPitch:: ; dda9
+wMusicCh3CurPitch::
 	ds $1
 
-wMusicCh3CurOctave:: ; ddaa
+wMusicCh3CurOctave::
 	ds $1
 
-wddab:: ; ddab
+wddab::
 	ds $1
 
-wddac:: ; ddac
+wddac::
 	ds $1
 
 	ds $2
 
-wMusicOctave:: ; ddaf
+wMusicOctave::
 	ds $4
 
-wddb3:: ; ddb3
+wddb3::
 	ds $4
 
-wddb7:: ; ddb7
+wddb7::
 	ds $1
 
-wddb8:: ; ddb8
+wddb8::
 	ds $1
 
-wddb9:: ; ddb9
+wddb9::
 	ds $1
 
-wddba:: ; ddba
+wddba::
 	ds $1
 
-wddbb:: ; ddbb
+wddbb::
 	ds $4
 
 ; the delay (1-8) before a note is cut off early (0 is disabled)
-wMusicCutoff:: ; ddbf
+wMusicCutoff::
 	ds $4
 
-wddc3:: ; ddc3
+wddc3::
 	ds $4
 
 ; the volume to apply after a cutoff
-wMusicEcho:: ; ddc7
+wMusicEcho::
 	ds $4
 
 ; the pitch offset to apply to each note (see Pitches)
-wMusicPitchOffset:: ; ddcb
+wMusicPitchOffset::
 	ds $4
 
-wMusicSpeed:: ; ddcf
+wMusicSpeed::
 	ds $4
 
-wMusicVibratoType:: ; ddd3
+wMusicVibratoType::
 	ds $4
 
-wMusicVibratoType2:: ; ddd7
+wMusicVibratoType2::
 	ds $4
 
-wdddb:: ; dddb
+wdddb::
 	ds $4
 
-wMusicVibratoDelay:: ; dddf
+wMusicVibratoDelay::
 	ds $4
 
-wdde3:: ; dde3
+wdde3::
 	ds $4
 
-wMusicVolume:: ; dde7
+wMusicVolume::
 	ds $3
 
 ; the frequency offset to apply to each note
-wMusicFrequencyOffset:: ; ddea
+wMusicFrequencyOffset::
 	ds $3
 
-wdded:: ; dded
+wdded::
 	ds $2
 
-wddef:: ; ddef
+wddef::
 	ds $1
 
-wddf0:: ; ddf0
+wddf0::
 	ds $1
 
-wMusicPanning:: ; ddf1
+wMusicPanning::
 	ds $1
 
-wddf2:: ; ddf2
+wddf2::
 	ds $1
 
 ; 4 pointers to the positions on the stack for each channel
-wMusicChannelStackPointers:: ; ddf3
+wMusicChannelStackPointers::
 	ds $8
 
 ; these stacks contain the address of the command to return to at the end of a sub branch (2 bytes)
 ; and also contain the address of the command to return to at the end of a loop (2 bytes for address and
 ; 1 byte for loop count)
-wMusicCh1Stack:: ; ddfb
+wMusicCh1Stack::
 	ds $c
 
-wMusicCh2Stack:: ; de07
+wMusicCh2Stack::
 	ds $c
 
-wMusicCh3Stack:: ; de13
+wMusicCh3Stack::
 	ds $c
 
-wMusicCh4Stack:: ; de1f
+wMusicCh4Stack::
 	ds $c
 
-wde2b:: ; de2b
+wde2b::
 	ds $3
 
-wde2e:: ; de2e
+wde2e::
 	ds $1
 
-wSFXPitchOffsets:: ; de2f
+wSFXPitchOffsets::
 	ds $3
 
-wde32:: ; de32
+wde32::
 	ds $1
 
-wde33:: ; de33
+wde33::
 	ds $4
 
-wde37:: ; de37
+wde37::
 	ds $6
 
-wde3d:: ; de3d
+wde3d::
 	ds $2
 
-wde3f:: ; de3f
+wde3f::
 	ds $4
 
-wde43:: ; de43
+wde43::
 	ds $8
 
-wSFXCommandPointers:: ; de4b
+wSFXCommandPointers::
 	ds $8
 
 wSFXBank::
 	ds $1
 
-wSFXIsPlaying:: ; de53
+wSFXIsPlaying::
 	ds $1
 
-wde54:: ; de54
+wde54::
 	ds $1
 
-wCurSongIDBackup:: ; de55
+wCurSongIDBackup::
 	ds $1
 
-wCurSongBankBackup:: ; de56
+wCurSongBankBackup::
 	ds $1
 
-wMusicStereoPanningBackup:: ; de57
+wMusicStereoPanningBackup::
 	ds $1
 
-wMusicDuty1Backup:: ; de58
+wMusicDuty1Backup::
 	ds $4
 
-wMusicWaveBackup:: ; de5c
+wMusicWaveBackup::
 	ds $1
 
-wMusicWaveChangeBackup:: ; de5d
+wMusicWaveChangeBackup::
 	ds $1
 
-wMusicIsPlayingBackup:: ; de5e
+wMusicIsPlayingBackup::
 	ds $4
 
-wMusicTieBackup:: ; de62
+wMusicTieBackup::
 	ds $4
 
-wMusicChannelPointersBackup:: ; de66
+wMusicChannelPointersBackup::
 	ds $8
 
-wMusicMainLoopStartBackup:: ; de6e
+wMusicMainLoopStartBackup::
 	ds $8
 
-wde76:: ; de76
+wde76::
 	ds $1
 
-wde77:: ; de77
+wde77::
 	ds $1
 
-wMusicOctaveBackup:: ; de78
+wMusicOctaveBackup::
 	ds $4
 
-wde7c:: ; de7c
+wde7c::
 	ds $4
 
-wde80:: ; de80
+wde80::
 	ds $4
 
-wde84:: ; de84
+wde84::
 	ds $4
 
-wMusicCutoffBackup:: ; de88
+wMusicCutoffBackup::
 	ds $4
 
-wde8c:: ; de8c
+wde8c::
 	ds $4
 
-wMusicEchoBackup:: ; de90
+wMusicEchoBackup::
 	ds $4
 
-wMusicPitchOffsetBackup:: ; de94
+wMusicPitchOffsetBackup::
 	ds $4
 
-wMusicSpeedBackup:: ; de98
+wMusicSpeedBackup::
 	ds $4
 
-wMusicVibratoType2Backup:: ; de9c
+wMusicVibratoType2Backup::
 	ds $4
 
-wMusicVibratoDelayBackup:: ; dea0
+wMusicVibratoDelayBackup::
 	ds $4
 
-wMusicVolumeBackup:: ; dea4
+wMusicVolumeBackup::
 	ds $3
 
-wMusicFrequencyOffsetBackup:: ; dea7
+wMusicFrequencyOffsetBackup::
 	ds $3
 
-wdeaa:: ; deaa
+wdeaa::
 	ds $2
 
-wdeac:: ; deac
+wdeac::
 	ds $1
 
-wMusicChannelStackPointersBackup:: ; dead
+wMusicChannelStackPointersBackup::
 	ds $8
 
-wMusicCh1StackBackup:: ; deb5
+wMusicCh1StackBackup::
 	ds $c * 4
 
 wAudioCmd::
