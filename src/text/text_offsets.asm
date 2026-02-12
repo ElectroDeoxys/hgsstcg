@@ -2,496 +2,35 @@
 
 TextOffsets::
 	dwb $0000, $00
-	textpointer HandText
-	textpointer CheckText
-	textpointer AttackText
-	textpointer PKMNPowerText
-	textpointer DoneText
-	textpointer TypeText
-	textpointer RetreatText
 	textpointer WeaknessText
 	textpointer ResistanceText
 	textpointer PKMNPWRText
 	textpointer LengthText
 	textpointer WeightText
 	textpointer PokemonText
-	textpointer MetresText
 	textpointer LbsText
 	textpointer PromostarRarityText
 	textpointer CircleRarityText
 	textpointer DiamondRarityText
 	textpointer StarRarityText
-	textpointer AllCardsOwnedText
-	textpointer TotalNumberOfCardsText
-	textpointer TypesOfCardsText
-	textpointer GrassPokemonText
-	textpointer FirePokemonText
-	textpointer WaterPokemonText
-	textpointer LightningPokemonText
-	textpointer FightingPokemonText
-	textpointer PsychicPokemonText
-	textpointer ColorlessPokemonText
-	textpointer TrainerCardText
-	textpointer EnergyCardText
-	textpointer NoPokemonOnTheBenchText
-	textpointer UnableDueToSleepText
-	textpointer UnableDueToParalysisText
-	textpointer Received10DamageDueToPoisonText
-	textpointer Received20DamageDueToPoisonText
-	textpointer IsStillAsleepText
-	textpointer IsCuredOfSleepText
-	textpointer IsCuredOfParalysisText
-	textpointer BetweenTurnsText
-	textpointer UnableToUseItText
-	textpointer NoEnergyCardsText
-	textpointer IsThisOKText
 	textpointer YesOrNoText
-	textpointer DiscardName
-	textpointer UsedText
-	textpointer PokemonsAttackText
-	textpointer ResistanceLessDamageText
-	textpointer WeaknessMoreDamageText
-	textpointer WeaknessMoreDamage2Text
-	textpointer ResistanceNoDamageText
-	textpointer AttackDamageText
-	textpointer NoDamageText
-	textpointer NoSelectableAttackText
-	textpointer UnableToRetreatText
-	textpointer MayOnlyAttachOneEnergyCardText
-	textpointer UseThisPokemonPowerText
-	textpointer PokemonPowerSelectNotRequiredText
-	textpointer DiscardDescription
-	textpointer WillDrawNPrizesText
-	textpointer DrewNPrizesText
-	textpointer DuelistPlacedACardText
-	textpointer UnableToSelectText
-	textpointer ColorListText
-	textpointer GrassSymbolText
-	textpointer FireSymbolText
-	textpointer WaterSymbolText
-	textpointer LightningSymbolText
-	textpointer FightingSymbolText
-	textpointer PsychicSymbolText
-	textpointer BenchText
-	textpointer KnockOutText
-	textpointer DamageToSelfDueToConfusionText
-	textpointer ChooseEnergyCardToDiscardText
-	textpointer ChooseNextActivePokemonText
-	textpointer PressStartWhenReadyText
-	textpointer YouPlayFirstText
-	textpointer YouPlaySecondText
-	textpointer TransmissionErrorText
-	textpointer ChooseTheCardYouWishToExamineText
-	textpointer TransmittingDataText
-	textpointer WaitingHandExamineText
-	textpointer SelectingBenchPokemonHandExamineBackText
-	textpointer RetreatedToTheBenchText
-	textpointer RetreatWasUnsuccessfulText
-	textpointer WillUseThePokemonPowerText
-	textpointer FinishedTurnWithoutAttackingText
-	textpointer DuelistTurnText
-	textpointer AttachedEnergyToPokemonText
-	textpointer PokemonEvolvedIntoPokemonText
-	textpointer PlacedOnTheBenchText
-	textpointer PlacedInTheActiveText
-	textpointer ShufflesTheDeckText
-	textpointer ThisIsJustPracticeDoNotShuffleText
-	textpointer EachPlayerShuffleOpponentsDeckText
-	textpointer EachPlayerDraw7CardsText
-	textpointer Drew7CardsText
-	textpointer DeckHasXCardsText
-	textpointer ChooseBasicPkmnToPlaceInActiveText
-	textpointer ThereAreNoBasicPokemonInHand
-	textpointer NeitherPlayerHasBasicPkmnText
-	textpointer ReturnCardsToDeckAndDrawAgainText
-	textpointer ChooseUpTo5BasicPkmnToPlaceOnBenchText
-	textpointer PleaseChooseAnActivePokemonText
-	textpointer ChooseYourBenchPokemonText
-	textpointer YouDrewText
-	textpointer YouCannotSelectThisCardText
-	textpointer PlacingThePrizesText
-	textpointer PleasePlacePrizesText
-	textpointer IfHeadsDuelistPlaysFirstText
-	textpointer CoinTossToDecideWhoPlaysFirstText
-	textpointer DecisionText
-	textpointer DuelWasADrawText
-	textpointer WonDuelText
-	textpointer LostDuelText
-	textpointer StartSuddenDeathMatchText
-	textpointer PrizesLeftActivePokemonCardsInDeckText
-	textpointer NoneText
-	textpointer YesText
-	textpointer CardsText
-	textpointer TookAllThePrizesText
-	textpointer ThereAreNoPokemonInPlayAreaText
-	textpointer WasKnockedOutText
-	textpointer HavePokemonPowerText
-	textpointer UnableToUsePkmnPowerDueToToxicGasText
-	textpointer PlayCheck1Text
-	textpointer PlayCheck2Text
-	textpointer SelectCheckText
-	textpointer DuelistIsThinkingText
-	textpointer ClearOpponentNameText
-	textpointer SelectComputerOpponentText
-	textpointer NumberOfPrizesText
 	textpointer Player2Text
 	textpointer ResetBackUpRamText
-	textpointer YourDataWasDestroyedSomehowText
-	textpointer NoCardsInHandText
-	textpointer TheDiscardPileHasNoCardsText
-	textpointer PlayerDiscardPileText
-	textpointer DuelistHandText
-	textpointer DuelistPlayAreaText
-	textpointer DuelistDeckText
-	textpointer PleaseSelectHandText
-	textpointer PleaseSelectCardText
-	textpointer NoPokemonWithDamageCountersText
-	textpointer NoDamageCountersText
-	textpointer NoEnergyAttachedToOpponentsActiveText
-	textpointer ThereAreNoEnergyCardsInDiscardPileText
-	textpointer ThereAreNoBasicEnergyCardsInDiscardPileText
-	textpointer NoCardsLeftInTheDeckText
-	textpointer NoSpaceOnTheBenchText
-	textpointer NoPokemonCapableOfEvolvingText
-	textpointer CantEvolvePokemonInSameTurnItsPlacedText
-	textpointer NotAffectedByPoisonSleepParalysisOrConfusionText
-	textpointer NotEnoughCardsInHandText
-	textpointer EffectNoPokemonOnTheBenchText
-	textpointer ThereAreNoPokemonInDiscardPileText
-	textpointer ConditionsForEvolvingToStage2NotFulfilledText
-	textpointer ThereAreNoCardsInHandThatYouCanChangeText
-	textpointer ThereAreNoCardsInTheDiscardPileText
-	textpointer ThereAreNoStage1PokemonText
-	textpointer NoEnergyCardsAttachedToPokemonInYourPlayAreaText
-	textpointer NoEnergyCardsAttachedToPokemonInOppPlayAreaText
-	textpointer EnergyCardsRequiredToRetreatText
-	textpointer NotEnoughEnergyCardsText
-	textpointer NotEnoughFireEnergyText
-	textpointer NotEnoughPsychicEnergyText
-	textpointer NotEnoughWaterEnergyText
-	textpointer ThereAreNoTrainerCardsInDiscardPileText
-	textpointer NoAttackMayBeChosenText
-	textpointer YouDidNotReceiveAnAttackToMirrorMoveText
-	textpointer ThisAttackCannotBeUsedTwiceText
-	textpointer NoWeaknessText
-	textpointer NoResistanceText
-	textpointer OnlyOncePerTurnText
-	textpointer CannotUseDueToStatusText
-	textpointer CannotBeUsedInTurnWhichWasPlayedText
-	textpointer ThereIsNoEnergyCardAttachedText
-	textpointer NoGrassEnergyText
-	textpointer CannotUseSinceTheresOnly1PkmnText
-	textpointer CannotUseBecauseItWillBeKnockedOutText
-	textpointer CanOnlyBeUsedOnTheBenchText
-	textpointer ThereAreNoPokemonOnBenchText
-	textpointer OpponentIsNotAsleepText
-	textpointer UnableDueToToxicGasText
 	textpointer BackUpIsBrokenText
-	textpointer BatteriesHaveLostTheirChargeText
-	textpointer PrintingWasInterruptedText
-	textpointer CardPopCannotBePlayedWithTheGameBoyText
-	textpointer SandAttackCheckText
-	textpointer SmokescreenCheckText
-	textpointer ParalysisCheckText
-	textpointer SleepCheckText
-	textpointer PoisonCheckText
-	textpointer ConfusionCheckText
-	textpointer VenomPowderCheckText
-	textpointer IfTailsYourPokemonBecomesConfusedText
-	textpointer DamageCheckIfTailsNoDamageText
-	textpointer IfHeadsDraw1CardFromDeckText
-	textpointer FlipUntilFailAppears10DamageForEachHeadsText
-	textpointer IfHeadPlus10IfTails10ToYourselfText
-	textpointer DamageToOppBenchIfHeadsDamageToYoursIfTailsText
-	textpointer IfHeadsChangeOpponentsActivePokemonText
-	textpointer IfHeadsHealIsSuccessfulText
-	textpointer IfTailsDamageToYourselfTooText
-	textpointer SuccessCheckIfHeadsAttackIsSuccessfulText
-	textpointer TrainerCardSuccessCheckText
-	textpointer CardCheckIfHeads8CardsIfTails1CardText
-	textpointer IfHeadsNoDamageNextTurnText
-	textpointer DamageCheckIfHeadsPlusDamageText
-	textpointer DamageCheckIfHeadsXDamageText
-	textpointer AcidCheckText
-	textpointer TransparencyCheckText
-	textpointer ConfusionCheckDamageText
-	textpointer ConfusionCheckRetreatText
-	textpointer PokemonsSleepCheckText
-	textpointer PoisonedIfHeadsConfusedIfTailsText
-	textpointer IfHeadsDoNotReceiveDamageOrEffectText
-	textpointer IfHeadsOpponentCannotAttackText
-	textpointer AttackUnsuccessfulText
-	textpointer UnableToRetreatDueToAcidText
-	textpointer UnableToUseTrainerDueToHeadacheText
-	textpointer UnableToAttackDueToTailWagText
-	textpointer UnableToAttackDueToLeerText
-	textpointer UnableToAttackDueToBoneAttackText
-	textpointer UnableToUseAttackDueToAmnesiaText
-	textpointer KnockedOutDueToDestinyBondText
-	textpointer ReceivesDamageDueToStrikesBackText
-	textpointer UnableToEvolveDueToPrehistoricPowerText
-	textpointer NoDamageOrEffectDueToFlyText
-	textpointer NoDamageOrEffectDueToBarrierText
-	textpointer NoDamageOrEffectDueToAgilityText
-	textpointer UnableToUseAttackDueToNShieldText
-	textpointer NoDamageOrEffectDueToNShieldText
-	textpointer NoDamageOrEffectDueToTransparencyText
-	textpointer MetamorphsToText
-	textpointer SelectPkmnOnBenchToSwitchWithActiveText
-	textpointer SelectPokemonToPlaceInTheActiveText
-	textpointer DuelistIsSelectingPokemonToPlaceInActiveText
-	textpointer ChooseWeaknessYouWishToChangeText
-	textpointer ChooseResistanceYouWishToChangeText
-	textpointer ChoosePokemonWishToColorChangeText
-	textpointer ChangedTheWeaknessOfPokemonToColorText
-	textpointer ChangedTheResistanceOfPokemonToColorText
-	textpointer ChangedTheColorOfText
-	textpointer Draw1CardFromTheDeckText
-	textpointer DrawCardsFromTheDeckText
-	textpointer CannotDrawCardBecauseNoCardsInDeckText
-	textpointer ChoosePkmnInTheBenchToGiveDamageText
-	textpointer ChooseUpTo3PkmnOnBenchToGiveDamageText
-	textpointer Choose1BasicEnergyCardFromDeckText
-	textpointer ChoosePokemonToAttachEnergyCardText
-	textpointer ChooseAndDiscard2FireEnergyCardsText
-	textpointer DiscardOppDeckAsManyFireEnergyCardsText
-	textpointer ChooseAndDiscard2EnergyCardsText
-	textpointer ChooseAKrabbyFromDeckText
-	textpointer ChooseDiscardEnergyCardFromOpponentText
-	textpointer ChooseAttackOpponentWillNotBeAbleToUseText
-	textpointer ChooseBasicFightingPokemonFromDeckText
-	textpointer ChooseAnOddishFromDeckText
-	textpointer ChooseAnOddishText
-	textpointer ChooseAKrabbyText
-	textpointer ChooseBasicEnergyCardText
-	textpointer ChooseNidoranFromDeckText
-	textpointer ChooseNidoranText
-	textpointer ChooseBasicFightingPokemonText
-	textpointer ProcedureForEnergyTransferText
-	textpointer ChooseABellsproutFromDeckText
-	textpointer ChooseABellsproutText
-	textpointer ChoosePkmnToRemoveDamageCounterText
-	textpointer ProcedureForCurseText
-	textpointer Choose2EnergyCardsFromDiscardPileToAttachText
-	textpointer Choose2EnergyCardsFromDiscardPileForHandText
-	textpointer ChooseAnEnergyCardText
-	textpointer ProcedureForProphecyText
-	textpointer ChooseTheOrderOfTheCardsText
-	textpointer ProcedureForDamageSwapText
-	textpointer ProcedureForDevolutionBeamText
-	textpointer ProcedureForStrangeBehaviorText
-	textpointer ChooseOppAttackToBeUsedWithMetronomeText
-	textpointer ThereIsNoInTheDeckText
-	textpointer WouldYouLikeToCheckTheDeckText
-	textpointer PleaseSelectTheDeckText
-	textpointer PleaseSelectThePlayAreaText
-	textpointer NidoranMNidoranFText
-	textpointer OddishText
-	textpointer BellsproutText
-	textpointer KrabbyText
-	textpointer FightingPokemonDeckText
-	textpointer BasicEnergyText
-	textpointer PeekWasUsedToLookInYourHandText
-	textpointer CardPeekWasUsedOnText
-	textpointer PokemonAndAllAttachedCardsReturnedToHandText
-	textpointer WasChosenForTheEffectOfAmnesiaText
-	textpointer BasicPokemonWasPlacedOnEachBenchText
-	textpointer WasUnsuccessfulText
-	textpointer ThereWasNoEffectFromTxRam2Text
-	textpointer TheEnergyCardFromPlayAreaWasMovedText
-	textpointer DrewFireEnergyFromTheHandText
-	textpointer ThePkmnCardsInHandAndDeckWereShuffledText
-	textpointer ChoosePokemonToRemoveDamageCounterFromText
-	textpointer ChooseCardToDiscardFromHandText
-	textpointer ChoosePokemonToRemoveEnergyFromText
-	textpointer Choose2BasicEnergyCardsFromDiscardPileText
-	textpointer Choose2CardsFromHandToDiscardText
-	textpointer Choose2HandCardsFromHandToReturnToDeckText
-	textpointer ChooseCardToPlaceInHandText
-	textpointer ChoosePokemonToAttachDefenderToText
-	textpointer ChoosePokemonToReturnToTheDeckText
-	textpointer ChoosePokemonToPlaceInPlayText
-	textpointer ChooseBasicPokemonToEvolveText
-	textpointer ChoosePokemonToScoopUpText
-	textpointer ChooseCardFromYourHandToSwitchText
-	textpointer ChooseCardToSwitchText
-	textpointer ChooseBasicOrEvolutionPokemonCardFromDeckText
-	textpointer ChoosePokemonCardText
-	textpointer RearrangeThe5CardsAtTopOfDeckText
-	textpointer PleaseCheckTheOpponentsHandText
-	textpointer EvolutionCardText
-	textpointer CardWasChosenText
-	textpointer ChooseBasicPokemonToPlaceOnBenchText
-	textpointer ChooseEvolutionCardAndPressAButtonToDevolveText
-	textpointer ChoosePokemonInYourAreaThenPokemonInYourOppText
-	textpointer ChooseUpTo4FromDiscardPileText
-	textpointer ChooseAPokemonToSwitchWithActivePokemonText
-	textpointer PokemonAndAllAttachedCardsWereReturnedToDeckText
-	textpointer PokemonWasReturnedFromActiveToHandText
-	textpointer PokemonWasReturnedFromBenchToHandText
-	textpointer PokemonWasReturnedToDeckText
-	textpointer WasPlacedInTheHandText
-	textpointer TheCardYouReceivedText
-	textpointer YouReceivedTheseCardsText
-	textpointer ChooseTheCardToPutBackText
-	textpointer ChooseTheCardToDiscardText
-	textpointer DiscardedCardsFromDeckText
-	textpointer NoneCameText
-	textpointer CameToTheBenchText
-	textpointer DuelistHasNoCardsInHandText
-	textpointer PokemonHealedDamageText
-	textpointer PokemonDevolvedToText
-	textpointer ThereWasNoFireEnergyText
-	textpointer YouCanSelectMoreCardsQuitText
-	textpointer ThereWasNoEffectText
-	textpointer ThereWasNoEffectFromToxicText
-	textpointer ThereWasNoEffectFromPoisonText
-	textpointer ThereWasNoEffectFromSleepText
-	textpointer ThereWasNoEffectFromParalysisText
-	textpointer ThereWasNoEffectFromConfusionText
-	textpointer ThereWasNoEffectFromPoisonConfusionText
-	textpointer ExchangedCardsInDuelistsHandText
-	textpointer PrizesCardsText
-	textpointer ChooseTheNumberOfPrizesText
-	textpointer PleaseWaitDecidingNumberOfPrizesText
-	textpointer BeginAPrizeDuelWithText
-	textpointer AreYouBothReadyToCardPopText
-	textpointer ThePopWasntSuccessfulText
-	textpointer CannotCardPopWithFriendPreviouslyPoppedWithText
-	textpointer PositionGameBoyColorsAndPressAButtonText
-	textpointer ReceivedThroughCardPopText
 	textpointer ReceivedCardText
 	textpointer ReceivedPromotionalCardText
 	textpointer ReceivedLegendaryCardText
 	textpointer ReceivedPromotionalFlyingPikachuText
 	textpointer ReceivedPromotionalSurfingPikachuText
-	textpointer NowPrintingPleaseWaitText
-	textpointer BoosterPackText
-	textpointer WouldYouLikeToTryAgainText
-	textpointer SendingACardText
-	textpointer ReceivingACardText
-	textpointer SendingADeckConfigurationText
-	textpointer ReceivingDeckConfigurationText
-	textpointer CardTransferWasntSuccessful1Text
-	textpointer CardTransferWasntSuccessful2Text
-	textpointer DeckConfigurationTransferWasntSuccessful1Text
-	textpointer DeckConfigurationTransferWasntSuccessful2Text
-	textpointer NowPrintingText
-	textpointer DrMasonText
-	textpointer DrawSevenCardsPracticeDuelText
-	textpointer ChooseGoldeenPracticeDuelText
-	textpointer PutPokemonOnBenchPracticeDuelText
-	textpointer ChooseStaryuPracticeDuelText
-	textpointer PressBToFinishPracticeDuelText
-	textpointer Turn1Instr1PracticeDuelText
-	textpointer Turn1Instr2PracticeDuelText
-	textpointer Turn1Instr3PracticeDuelText
-	textpointer Turn2Instr1PracticeDuelText
-	textpointer Turn2Instr2PracticeDuelText
-	textpointer Turn2Instr3PracticeDuelText
-	textpointer Turn3Instr1PracticeDuelText
-	textpointer Turn3Instr2PracticeDuelText
-	textpointer Turn3Instr3PracticeDuelText
-	textpointer Turn4Instr1PracticeDuelText
-	textpointer Turn4Instr2PracticeDuelText
-	textpointer Turn4Instr3PracticeDuelText
-	textpointer Turn5Instr1PracticeDuelText
-	textpointer Turn5Instr2PracticeDuelText
-	textpointer Turn6Instr1PracticeDuelText
-	textpointer Turn6Instr2PracticeDuelText
-	textpointer Turn6Instr3PracticeDuelText
-	textpointer Turn7Instr1PracticeDuelText
-	textpointer Turn7Instr2PracticeDuelText
-	textpointer Turn8Instr1PracticeDuelText
-	textpointer Turn8Instr2PracticeDuelText
-	textpointer SamTurn4Instr1PracticeDuelText
-	textpointer SamTurn4Instr2PracticeDuelText
-	textpointer Turn1DrMason1PracticeDuelText
-	textpointer Turn1DrMason2PracticeDuelText
-	textpointer Turn1DrMason3PracticeDuelText
-	textpointer Turn2DrMason1PracticeDuelText
-	textpointer Turn2DrMason2PracticeDuelText
-	textpointer Turn2DrMason3PracticeDuelText
-	textpointer Turn3DrMason1PracticeDuelText
-	textpointer Turn3DrMason2PracticeDuelText
-	textpointer Turn3DrMason3PracticeDuelText
-	textpointer Turn4DrMason1PracticeDuelText
-	textpointer Turn4DrMason2PracticeDuelText
-	textpointer Turn4DrMason3PracticeDuelText
-	textpointer Turn5DrMason1PracticeDuelText
-	textpointer Turn5DrMason2PracticeDuelText
-	textpointer Turn6DrMason1PracticeDuelText
-	textpointer Turn6DrMason2PracticeDuelText
-	textpointer Turn6DrMason3PracticeDuelText
-	textpointer Turn7DrMason1PracticeDuelText
-	textpointer Turn7DrMason2PracticeDuelText
-	textpointer Turn8DrMason1PracticeDuelText
-	textpointer Turn8DrMason2PracticeDuelText
-	textpointer SamTurn4DrMason1PracticeDuelText
-	textpointer SamTurn4DrMason2PracticeDuelText
-	textpointer SelectStaryuPracticeDuelText
-	textpointer LetsPlayTheGamePracticeDuelText
-	textpointer NeedPracticeAgainPracticeDuelText
-	textpointer FollowMyGuidancePracticeDuelText
-	textpointer PlayersTurnPracticeDuelText
-	textpointer ReplaceDueToKnockoutPracticeDuelText
-	textpointer PracticePlayerDeckName
-	textpointer SamsPracticeDeckName
 	textpointer CharmanderAndFriendsDeckName
 	textpointer CharmanderExtraDeckName
 	textpointer SquirtleAndFriendsDeckName
 	textpointer SquirtleExtraDeckName
 	textpointer BulbasaurAndFriendsDeckName
 	textpointer BulbasaurExtraDeckName
-	textpointer FirstStrikeDeckName
-	textpointer RockCrusherDeckName
-	textpointer GoGoRainDanceDeckName
-	textpointer ZappingSelfdestructDeckName
-	textpointer FlowerPowerDeckName
-	textpointer StrangePsyshockDeckName
-	textpointer WondersofScienceDeckName
-	textpointer FireChargeDeckName
-	textpointer LegendaryMoltresDeckName
-	textpointer LegendaryZapdosDeckName
-	textpointer LegendaryArticunoDeckName
-	textpointer LegendaryDragoniteDeckName
-	textpointer ImRonaldDeckName
-	textpointer PowerfulRonaldDeckName
-	textpointer InvincibleRonaldDeckName
-	textpointer LegendaryRonaldDeckName
-	textpointer WaterfrontPokemonDeckName
-	textpointer LonelyFriendsDeckName
-	textpointer SoundoftheWavesDeckName
-	textpointer AngerDeckName
-	textpointer FlamethrowerDeckName
-	textpointer ReshuffleDeckName
-	textpointer ExcavationDeckName
-	textpointer BlisteringPokemonDeckName
-	textpointer HardPokemonDeckName
-	textpointer EtceteraDeckName
-	textpointer FlowerGardenDeckName
-	textpointer KaleidoscopeDeckName
-	textpointer MusclesforBrainsDeckName
-	textpointer HeatedBattleDeckName
-	textpointer LovetoBattleDeckName
-	textpointer PikachuDeckName
-	textpointer BoomBoomSelfdestructDeckName
-	textpointer PowerGeneratorDeckName
-	textpointer GhostDeckName
-	textpointer NapTimeDeckName
-	textpointer StrangePowerDeckName
-	textpointer FlyinPokemonDeckName
-	textpointer LovelyNidoranDeckName
-	textpointer PoisonDeckName
-	textpointer ImakuniDeckName
-	textpointer LightningAndFireDeckName
-	textpointer WaterAndFightingDeckName
-	textpointer GrassAndPsychicDeckName
 	textpointer RetreatCostText
 	textpointer FeetText
 	textpointer InchesText
-	textpointer YourDiscardPileText
-	textpointer OpponentsDiscardPileText
 	textpointer DeckText
 	textpointer EndText
 	textpointer WhatIsYourNameText
@@ -524,23 +63,6 @@ TextOffsets::
 	textpointer QuitModifyingTheDeckText
 	textpointer DismantleThisDeckText
 	textpointer NoCardsChosenText
-	textpointer YourPokemonText
-	textpointer YourDiscardPileText2
-	textpointer YourHandText
-	textpointer OpponentsPokemonText
-	textpointer OpponentsDiscardPileText2
-	textpointer OpponentsHandText
-	textpointer DuelistsPlayAreaText
-	textpointer YourPlayAreaText
-	textpointer OppPlayAreaText
-	textpointer InPlayAreaText
-	textpointer GlossaryText
-	textpointer WhichCardWouldYouLikeToSeeText
-	textpointer PleaseChooseAPrizeText
-	textpointer HandText_2
-	textpointer DuelistHandText_2
-	textpointer DuelistDiscardPileText
-	textpointer EmptyLineText
 	textpointer BoosterPackTitleText
 	textpointer Item1ColosseumText
 	textpointer Item2EvolutionText
@@ -571,17 +93,6 @@ TextOffsets::
 	textpointer DismantledTheDeckText
 	textpointer OKIfFileDeletedText
 	textpointer ReadTheInstructionsText
-	textpointer ProceduresForSendingCardsText
-	textpointer CardSendingProceduresText
-	textpointer PleaseReadTheProceduresForSendingCardsText
-	textpointer SendText
-	textpointer CardReceivedText
-	textpointer CardToSendText
-	textpointer SendTheseCardsText
-	textpointer ReceivedTheseCardsFromText
-	textpointer PleaseChooseADeckConfigurationToSendText
-	textpointer PleaseChooseASaveSlotText
-	textpointer ReceivedADeckConfigurationFromText
 	textpointer FightingMachineText
 	textpointer RockMachineText
 	textpointer WaterMachineText
@@ -758,7 +269,6 @@ TextOffsets::
 	textpointer ChallengeHallMapName
 	textpointer PokemonDomeMapName
 	textpointer PauseMenuOptionsText
-	textpointer DebugPauseMenuOptionsText
 	textpointer PlayerStatusNameText
 	textpointer PlayerStatusAlbumText
 	textpointer PlayerStatusPlayTimeText
@@ -775,11 +285,6 @@ TextOffsets::
 	textpointer PCMenuOptionsText
 	textpointer TurnedPCOnText
 	textpointer TurnedPCOffText
-	textpointer GiftCenterMenuText
-	textpointer SendCardText
-	textpointer ReceiveCardText
-	textpointer SendDeckConfigurationText
-	textpointer ReceiveDeckConfigurationText
 	textpointer MailText
 	textpointer WhichMailWouldYouLikeToReadText
 	textpointer MailNumbersText
@@ -812,38 +317,12 @@ TextOffsets::
 	textpointer ContinueFromDiaryText
 	textpointer ExclusiveToGameBoyColorsText
 	textpointer IsCrazyAboutPokemonAndPokemonCardCollectingText
-	textpointer DebugMenuText
-	textpointer DebugDuelModeMenuText
-	textpointer DebugBoosterPackMenuText
-	textpointer DebugBoosterPackColosseumEvolutionMenuText
-	textpointer DebugBoosterPackMysteryMenuText
-	textpointer DebugBoosterPackLaboratoryMenuText
-	textpointer DebugBoosterPackEnergyMenuText
-	textpointer SPRText
-	textpointer WinLosePrizesDuelWithText
-	textpointer UseDuelistsDeckText
 	textpointer ReceivedBoosterPackText
 	textpointer AndAnotherBoosterPackText
 	textpointer CheckedCardsInBoosterPackText
 	textpointer WonTheMedalText
 	textpointer OpponentTitleAndNameText
 	textpointer OpponentDeckNameText
-	textpointer FightingClubMemberText
-	textpointer RockClubMemberText
-	textpointer WaterClubMemberText
-	textpointer LightningClubMemberText
-	textpointer GrassClubMemberText
-	textpointer PsychicClubMemberText
-	textpointer ScienceClubMemberText
-	textpointer FireClubMemberText
-	textpointer FightingClubMasterText
-	textpointer RockClubMasterText
-	textpointer WaterClubMasterText
-	textpointer LightningClubMasterText
-	textpointer GrassClubMasterText
-	textpointer PsychicClubMasterText
-	textpointer ScienceClubMasterText
-	textpointer FireClubMasterText
 	textpointer EmptyText
 	textpointer ColosseumBoosterText
 	textpointer EvolutionBoosterText
@@ -1425,9 +904,6 @@ TextOffsets::
 	textpointer Text05e9
 	textpointer Text05ea
 	textpointer Text05eb
-	textpointer Text05ec
-	textpointer Text05ed
-	textpointer Text05ee
 	textpointer Text05ef
 	textpointer Text05f0
 	textpointer Text05f1
@@ -1645,20 +1121,6 @@ TextOffsets::
 	textpointer Text06c5
 	textpointer Text06c6
 	textpointer Text06c7
-	textpointer Text06c8
-	textpointer Text06c9
-	textpointer Text06ca
-	textpointer Text06cb
-	textpointer Text06cc
-	textpointer Text06cd
-	textpointer Text06ce
-	textpointer Text06cf
-	textpointer Text06d0
-	textpointer Text06d1
-	textpointer Text06d2
-	textpointer Text06d3
-	textpointer Text06d4
-	textpointer Text06d5
 	textpointer Text06d6
 	textpointer Text06d7
 	textpointer Text06d8
@@ -1934,11 +1396,6 @@ TextOffsets::
 	textpointer Defeated5OpponentsText
 	textpointer SuccessfullyDefeated5OpponentsText
 	textpointer ConsecutiveWinRecordIncreasedText
-	textpointer ClubMemberText
-	textpointer ClubMasterText
-	textpointer TechText
-	textpointer StrangeLifeformText
-	textpointer GrandMasterText
 	textpointer ChallengeMachineOpponent1Text
 	textpointer ChallengeMachineOpponent2Text
 	textpointer ChallengeMachineOpponent3Text
@@ -1947,12 +1404,6 @@ TextOffsets::
 	textpointer ChallengeMachineNotDuelledIconText
 	textpointer ChallengeMachineDuelWonIconText
 	textpointer ChallengeMachineDuelLostIconText
-	textpointer ChallengeMachineFireIconText
-	textpointer ChallengeMachineLightningIconText
-	textpointer ChallengeMachineWaterIconText
-	textpointer ChallengeMachineFightingIconText
-	textpointer ChallengeMachinePsychicIconText
-	textpointer ChallengeMachineGrassIconText
 	textpointer GrassEnergyName
 	textpointer GrassEnergyDescription
 	textpointer FireEnergyName

@@ -164,21 +164,6 @@ Text05eb:
 	line "prizes. That's the gist of it..."
 	done
 
-Text05ec:
-	text "Would you like to practice again?"
-	done
-
-Text05ed:
-	text "OK. Then let's begin another"
-	line "practice game!"
-	done
-
-Text05ee:
-	text "OK, but if there's anything "
-	line "you don't understand, it's"
-	line "a good idea to practice again."
-	done
-
 Text05ef:
 	text "If you don't understand something,"
 	line "talk to Sam. It might be helpful "

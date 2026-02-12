@@ -1102,26 +1102,6 @@ ConsecutiveWinRecordIncreasedText:
 	line "record increased to <RAMNUM>!"
 	done
 
-ClubMemberText:
-	text "Club Member"
-	done
-
-ClubMasterText:
-	text "Club Master"
-	done
-
-TechText:
-	text "TECH"
-	done
-
-StrangeLifeformText:
-	text "Strange Life-form"
-	done
-
-GrandMasterText:
-	text "Grand Master"
-	done
-
 ChallengeMachineOpponent1Text:
 	textfw "1"
 	done
@@ -1152,30 +1132,6 @@ ChallengeMachineDuelWonIconText:
 
 ChallengeMachineDuelLostIconText:
 	textfw "★"
-	done
-
-ChallengeMachineFireIconText:
-	textfw "【<FIRE>】"
-	done
-
-ChallengeMachineLightningIconText:
-	textfw "【<LIGHTNING>】"
-	done
-
-ChallengeMachineWaterIconText:
-	textfw "【<WATER>】"
-	done
-
-ChallengeMachineFightingIconText:
-	textfw "【<FIGHTING>】"
-	done
-
-ChallengeMachinePsychicIconText:
-	textfw "【<PSYCHIC>】"
-	done
-
-ChallengeMachineGrassIconText:
-	textfw "【<GRASS>】"
 	done
 
 GrassEnergyName:

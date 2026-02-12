@@ -29,61 +29,6 @@ ReadTheInstructionsText:
 	text "Read the Instructions"
 	done
 
-ProceduresForSendingCardsText:
-	text "Procedures for sending cards:"
-	done
-
-CardSendingProceduresText:
-	text "1. Choose the card you wish to send."
-	line "   Press left/right to choose more."
-	line ""
-	line "2. Choose all the cards. Then press"
-	line "   the B Button to open the menu."
-	line ""
-	line "3. Choose Send to finish"
-	line "   the process."
-	done
-
-PleaseReadTheProceduresForSendingCardsText:
-	text "Please read the procedures"
-	line "for sending cards."
-	done
-
-SendText:
-	text "Send"
-	done
-
-CardReceivedText:
-	text "Card received"
-	done
-
-CardToSendText:
-	text "Card to send"
-	done
-
-SendTheseCardsText:
-	text "Send these cards?"
-	done
-
-ReceivedTheseCardsFromText:
-	text "Received these cards"
-	line "from  <RAMTEXT>!"
-	done
-
-PleaseChooseADeckConfigurationToSendText:
-	text "Please choose a Deck "
-	line "configuration to send."
-	done
-
-PleaseChooseASaveSlotText:
-	text "Please choose a Save Slot."
-	done
-
-ReceivedADeckConfigurationFromText:
-	text "Received a deck configuration"
-	line "from  <RAMTEXT>!"
-	done
-
 FightingMachineText:
 	text "  Fighting Machine  "
 	done
@@ -966,16 +911,6 @@ PauseMenuOptionsText:
 	line "Exit"
 	done
 
-DebugPauseMenuOptionsText:
-	text "Status"
-	line "Diary"
-	line "Deck"
-	line "Card"
-	line "Config"
-	line "Debug"
-	line "Close"
-	done
-
 PlayerStatusNameText:
 	text "Name <RAMNAME>"
 	done
@@ -1053,30 +988,6 @@ TurnedPCOnText:
 TurnedPCOffText:
 	text "<RAMNAME>"
 	line "turned the PC off!"
-	done
-
-GiftCenterMenuText:
-	text "Send Card"
-	line "Receive Card"
-	line "Send Deck Configuration"
-	line "Receive Deck Configuration"
-	line "Exit"
-	done
-
-SendCardText:
-	text "Send Card"
-	done
-
-ReceiveCardText:
-	text "Receive Card"
-	done
-
-SendDeckConfigurationText:
-	text "Send Deck Configuration"
-	done
-
-ReceiveDeckConfigurationText:
-	text "Receive Deck Configuration"
 	done
 
 MailText:
@@ -1252,79 +1163,6 @@ IsCrazyAboutPokemonAndPokemonCardCollectingText:
 	line "card researcher, Dr. Mason..."
 	done
 
-DebugMenuText:
-	text "POWER ON"
-	line "DUEL MODE"
-	line "CONTINUE FROM DIARY"
-	line "CGB TEST"
-	line "STANDARD BG CHARACTER"
-	line "LOOK AT SPR"
-	line "V EFFECT"
-	line "CREATE BOOSTER PACK"
-	line "CREDITS"
-	line "QUIT"
-	done
-
-DebugDuelModeMenuText:
-	text "NORMAL DUEL"
-	line "SKIP"
-	done
-
-DebugBoosterPackMenuText:
-	text "COLOSSEUM"
-	line "EVOLUTION"
-	line "MYSTERY"
-	line "LABORATORY"
-	line "Energy"
-	done
-
-DebugBoosterPackColosseumEvolutionMenuText:
-	text "1"
-	line "2"
-	line "3"
-	line "4"
-	line "5"
-	line "6"
-	line "7"
-	done
-
-DebugBoosterPackMysteryMenuText:
-	text "1"
-	line "2"
-	line "3"
-	line "4"
-	line "5"
-	line "6"
-	done
-
-DebugBoosterPackLaboratoryMenuText:
-	text "1"
-	line "2"
-	line "3"
-	line "4"
-	line "5"
-	done
-
-DebugBoosterPackEnergyMenuText:
-	text "1"
-	line "2"
-	line "3"
-	line "4"
-	done
-
-SPRText:
-	text "SPR_"
-	done
-
-WinLosePrizesDuelWithText:
-	text "WIN      <RAMNUM> Prizes Duel"
-	line "LOSE     with <RAMTEXT>(<RAMNUM>)"
-	done
-
-UseDuelistsDeckText:
-	text "         Use <RAMNUM>'s Deck"
-	done
-
 ReceivedBoosterPackText:
 	text "<RAMNAME> received a Booster"
 	line "Pack: <RAMTEXT>."
@@ -1351,70 +1189,6 @@ OpponentTitleAndNameText:
 
 OpponentDeckNameText:
 	text "<RAMTEXT> Deck"
-	done
-
-FightingClubMemberText:
-	text "Fighting Club Member"
-	done
-
-RockClubMemberText:
-	text "Rock Club Member"
-	done
-
-WaterClubMemberText:
-	text "Water Club Member"
-	done
-
-LightningClubMemberText:
-	text "Lightning Club Member"
-	done
-
-GrassClubMemberText:
-	text "Grass Club Member"
-	done
-
-PsychicClubMemberText:
-	text "Psychic Club Member"
-	done
-
-ScienceClubMemberText:
-	text "Science Club Member"
-	done
-
-FireClubMemberText:
-	text "Fire Club Member"
-	done
-
-FightingClubMasterText:
-	text "Fighting Club Master"
-	done
-
-RockClubMasterText:
-	text "Rock Club Master"
-	done
-
-WaterClubMasterText:
-	text "Water Club Master"
-	done
-
-LightningClubMasterText:
-	text "Lightning Club Master"
-	done
-
-GrassClubMasterText:
-	text "Grass Club Master"
-	done
-
-PsychicClubMasterText:
-	text "Psychic Club Master"
-	done
-
-ScienceClubMasterText:
-	text "Science Club Master"
-	done
-
-FireClubMasterText:
-	text "Fire Club Master"
 	done
 
 EmptyText:
