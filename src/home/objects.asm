@@ -41,7 +41,7 @@ ZeroObjectPositions::
 	jr nz, .loop
 	ret
 
-ZeroObjectPositionsAndToggleOAMCopy::
+ClearOAM::
 	call ZeroObjectPositions
 	ld a, $01
 	ld [wVBlankOAMCopyToggle], a

@@ -24,12 +24,12 @@ OpenGlossaryScreen:
 	cp -1 ; b button
 	jr nz, .check_button
 
-	farcall ZeroObjectPositionsAndToggleOAMCopy
+	farcall ClearOAM
 	ret
 
 .check_button
 	push af
-	farcall ZeroObjectPositionsAndToggleOAMCopy
+	farcall ClearOAM
 	pop af
 
 	cp $09 ; $09: next page or prev page
@@ -55,9 +55,7 @@ OpenGlossaryScreen:
 .display_menu
 	xor a
 	ld [wTileMapFill], a
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
+	call ClearOAM
 	call DoFrame
 	call EmptyScreen
 	call Set_OBJ_8x8
@@ -196,7 +194,7 @@ GlossaryData1:
 	glossary_entry 7, AboutTheDeckText, DeckDescriptionText
 	glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
 	glossary_entry 7, AboutTheHandText, HandDescriptionText
-	glossary_entry 6, AboutTheArenaText, ArenaDescriptionText
+	glossary_entry 6, AboutTheActiveText, ActiveDescriptionText
 	glossary_entry 6, AboutTheBenchText, BenchDescriptionText
 	glossary_entry 4, AboutTheActivePokemonText, ActivePokemonDescriptionText
 	glossary_entry 5, AboutBenchPokemonText, BenchPokemonDescriptionText

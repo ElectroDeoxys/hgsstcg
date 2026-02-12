@@ -211,7 +211,7 @@ EnergyTransBookName:
 
 EnergyTransBookText:
 	text "What if you place Exeggutor in the"
-	line "arena, but you don't have any Energy"
+	line "active, but you don't have any Energy"
 	line "cards? In this case, use Venusaur's"
 	line "Energy Trans to transfer Grass"
 	line "Energy and use Big Eggsplosion! If"

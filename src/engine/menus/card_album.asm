@@ -235,7 +235,7 @@ CreateCardSetListAndInitListCoords:
 	ld a, NUM_CARD_ALBUM_VISIBLE_CARDS
 	ld [wNumVisibleCardListEntries], a
 	lb de, 2, 4
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -280,7 +280,7 @@ CreateCardSetListAndInitListCoords:
 ; for the corresponding Card Set
 PrintCardSetListEntries:
 	push bc
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
@@ -290,7 +290,7 @@ PrintCardSetListEntries:
 	dec c
 
 ; draw up cursor on top right
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .no_up_cursor
 	ld a, SYM_CURSOR_U
@@ -300,7 +300,7 @@ PrintCardSetListEntries:
 .got_up_cursor_tile
 	call WriteByteToBGMap0
 
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld l, a
 	ld h, $00
 	ld a, [wNumVisibleCardListEntries]
@@ -413,7 +413,7 @@ PrintCardSetListEntries:
 
 	ld a, [wNumVisibleCardListEntries]
 	sub b
-	ld hl, wCardListVisibleOffset
+	ld hl, wListVisibleOffset
 	add [hl]
 	inc a
 	call CalculateOnesAndTensDigits
@@ -493,9 +493,9 @@ PrintCardSetListEntries:
 
 ; handles opening card page, and inputs when inside Card Album
 HandleCardAlbumCardPage:
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld b, a
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add b
 	ld c, a
 	ld b, $00
@@ -528,17 +528,17 @@ HandleCardAlbumCardPage:
 	jp nz, .exit
 	xor a ; FALSE
 	ld [wMenuInputSFX], a
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld c, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	bit B_PAD_UP, b
 	jr z, .check_d_down
 
 	push af
 	ld a, SFX_CURSOR
 	ld [wMenuInputSFX], a
-	ld a, [wCardListCursorPos]
-	ld hl, wCardListVisibleOffset
+	ld a, [wListCursorPos]
+	ld hl, wListVisibleOffset
 	add [hl]
 	ld hl, wFirstOwnedCardIndex
 	cp [hl]
@@ -548,11 +548,11 @@ HandleCardAlbumCardPage:
 	dec a
 	bit 7, a
 	jr z, .got_new_pos
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .open_card_page
 	dec a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	xor a
 	jr .got_new_pos
 
@@ -573,12 +573,12 @@ HandleCardAlbumCardPage:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	sla a
 	ld c, a
 	ld b, $00
 	add hl, bc
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	inc a
 	sla a
 	ld c, a
@@ -587,14 +587,14 @@ HandleCardAlbumCardPage:
 	ld a, [hli]
 	or [hl]
 	jr z, .open_card_page_pop_af_1
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	inc a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	pop af
 	dec a
 .got_new_pos
 	; loop back to the start
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ld a, [wMenuInputSFX]
 	or a
 	jp z, HandleCardAlbumCardPage
@@ -628,7 +628,7 @@ HandleCardAlbumCardPage:
 .exit
 	ld a, $01
 	ld [wVBlankOAMCopyToggle], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ret
 
@@ -677,7 +677,7 @@ CardAlbum:
 	call CreateCardSetListAndInitListCoords
 	call .PrintCardCount
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call PrintCardSetListEntries
 	call EnableLCD
 	ld a, [wNumEntriesInCurFilter]
@@ -703,12 +703,12 @@ CardAlbum:
 	ld hl, wNumVisibleCardListEntries
 	cp [hl]
 	jr nc, .asm_a97e
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 .asm_a97e
 	ld hl, PrintCardSetListEntries
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 
@@ -726,12 +726,12 @@ CardAlbum:
 .open_card_page
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld [wTempCardListNumCursorPositions], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ld c, a
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add c
 	ld hl, wOwnedCardsCountList
 	ld c, a
@@ -756,14 +756,14 @@ CardAlbum:
 	ld hl, .BoosterPackCardsMenuParams
 	call InitCardSelectionParams
 	ld a, [wTempCardListNumCursorPositions]
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	jr .loop_input_3
 
 .selection_made
 	call DrawListCursor_Invisible
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ldh a, [hffb3]
 	cp $ff
@@ -787,7 +787,7 @@ CardAlbum:
 	db NUM_CARD_ALBUM_VISIBLE_CARDS ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 .GetNumCardEntries
 	ld hl, wFilteredCardList
@@ -915,9 +915,7 @@ CardAlbum:
 	jr nz, .draw_box
 	ldh [hffb4], a
 	call Set_OBJ_8x8
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
+	call ClearOAM
 
 	call LoadCursorTile
 	call LoadSymbolsFont

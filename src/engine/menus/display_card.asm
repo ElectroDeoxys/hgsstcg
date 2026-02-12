@@ -14,7 +14,7 @@ DisplayLoadedCard1DetailScreen::
 ; draw a large picture of the card loaded in wLoadedCard1, including its image
 ; and a header indicating the type of card (TRAINER, ENERGY, PoKéMoN)
 DrawLargePictureOfCard:
-	call ZeroObjectPositionsAndToggleOAMCopy
+	call ClearOAM
 	call EmptyScreen
 	call LoadSymbolsFont
 	call SetDefaultConsolePalettes
@@ -141,7 +141,7 @@ OpenCardPage_NotCardList::
 ; in order to switch the page or to exit.
 OpenCardPage:
 	ld [wCardPageType], a
-	call ZeroObjectPositionsAndToggleOAMCopy
+	call ClearOAM
 	call EmptyScreen
 	; load the graphics and display the card image of wLoadedCard1
 	call LoadDuelCardSymbolTiles
@@ -327,9 +327,9 @@ DisplayCardPage_PokemonOverview:
 	ld a, [wCurPlayAreaSlot]
 	or a
 	jr nz, .wr_from_loaded_card
-	call GetArenaCardWeakness
+	call GetActiveCardWeakness
 	ld d, a
-	call GetArenaCardResistance
+	call GetActiveCardResistance
 	ld e, a
 	jr .got_wr
 .wr_from_loaded_card

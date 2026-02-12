@@ -126,14 +126,14 @@ SelectPkmnOnBenchToSwitchWithActiveText:
 	line "to switch with the Active Pokémon."
 	done
 
-SelectPokemonToPlaceInTheArenaText:
+SelectPokemonToPlaceInTheActiveText:
 	text "Select a Pokémon to place"
-	line "in the Arena."
+	line "in the Active."
 	done
 
-DuelistIsSelectingPokemonToPlaceInArenaText:
+DuelistIsSelectingPokemonToPlaceInActiveText:
 	text "<RAMNAME> is selecting a Pokémon"
-	line "to place in the Arena."
+	line "to place in the Active."
 	done
 
 ChooseWeaknessYouWishToChangeText:
@@ -621,9 +621,9 @@ PokemonAndAllAttachedCardsWereReturnedToDeckText:
 	line "cards were returned to the Deck."
 	done
 
-PokemonWasReturnedFromArenaToHandText:
+PokemonWasReturnedFromActiveToHandText:
 	text "<RAMTEXT> was returned"
-	line "from the Arena to the Hand."
+	line "from the Active to the Hand."
 	done
 
 PokemonWasReturnedFromBenchToHandText:

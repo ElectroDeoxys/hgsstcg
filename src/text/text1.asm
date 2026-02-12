@@ -401,9 +401,9 @@ PlacedOnTheBenchText:
 	line "on the Bench."
 	done
 
-PlacedInTheArenaText:
+PlacedInTheActiveText:
 	text "<RAMTEXT>"
-	line "was placed in the Arena."
+	line "was placed in the Active."
 	done
 
 ShufflesTheDeckText:
@@ -433,9 +433,9 @@ DeckHasXCardsText:
 	text "<RAMNAME>'s deck has <RAMNUM> cards."
 	done
 
-ChooseBasicPkmnToPlaceInArenaText:
+ChooseBasicPkmnToPlaceInActiveText:
 	text "Choose a Basic Pokémon"
-	line "to place in the Arena."
+	line "to place in the Active."
 	done
 
 ThereAreNoBasicPokemonInHand:

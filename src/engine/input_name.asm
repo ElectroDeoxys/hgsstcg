@@ -77,9 +77,7 @@ InputPlayerName:
 	xor a
 	ld [wTileMapFill], a
 	call EmptyScreen
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
+	call ClearOAM
 	call LoadSymbolsFont
 	lb de, $38, $bf
 	call SetupText

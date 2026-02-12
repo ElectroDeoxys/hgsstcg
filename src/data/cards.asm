@@ -2311,7 +2311,7 @@ GrowlitheCard:
 
 	; attack 1
 	energy FIRE, 1, COLORLESS, 1 ; energies
-	tx FlareName ; name
+	tx Flactiveme ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
@@ -7125,7 +7125,7 @@ HaunterLv17Card:
 
 	; attack 2
 	energy PSYCHIC, 1, COLORLESS, 1 ; energies
-	tx NightmareName ; name
+	tx Nightmactiveme ; name
 	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage

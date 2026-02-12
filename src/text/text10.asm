@@ -934,7 +934,7 @@ GrowlitheName:
 	text "Growlithe"
 	done
 
-FlareName:
+Flactiveme:
 	text "Flare"
 	done
 

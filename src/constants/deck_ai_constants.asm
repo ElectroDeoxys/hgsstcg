@@ -13,7 +13,7 @@ DEF AI_FLAG_USED_GUST_OF_WIND  EQU 1 << 4
 ; to decide not to play it, so it's redundant in the presence of another flag.
 DEF AI_ENERGY_FLAG_DONT_PLAY       EQU 1 << 0 ; whether to play energy card (?)
 DEF AI_ENERGY_FLAG_SKIP_EVOLUTION  EQU 1 << 1 ; whether to check if card has evolutions
-DEF AI_ENERGY_FLAG_SKIP_ARENA_CARD EQU 1 << 7 ; whether to include Arena card in determining which card to attach energy
+DEF AI_ENERGY_FLAG_SKIP_ACTIVE_CARD EQU 1 << 7 ; whether to include Active card in determining which card to attach energy
 
 ; used to determine which Trainer cards for AI
 ; to process in AIProcessHandTrainerCards.
@@ -98,11 +98,11 @@ DEF AI_MEWTWO_MILL_F EQU 7
 DEF AI_MEWTWO_MILL   EQU 1 << AI_MEWTWO_MILL_F
 
 ; defines the behaviour of HandleAIEnergyTrans, for determining
-; whether to move energy cards from the Bench to the Arena or vice-versa
+; whether to move energy cards from the Bench to the Active or vice-versa
 ; and the number of energy cards needed for achieving that.
 DEF AI_ENERGY_TRANS_RETREAT  EQU $9 ; moves energy cards needed for Retreat Cost
 DEF AI_ENERGY_TRANS_ATTACK   EQU $d ; moves energy cards needed for second attack
-DEF AI_ENERGY_TRANS_TO_BENCH EQU $e ; moves energy cards away from Arena card
+DEF AI_ENERGY_TRANS_TO_BENCH EQU $e ; moves energy cards away from Active card
 
 ; used to know which AI routine to call in
 ; the AIAction pointer tables in AIDoAction

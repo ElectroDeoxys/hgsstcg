@@ -215,7 +215,7 @@ PrintCardListItems::
 	ld a, 2
 	ld [wMenuYSeparation], a
 	ld a, 1
-	ld [wCardListIndicatorYPosition], a
+	ld [wListIndicatorYPosition], a
 ;	fallthrough
 
 ; like PrintCardListItems, except more parameters are already initialized
@@ -418,7 +418,7 @@ CardListMenuFunction::
 	ld hl, wCurMenuItem
 	add [hl]
 	ldh [hCurMenuItem], a
-	ld a, [wCardListIndicatorYPosition]
+	ld a, [wListIndicatorYPosition]
 	cp $ff
 	jr z, .skip_printing_indicator
 	; print <sel_item>/<num_items>

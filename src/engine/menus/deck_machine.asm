@@ -22,7 +22,7 @@ HandleDeckMissingCardsList:
 	call SortCurDeckCardsByID
 	call CreateCurDeckUniqueCardList
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 .loop
 	ld hl, .DeckConfirmationCardSelectionParams
 	call InitCardSelectionParams
@@ -32,7 +32,7 @@ HandleDeckMissingCardsList:
 	jr c, .got_num_positions
 	ld a, $05
 .got_num_positions
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld [wNumVisibleCardListEntries], a
 	call .PrintTitleAndList
 	ld hl, wCardConfirmationText
@@ -45,7 +45,7 @@ HandleDeckMissingCardsList:
 	ld hl, .CardListUpdateFunction
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 	xor a
@@ -64,7 +64,7 @@ HandleDeckMissingCardsList:
 .open_card_pge
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wced7], a
 
 	; set wUniqueDeckCardList as current card list
@@ -91,7 +91,7 @@ HandleDeckMissingCardsList:
 	db 5 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 .CardListUpdateFunction
 	ld hl, hffb0
@@ -111,7 +111,7 @@ HandleDeckMissingCardsList:
 .PrintTitleAndList
 	call .ClearScreenAndPrintDeckTitle
 	lb de, 3, 3
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -159,7 +159,7 @@ HandleDeckMissingCardsList:
 
 HandleDeckSaveMachineMenu:
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	ldtx de, DeckSaveMachineText
 	ld hl, wDeckMachineTitleText
 	ld [hl], e
@@ -185,7 +185,7 @@ HandleDeckSaveMachineMenu:
 	ret z ; operation cancelled
 	; get the index of selected deck
 	ld b, a
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add b
 	ld [wSelectedDeckMachineEntry], a
 
@@ -260,7 +260,7 @@ HandleDeckSaveMachineMenu:
 
 .return_to_list
 	ld a, [wTempCardListVisibleOffset]
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call ClearScreenAndDrawDeckMachineScreen
 	call DrawListScrollArrows
 	call PrintNumSavedDecks
@@ -283,7 +283,7 @@ HandleDeckSaveMachineMenu:
 ; de = text ID
 InitDeckMachineDrawingParams:
 	ld a, NUM_DECK_MACHINE_SLOTS
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld hl, wDeckMachineText
 	ld [hl], e
 	inc hl
@@ -291,7 +291,7 @@ InitDeckMachineDrawingParams:
 	ld hl, DrawDeckMachineScreen
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 	xor a
@@ -315,10 +315,10 @@ HandleDeckMachineSelection:
 	jr z, .start
 
 ; start btn
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld [wTempCardListVisibleOffset], a
 	ld b, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempDeckMachineCursorPos], a
 	add b
 	ld c, a
@@ -353,20 +353,20 @@ HandleDeckMachineSelection:
 	call PlaySFXConfirmOrCancel
 	call OpenDeckConfirmationMenu
 	ld a, [wTempCardListVisibleOffset]
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call ClearScreenAndDrawDeckMachineScreen
 	call DrawListScrollArrows
 	call PrintNumSavedDecks
 	ld a, [wTempDeckMachineCursorPos]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	scf
 	ret
 
 .selection_made
 	call DrawListCursor_Visible
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld [wTempCardListVisibleOffset], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempDeckMachineCursorPos], a
 	ldh a, [hffb3]
 	or a
@@ -375,7 +375,7 @@ HandleDeckMachineSelection:
 ; handles right and left input for jumping several entries at once
 ; returns carry if jump was made
 .HandleListJumps
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld c, a
 	ldh a, [hDPadHeld]
 	cp PAD_RIGHT
@@ -386,7 +386,7 @@ HandleDeckMachineSelection:
 	ret
 
 .d_right
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add NUM_DECK_MACHINE_SLOTS
 	ld b, a
 	add NUM_DECK_MACHINE_SLOTS
@@ -399,7 +399,7 @@ HandleDeckMachineSelection:
 	jr .got_new_pos
 
 .d_left
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sub NUM_DECK_MACHINE_SLOTS
 	ld b, a
 	jr nc, .got_new_pos
@@ -407,7 +407,7 @@ HandleDeckMachineSelection:
 
 .got_new_pos
 	ld a, b
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	cp c
 	jr z, .set_carry
 	; play SFX if jump was made
@@ -501,7 +501,7 @@ GetSavedDeckPointers:
 ; given the cursor position in the deck machine menu
 ; prints the deck names of all entries that are visible
 PrintVisibleDeckMachineEntries:
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	lb de, 2, 2
 	ld b, NUM_DECK_MACHINE_VISIBLE_DECKS
 .loop
@@ -1015,7 +1015,7 @@ TryDeleteSavedDeck:
 	ret
 
 .no
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	scf
 	ret
 
@@ -1027,10 +1027,10 @@ DeckMachineSelectionParams:
 	db 5 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 DrawListScrollArrows:
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .no_up_cursor
 	ld a, SYM_CURSOR_U
@@ -1041,7 +1041,7 @@ DrawListScrollArrows:
 	lb bc, 19, 1
 	call WriteByteToBGMap0
 
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add NUM_DECK_MACHINE_VISIBLE_DECKS + 1
 	ld b, a
 	ld a, [wNumDeckMachineEntries]
@@ -1152,7 +1152,7 @@ TryBuildDeckMachineDeck:
 	; player chose not to dismantle
 
 .set_carry_and_return
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	scf
 	ret
 
@@ -1484,7 +1484,7 @@ HandleAutoDeckMenu:
 	ld a, [hl]
 	ld [de], a
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call .InitAutoDeckMenu
 	ld a, NUM_DECK_MACHINE_SLOTS
 	ld [wNumDeckMachineEntries], a
@@ -1496,11 +1496,11 @@ HandleAutoDeckMenu:
 	ldtx hl, PleaseSelectDeckText
 	call DrawWideTextBox_PrintText
 	ld a, NUM_DECK_MACHINE_SLOTS
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld hl, UpdateDeckMachineScrollArrowsAndEntries
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 .wait_input
@@ -1513,7 +1513,7 @@ HandleAutoDeckMenu:
 	and PAD_START
 	jr z, .wait_input
 
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld [wTempCardListVisibleOffset], a
 	ld b, a
 	ld a, [wCurMenuItem]
@@ -1549,14 +1549,14 @@ HandleAutoDeckMenu:
 	call OpenDeckConfirmationMenu
 	call SafelySwitchToSRAM0
 	ld a, [wTempCardListVisibleOffset]
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call .InitAutoDeckMenu
 	ld a, [wTempDeckMachineCursorPos]
 	jp .please_select_deck
 
 .deck_selection_made
 	call DrawCursor2
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld [wTempCardListVisibleOffset], a
 	ld a, [wCurMenuItem]
 	ld [wTempDeckMachineCursorPos], a
@@ -1594,7 +1594,7 @@ HandleAutoDeckMenu:
 	ld a, [wTempDeckMachineCursorPos]
 	jp nc, .please_select_deck
 	ld a, [wTempCardListVisibleOffset]
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call .InitAutoDeckMenu
 	ld a, [wTempDeckMachineCursorPos]
 	jp .please_select_deck
@@ -1609,7 +1609,7 @@ HandleAutoDeckMenu:
 
 .read_the_instructions
 ; show card confirmation list
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld [wTempCardListVisibleOffset], a
 	ld b, a
 	ld a, [wCurMenuItem]
@@ -1670,7 +1670,7 @@ HandleAutoDeckMenu:
 	call HandleDeckMissingCardsList
 	call SafelySwitchToSRAM0
 	ld a, [wTempCardListVisibleOffset]
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	call .InitAutoDeckMenu
 	ld a, [wTempDeckMachineCursorPos]
 	jp .please_select_deck

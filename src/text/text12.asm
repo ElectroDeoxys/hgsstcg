@@ -159,7 +159,7 @@ TransparencyDescription:
 	line "Paralyzed."
 	done
 
-NightmareName:
+Nightmactiveme:
 	text "Nightmare"
 	done
 

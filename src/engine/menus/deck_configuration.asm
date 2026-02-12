@@ -350,7 +350,7 @@ HandleDeckBuildScreen:
 	call DrawCardTypeIconsAndPrintCardCounts
 
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	ld [wCurCardTypeFilter], a ; FILTER_GRASS
 	call PrintFilteredCardList
 
@@ -377,11 +377,11 @@ HandleDeckBuildScreen:
 	jr z, .check_down_btn
 	; need to refresh the filtered card list
 	ld [wCurCardTypeFilter], a
-	ld hl, wCardListVisibleOffset
+	ld hl, wListVisibleOffset
 	ld [hl], 0
 	call PrintFilteredCardList
 	ld a, NUM_FILTERS
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 
 .check_down_btn
 	ldh a, [hDPadHeld]
@@ -414,12 +414,12 @@ HandleDeckBuildScreen:
 	; if total number of entries is greater than or equal to
 	; the number of visible entries, then set number of cursor positions
 	; as number of visible entries
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 .ok
 	ld hl, PrintDeckBuildingCardList
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 
@@ -435,7 +435,7 @@ HandleDeckBuildScreen:
 
 	; temporarily store current cursor position
 	; to retrieve it later
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempFilteredCardListNumCursorPositions], a
 	call ConfirmDeckConfiguration
 	ld a, [wTempFilteredCardListNumCursorPositions]
@@ -451,9 +451,9 @@ HandleDeckBuildScreen:
 .open_card_page
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld [wTempCardListNumCursorPositions], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 
 	; set wFilteredCardList as current card list
@@ -475,14 +475,14 @@ HandleDeckBuildScreen:
 	ld hl, FilteredCardListSelectionParams
 	call InitCardSelectionParams
 	ld a, [wTempCardListNumCursorPositions]
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	jr .loop_input
 
 .selection_made
 	call DrawListCursor_Invisible
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ldh a, [hffb3]
 	cp $ff
@@ -530,7 +530,7 @@ HandleDeckConfigurationMenu:
 .draw_icons
 	call DrawCardTypeIconsAndPrintCardCounts
 	ld a, [wTempCardListCursorPos]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ld a, [wCurCardTypeFilter]
 	call PrintFilteredCardList
 	jp HandleDeckBuildScreen.skip_draw
@@ -554,14 +554,14 @@ HandleDeckConfigurationMenu:
 	dw CancelDeckModifications  ; Cancel
 
 ConfirmDeckConfiguration:
-	ld hl, wCardListVisibleOffset
+	ld hl, wListVisibleOffset
 	ld a, [hl]
-	ld hl, wCardListVisibleOffsetBackup
+	ld hl, wListVisibleOffsetBackup
 	ld [hl], a
 	call HandleDeckConfirmationMenu
-	ld hl, wCardListVisibleOffsetBackup
+	ld hl, wListVisibleOffsetBackup
 	ld a, [hl]
-	ld hl, wCardListVisibleOffset
+	ld hl, wListVisibleOffset
 	ld [hl], a
 	call DrawCardTypeIconsAndPrintCardCounts
 	ld hl, FiltersCardSelectionParams
@@ -572,7 +572,7 @@ ConfirmDeckConfiguration:
 	ld a, [wCurCardTypeFilter]
 	call PrintFilteredCardList
 	ld a, [wced6]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ret
 
 ModifyDeckConfiguration:
@@ -627,7 +627,7 @@ SaveDeckConfiguration:
 	call DrawCardTypeIconsAndPrintCardCounts
 	call PrintDeckBuildingCardList
 	ld a, [wced6]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ret
 
 .set_carry
@@ -652,7 +652,7 @@ DismantleDeck:
 	call PrintDeckBuildingCardList
 	call EnableLCD
 	ld a, [wced6]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ret
 
 .Dismantle
@@ -839,7 +839,7 @@ FiltersCardSelectionParams:
 	db NUM_FILTERS ; num entries
 	db SYM_CURSOR_D ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 FilteredCardListSelectionParams:
 	db 0 ; x pos
@@ -849,7 +849,7 @@ FilteredCardListSelectionParams:
 	db NUM_FILTERED_LIST_VISIBLE_CARDS ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 DeckConfigurationMenu_TransitionTable:
 	cursor_transition $10, $20, $00, $03, $03, $01, $02
@@ -1455,7 +1455,7 @@ PrintFilteredCardList:
 	ld a, NUM_FILTERED_LIST_VISIBLE_CARDS
 	ld [wNumVisibleCardListEntries], a
 	lb de, 1, 7
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -1511,14 +1511,14 @@ PrintTotalCardCount:
 ; and Y is the storage count of that card
 PrintDeckBuildingCardList:
 	push bc
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 	ld b, 19 ; x coord
 	ld c, e
 	dec c
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .no_cursor
 	ld a, SYM_CURSOR_U
@@ -1530,7 +1530,7 @@ PrintDeckBuildingCardList:
 
 ; iterates by decreasing value in wNumVisibleCardListEntries
 ; by 1 until it reaches 0
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sla a
 	ld c, a
 	ld b, $0
@@ -1657,18 +1657,18 @@ AddCardIDToVisibleList:
 	ret
 
 ; copies data from hl to:
-; wCardListCursorXPos
-; wCardListCursorYPos
-; wCardListYSpacing
-; wCardListXSpacing
-; wCardListNumCursorPositions
+; wListCursorXPos
+; wListCursorYPos
+; wListYSpacing
+; wListXSpacing
+; wListNumCursorPositions
 ; wVisibleCursorTile
 ; wInvisibleCursorTile
-; wCardListHandlerFunction
+; wListHandlerFunction
 InitCardSelectionParams:
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ldh [hffb3], a
-	ld de, wCardListCursorXPos
+	ld de, wListCursorXPos
 	ld b, $9
 .loop
 	ld a, [hli]
@@ -1689,16 +1689,16 @@ HandleCardSelectionInput:
 
 ; handle d-pad
 	ld b, a
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld c, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	bit B_PAD_LEFT, b
 	jr z, .check_d_right
 	dec a
 	bit 7, a
 	jr z, .got_cursor_pos
 	; if underflow, set to max cursor pos
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	dec a
 	jr .got_cursor_pos
 .check_d_right
@@ -1715,12 +1715,12 @@ HandleCardSelectionInput:
 	ld [wMenuInputSFX], a
 	call DrawHorizontalListCursor_Invisible
 	pop af
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 
 .handle_ab_btns
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ldh [hffb3], a
 	ldh a, [hKeysPressed]
 	and PAD_A | PAD_B
@@ -1739,7 +1739,7 @@ ConfirmSelectionAndReturnCarry:
 	call DrawHorizontalListCursor_Visible
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld e, a
 	ldh a, [hffb3]
 	scf
@@ -1769,16 +1769,16 @@ DrawHorizontalListCursor_Invisible:
 ; a = tile to write
 DrawHorizontalListCursor:
 	ld e, a
-	ld a, [wCardListXSpacing]
+	ld a, [wListXSpacing]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld h, a
 	call HtimesL
 	ld a, l
-	ld hl, wCardListCursorXPos
+	ld hl, wListCursorXPos
 	add [hl]
 	ld b, a ; x coord
-	ld hl, wCardListCursorYPos
+	ld hl, wListCursorYPos
 	ld a, [hl]
 	ld c, a ; y coord
 	ld a, e
@@ -1805,9 +1805,9 @@ HandleDeckCardSelectionList:
 	jp z, .asm_9bb9
 
 	ld b, a
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld c, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	bit B_PAD_UP, b
 	jr z, .check_d_down
 	push af
@@ -1817,12 +1817,12 @@ HandleDeckCardSelectionList:
 	dec a
 	bit 7, a
 	jr z, .asm_9b8f
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .asm_9b5a
 	dec a
-	ld [wCardListVisibleOffset], a
-	ld hl, wCardListUpdateFunction
+	ld [wListVisibleOffset], a
+	ld hl, wListUpdateFunction
 	call CallIndirect
 	xor a
 	jr .asm_9b8f
@@ -1845,10 +1845,10 @@ HandleDeckCardSelectionList:
 	ld a, [wUnableToScrollDown]
 	or a
 	jr nz, .cannot_scroll_down
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	inc a
-	ld [wCardListVisibleOffset], a
-	ld hl, wCardListUpdateFunction
+	ld [wListVisibleOffset], a
+	ld hl, wListUpdateFunction
 	call CallIndirect
 	pop af
 	dec a
@@ -1866,7 +1866,7 @@ HandleDeckCardSelectionList:
 	push af
 	call DrawListCursor_Invisible
 	pop af
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 	jr .asm_9bb9
@@ -1887,15 +1887,15 @@ HandleDeckCardSelectionList:
 	call AddCardToDeckAndUpdateCount
 
 .asm_9bb9
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ldh [hffb3], a
-	ld hl, wCardListHandlerFunction
+	ld hl, wListHandlerFunction
 	ld a, [hli]
 	or [hl]
 	jr z, .handle_ab_btns
 
 	; this code seemingly never runs
-	; because wCardListHandlerFunction is always NULL
+	; because wListHandlerFunction is always NULL
 	ld a, [hld]
 	ld l, [hl]
 	ld h, a
@@ -1907,7 +1907,7 @@ HandleDeckCardSelectionList:
 	call DrawListCursor_Visible
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld e, a
 	ldh a, [hffb3]
 	scf
@@ -1944,28 +1944,28 @@ DrawListCursor_Invisible:
 	ld a, [wInvisibleCursorTile]
 ;	fallthrough
 
-; draws cursor considering wCardListCursorPos
-; spaces each entry horizontally by wCardListXSpacing
-; and vertically by wCardListYSpacing
+; draws cursor considering wListCursorPos
+; spaces each entry horizontally by wListXSpacing
+; and vertically by wListYSpacing
 ; a = tile to write
 DrawListCursor:
 	ld e, a
-	ld a, [wCardListXSpacing]
+	ld a, [wListXSpacing]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld h, a
 	call HtimesL
 	ld a, l
-	ld hl, wCardListCursorXPos
+	ld hl, wListCursorXPos
 	add [hl]
 	ld b, a ; x coord
-	ld a, [wCardListYSpacing]
+	ld a, [wListYSpacing]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld h, a
 	call HtimesL
 	ld a, l
-	ld hl, wCardListCursorYPos
+	ld hl, wListCursorYPos
 	add [hl]
 	ld c, a ; y coord
 	ld a, e
@@ -2076,7 +2076,7 @@ Handle2DimensionalMenuInput:
 	and (1 << 4) - 1
 	ret nz
 	bit 4, [hl]
-	jp nz, ZeroObjectPositionsAndToggleOAMCopy
+	jp nz, ClearOAM
 
 .draw_cursor
 	call ZeroObjectPositions
@@ -2108,12 +2108,12 @@ OpenCardPageFromCardList:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	sla a
 	ld c, a
 	ld b, $0
 	add hl, bc
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sla a
 	ld c, a
 	ld b, $0
@@ -2140,9 +2140,9 @@ OpenCardPageFromCardList:
 ; order in the current card list
 	xor a ; FALSE
 	ld [wMenuInputSFX], a
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld c, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	bit B_PAD_UP, b
 	jr z, .check_d_down
 	push af
@@ -2152,11 +2152,11 @@ OpenCardPageFromCardList:
 	dec a
 	bit 7, a
 	jr z, .reopen_card_page
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .handle_regular_card_page_input
 	dec a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	xor a
 	jr .reopen_card_page
 
@@ -2175,12 +2175,12 @@ OpenCardPageFromCardList:
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	sla a
 	ld c, a
 	ld b, $0
 	add hl, bc
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	inc a
 	sla a
 	ld c, a
@@ -2189,13 +2189,13 @@ OpenCardPageFromCardList:
 	ld a, [hli]
 	or [hl]
 	jr z, .skip_change_card
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	inc a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	pop af
 	dec a
 .reopen_card_page
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	ld a, [wMenuInputSFX]
 	or a
 	jp z, OpenCardPageFromCardList
@@ -2214,7 +2214,7 @@ OpenCardPageFromCardList:
 .exit
 	ld a, $1
 	ld [wVBlankOAMCopyToggle], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ret
 
@@ -2266,10 +2266,10 @@ TryAddCardToDeck:
 	ld b, a
 	ld hl, wOwnedCardsCountList
 	ld d, $0
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld e, a
 	add hl, de
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld e, a
 	add hl, de
 	ld d, [hl]
@@ -2375,10 +2375,10 @@ TryAddCardToDeck:
 	ret
 
 ; gets the element in wVisibleListCardIDs
-; corresponding to index wCardListCursorPos
+; corresponding to index wListCursorPos
 GetSelectedVisibleCardID:
 	ld hl, wVisibleListCardIDs
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	sla a
 	ld e, a
 	ld d, $00
@@ -2395,13 +2395,13 @@ PrintNumberValueInCursorYPos:
 	ld hl, wDefaultText
 	call ConvertToNumericalDigits
 	ld [hl], TX_END
-	ld a, [wCardListYSpacing]
+	ld a, [wListYSpacing]
 	ld l, a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld h, a
 	call HtimesL
 	ld a, l
-	ld hl, wCardListCursorYPos
+	ld hl, wListCursorYPos
 	add [hl]
 	ld e, a
 	ld d, 14
@@ -2501,7 +2501,7 @@ HandleDeckConfirmationMenu:
 	call CreateCurDeckUniqueCardList
 
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 .init_params
 	ld hl, .CardSelectionParams
 	call InitCardSelectionParams
@@ -2511,14 +2511,14 @@ HandleDeckConfirmationMenu:
 	jr c, .no_cap
 	ld a, NUM_DECK_CONFIRMATION_VISIBLE_CARDS
 .no_cap
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld [wNumVisibleCardListEntries], a
 	call ShowConfirmationCardScreen
 
 	ld hl, UpdateConfirmationCardScreen
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 
@@ -2537,7 +2537,7 @@ HandleDeckConfirmationMenu:
 .selected_card
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wced7], a
 
 	; set wUniqueDeckCardList as current card list
@@ -2564,16 +2564,16 @@ HandleDeckConfirmationMenu:
 	db 7 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 ; handles pressing left/right in card lists
-; scrolls up/down a number of wCardListNumCursorPositions
+; scrolls up/down a number of wListNumCursorPositions
 ; entries respectively
 ; returns carry if scrolling happened
 HandleLeftRightInCardList:
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld d, a
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld c, a
 	ldh a, [hDPadHeld]
 	cp PAD_RIGHT
@@ -2584,7 +2584,7 @@ HandleLeftRightInCardList:
 	ret
 
 .right
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add d
 	ld b, a
 	add d
@@ -2597,19 +2597,19 @@ HandleLeftRightInCardList:
 	jr .got_new_pos
 
 .left
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sub d
 	ld b, a
 	jr nc, .got_new_pos
 	ld b, 0 ; first index
 .got_new_pos
 	ld a, b
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	cp c
 	jr z, .asm_9efa
 	ld a, SFX_CURSOR
 	call PlaySFX
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	call CallIndirect
 .asm_9efa
 	scf
@@ -2617,12 +2617,12 @@ HandleLeftRightInCardList:
 
 ; handles scrolling up and down with Select button
 ; in this case, the cursor position goes up/down
-; by wCardListNumCursorPositions entries respectively
+; by wListNumCursorPositions entries respectively
 ; return carry if scrolling happened, otherwise no carry
 HandleSelectUpAndDownInList:
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld d, a
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	ld c, a
 	ldh a, [hDPadHeld]
 	cp PAD_SELECT | PAD_DOWN
@@ -2633,32 +2633,32 @@ HandleSelectUpAndDownInList:
 	ret
 
 .sel_down
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	add d
-	ld b, a ; wCardListVisibleOffset + wCardListNumCursorPositions
+	ld b, a ; wListVisibleOffset + wListNumCursorPositions
 	add d
 	ld hl, wNumCardListEntries
 	cp [hl]
 	jr c, .got_new_pos
 	ld a, [wNumCardListEntries]
 	sub d
-	ld b, a ; wNumCardListEntries - wCardListNumCursorPositions
+	ld b, a ; wNumCardListEntries - wListNumCursorPositions
 	jr .got_new_pos
 .sel_up
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sub d
-	ld b, a ; wCardListVisibleOffset - wCardListNumCursorPositions
+	ld b, a ; wListVisibleOffset - wListNumCursorPositions
 	jr nc, .got_new_pos
 	ld b, 0 ; go to first position
 
 .got_new_pos
 	ld a, b
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	cp c
 	jr z, .set_carry
 	ld a, SFX_CURSOR
 	call PlaySFX
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	call CallIndirect
 .set_carry
 	scf
@@ -2679,7 +2679,7 @@ ShowDeckInfoHeaderAndWaitForBButton:
 ShowConfirmationCardScreen:
 	call ShowDeckInfoHeader
 	lb de, 3, 5
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -2910,14 +2910,14 @@ CreateCurDeckUniqueCardList:
 ; its count preceded by "x"
 PrintConfirmationCardList:
 	push bc
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 	ld b, 19 ; x coord
 	ld c, e
 	dec c
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .no_cursor
 	ld a, SYM_CURSOR_U
@@ -2929,7 +2929,7 @@ PrintConfirmationCardList:
 
 ; iterates by decreasing value in wNumVisibleCardListEntries
 ; by 1 until it reaches 0
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sla a
 	ld c, a
 	ld b, $0
@@ -3146,7 +3146,7 @@ HandlePlayersCardsScreen:
 	call WriteCardListsTerminatorBytes
 	call PrintPlayersCardsHeaderInfo
 	xor a
-	ld [wCardListVisibleOffset], a
+	ld [wListVisibleOffset], a
 	ld [wCurCardTypeFilter], a
 	call PrintFilteredCardSelectionList
 	call EnableLCD
@@ -3161,7 +3161,7 @@ HandlePlayersCardsScreen:
 	cp b
 	jr z, .check_d_down
 	ld [wCurCardTypeFilter], a
-	ld hl, wCardListVisibleOffset
+	ld hl, wListVisibleOffset
 	ld [hl], $00
 	call PrintFilteredCardSelectionList
 
@@ -3172,7 +3172,7 @@ HandlePlayersCardsScreen:
 	ld [hl], $00
 
 	ld a, NUM_FILTERS
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 .check_d_down
 	ldh a, [hDPadHeld]
 	and PAD_DOWN
@@ -3201,12 +3201,12 @@ HandlePlayersCardsScreen:
 	ld hl, wNumVisibleCardListEntries
 	cp [hl]
 	jr nc, .asm_a300
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 .asm_a300
 	ld hl, PrintCardSelectionList
 	ld d, h
 	ld a, l
-	ld hl, wCardListUpdateFunction
+	ld hl, wListUpdateFunction
 	ld [hli], a
 	ld [hl], d
 	xor a
@@ -3226,9 +3226,9 @@ HandlePlayersCardsScreen:
 .open_card_page
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wCardListNumCursorPositions]
+	ld a, [wListNumCursorPositions]
 	ld [wTempCardListNumCursorPositions], a
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 
 	; set wFilteredCardList as current card list
@@ -3251,14 +3251,14 @@ HandlePlayersCardsScreen:
 	ld hl, Data_a396
 	call InitCardSelectionParams
 	ld a, [wTempCardListNumCursorPositions]
-	ld [wCardListNumCursorPositions], a
+	ld [wListNumCursorPositions], a
 	ld a, [wTempCardListCursorPos]
-	ld [wCardListCursorPos], a
+	ld [wListCursorPos], a
 	jr .loop_input
 
 .asm_a36a
 	call DrawListCursor_Invisible
-	ld a, [wCardListCursorPos]
+	ld a, [wListCursorPos]
 	ld [wTempCardListCursorPos], a
 	ldh a, [hffb3]
 	cp $ff
@@ -3282,7 +3282,7 @@ Data_a396:
 	db 7 ; num entries
 	db SYM_CURSOR_R ; visible cursor tile
 	db SYM_SPACE ; invisible cursor tile
-	dw NULL ; wCardListHandlerFunction
+	dw NULL ; wListHandlerFunction
 
 ; a = which card type filter
 PrintFilteredCardSelectionList:
@@ -3301,7 +3301,7 @@ PrintFilteredCardSelectionList:
 	ld a, NUM_DECK_CONFIRMATION_VISIBLE_CARDS
 	ld [wNumVisibleCardListEntries], a
 	lb de, 2, 5
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld [hl], e
 	inc hl
 	ld [hl], d
@@ -3389,13 +3389,13 @@ IncrementDeckCardsInTempCollection:
 ; where X is the current count of that card
 PrintCardSelectionList:
 	push bc
-	ld hl, wCardListCoords
+	ld hl, wListCoords
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 	ld b, 19 ; x coord
 	ld c, e
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	or a
 	jr z, .alternate_cursor_tile
 	ld a, SYM_CURSOR_U
@@ -3407,7 +3407,7 @@ PrintCardSelectionList:
 
 ; iterates by decreasing value in wNumVisibleCardListEntries
 ; by 1 until it reaches 0
-	ld a, [wCardListVisibleOffset]
+	ld a, [wListVisibleOffset]
 	sla a
 	ld c, a
 	ld b, $0

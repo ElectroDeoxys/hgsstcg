@@ -582,7 +582,7 @@ GlossaryMenuPage1Text:
 	text "Deck                Active Pokémon"
 	line "Discard Pile        Bench Pokémon"
 	line "Hand                Prizes    "
-	line "Arena               Damage Counter"
+	line "Active               Damage Counter"
 	line "Bench               To next page    "
 	done
 
@@ -611,8 +611,8 @@ AboutTheHandText:
 	text "About the Hand"
 	done
 
-AboutTheArenaText:
-	text "About the Arena"
+AboutTheActiveText:
+	text "About the Active"
 	done
 
 AboutTheBenchText:
@@ -697,12 +697,12 @@ HandDescriptionText:
 	line "cards in your Hand."
 	done
 
-ArenaDescriptionText:
+ActiveDescriptionText:
 	text "The place where the Pokémon"
 	line "that is actively fighting"
-	line "is placed is called the Arena."
+	line "is placed is called the Active."
 	line "The game proceeds by using the"
-	line "Active Pokémon in the Arena."
+	line "Active Pokémon in the Active."
 	done
 
 BenchDescriptionText:
@@ -718,7 +718,7 @@ BenchDescriptionText:
 
 ActivePokemonDescriptionText:
 	text "The Active Pokémon is the "
-	line "Pokémon that is in the Arena."
+	line "Pokémon that is in the Active."
 	line "Only Active Pokémon can "
 	line "attack."
 	done

@@ -482,8 +482,8 @@ wListFunctionPointer::
 	ds $50
 
 ; in a card list, the Y position where the <sel_item>/<num_items> indicator is placed
-; if wCardListIndicatorYPosition == $ff, no indicator is displayed
-wCardListIndicatorYPosition::
+; if wListIndicatorYPosition == $ff, no indicator is displayed
+wListIndicatorYPosition::
 	ds $1
 
 ; x coord of the leftmost item in a horizontal menu
@@ -638,9 +638,9 @@ wce5c::
 	ds $1
 
 ; stores whether there are Pokemon in play area
-; player arena Pokemon sets bit 0
-; opponent arena Pokemon sets bit 1
-wArenaCardsInPlayArea::
+; player active Pokemon sets bit 0
+; opponent active Pokemon sets bit 1
+wActiveCardsInPlayArea::
 	ds $1
 
 wce5e::
@@ -710,7 +710,7 @@ wDamageAnimCardID::
 ; first index in the current card list that is visible
 ; used to calculate which element to get based
 ; on the cursor position
-wCardListVisibleOffset::
+wListVisibleOffset::
 	ds $1
 
 ; it's used when the player enters check menu, and its sub-menus.
@@ -723,24 +723,24 @@ wCheckMenuCursorBlinkCounter::
 ; to check whether a new filter is to be applied
 wTempCardTypeFilter::
 
-wCardListCursorPos::
+wListCursorPos::
 
 wNamingScreenCursorY::
 	ds $1
 
-wCardListCursorXPos::
+wListCursorXPos::
 	ds $1
 
-wCardListCursorYPos::
+wListCursorYPos::
 	ds $1
 
-wCardListYSpacing::
+wListYSpacing::
 	ds $1
 
-wCardListXSpacing::
+wListXSpacing::
 	ds $1
 
-wCardListNumCursorPositions::
+wListNumCursorPositions::
 
 wNamingScreenKeyboardHeight::
 	ds $1
@@ -755,7 +755,7 @@ wInvisibleCursorTile::
 
 ; unknown handler function run in HandleDeckCardSelectionList
 ; is always NULL
-wCardListHandlerFunction::
+wListHandlerFunction::
 	ds $2
 
 ; number of cards that are listed
@@ -826,12 +826,12 @@ wUnableToScrollDown::
 
 ; pointer to a function that should be called
 ; to update the card list being shown
-wCardListUpdateFunction::
+wListUpdateFunction::
 	ds $2
 
 ; holds y and x coordinates (in that order)
 ; of start of card list (top-left corner)
-wCardListCoords::
+wListCoords::
 	ds $2
 
 wced2::
@@ -842,7 +842,7 @@ wced2::
 wCurCardTypeFilter::
 	ds $1
 
-; temporarily stores wCardListNumCursorPositions value
+; temporarily stores wListNumCursorPositions value
 wTempCardListCursorPos::
 	ds $1
 
@@ -856,7 +856,7 @@ wced6::
 wced7::
 	ds $1
 
-wCardListVisibleOffsetBackup::
+wListVisibleOffsetBackup::
 	ds $1
 
 ; stores how many different cards there are in a deck
@@ -935,7 +935,7 @@ wDeckCompressionCmdByte::
 wCursorAlternateTile::
 	ds $1
 
-; temporarily stores value of wCardListNumCursorPositions
+; temporarily stores value of wListNumCursorPositions
 wTempCardListNumCursorPositions::
 	ds $1
 
@@ -1010,11 +1010,11 @@ wMachineDeckPtrs::
 wNumSavedDecks::
 	ds $1
 
-; temporarily holds value of wCardListCursorPos
+; temporarily holds value of wListCursorPos
 wTempDeckMachineCursorPos::
 	ds $1
 
-; temporarily holds value of wCardListVisibleOffset
+; temporarily holds value of wListVisibleOffset
 wTempCardListVisibleOffset::
 	ds $1
 

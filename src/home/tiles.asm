@@ -73,7 +73,7 @@ LoadCardSet2Tiles::
 	db -1, $0 tiles, $4 tiles, -1, -1, -1, -1, $8 tiles
 
 ; loads the 8 tiles that make up the border of the main duel menu as well as the border
-; of a large card picture (displayed after drawing the card or placing it in the arena).
+; of a large card picture (displayed after drawing the card or placing it in the active).
 LoadCardOrDuelMenuBorderTiles::
 	ld hl, DuelOtherGraphics + $15 tiles
 	ld de, v0Tiles1 + $50 tiles
@@ -81,7 +81,7 @@ LoadCardOrDuelMenuBorderTiles::
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; loads the graphics of a card type header, used to display a picture of a card after drawing it
-; or placing it in the arena. register e determines which header (TRAINER, ENERGY, PoKéMoN)
+; or placing it in the active. register e determines which header (TRAINER, ENERGY, PoKéMoN)
 LoadCardTypeHeaderTiles::
 	ld d, a
 	ld e, 0

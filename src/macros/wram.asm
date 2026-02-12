@@ -106,7 +106,7 @@ MACRO duel_vars
 ;	$01 - hand
 ;	$02 - discard pile
 ;	$08 - prize
-;	$10 - arena (active pokemon or a card attached to it)
+;	$10 - active (active pokemon or a card attached to it)
 ;	$1X - bench (where X is bench position from 1 to 5)
 \1CardLocations::                ds DECK_SIZE
 
@@ -124,7 +124,7 @@ MACRO duel_vars
 \1NumberOfCardsInDeck::        ds $1
 \1NumberOfCardsInHand::        ds $1
 \1NumberOfCardsInDiscardPile:: ds $1
-; Pokemon cards in arena + bench
+; Pokemon cards in active + bench
 \1NumberOfPokemonInPlayArea::  ds $1
 
 ; Deck index of the card that is in duelist's side of the field
@@ -139,11 +139,11 @@ MACRO duel_vars
 \1PlayAreaAttachedDefender::     ds MAX_PLAY_AREA_POKEMON
 \1PlayAreaAttachedPlusPower::    ds MAX_PLAY_AREA_POKEMON
 
-\1ArenaCardStatus::              ds $1
-\1ArenaCardFlags::               ds $1
-\1ArenaCardSubstatus1::          ds $1
-\1ArenaCardSubstatus2::          ds $1
-\1ArenaCardChangedType::         ds $1
+\1ActiveCardStatus::              ds $1
+\1ActiveCardFlags::               ds $1
+\1ActiveCardSubstatus1::          ds $1
+\1ActiveCardSubstatus2::          ds $1
+\1ActiveCardChangedType::         ds $1
 
 ; each bit represents a prize that this duelist can draw (1 = not drawn ; 0 = drawn)
 \1Prizes::                       ds $1

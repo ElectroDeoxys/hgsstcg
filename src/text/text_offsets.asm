@@ -93,14 +93,14 @@ TextOffsets::
 	textpointer AttachedEnergyToPokemonText
 	textpointer PokemonEvolvedIntoPokemonText
 	textpointer PlacedOnTheBenchText
-	textpointer PlacedInTheArenaText
+	textpointer PlacedInTheActiveText
 	textpointer ShufflesTheDeckText
 	textpointer ThisIsJustPracticeDoNotShuffleText
 	textpointer EachPlayerShuffleOpponentsDeckText
 	textpointer EachPlayerDraw7CardsText
 	textpointer Drew7CardsText
 	textpointer DeckHasXCardsText
-	textpointer ChooseBasicPkmnToPlaceInArenaText
+	textpointer ChooseBasicPkmnToPlaceInActiveText
 	textpointer ThereAreNoBasicPokemonInHand
 	textpointer NeitherPlayerHasBasicPkmnText
 	textpointer ReturnCardsToDeckAndDrawAgainText
@@ -238,8 +238,8 @@ TextOffsets::
 	textpointer NoDamageOrEffectDueToTransparencyText
 	textpointer MetamorphsToText
 	textpointer SelectPkmnOnBenchToSwitchWithActiveText
-	textpointer SelectPokemonToPlaceInTheArenaText
-	textpointer DuelistIsSelectingPokemonToPlaceInArenaText
+	textpointer SelectPokemonToPlaceInTheActiveText
+	textpointer DuelistIsSelectingPokemonToPlaceInActiveText
 	textpointer ChooseWeaknessYouWishToChangeText
 	textpointer ChooseResistanceYouWishToChangeText
 	textpointer ChoosePokemonWishToColorChangeText
@@ -327,7 +327,7 @@ TextOffsets::
 	textpointer ChooseUpTo4FromDiscardPileText
 	textpointer ChooseAPokemonToSwitchWithActivePokemonText
 	textpointer PokemonAndAllAttachedCardsWereReturnedToDeckText
-	textpointer PokemonWasReturnedFromArenaToHandText
+	textpointer PokemonWasReturnedFromActiveToHandText
 	textpointer PokemonWasReturnedFromBenchToHandText
 	textpointer PokemonWasReturnedToDeckText
 	textpointer WasPlacedInTheHandText
@@ -699,7 +699,7 @@ TextOffsets::
 	textpointer AboutTheDeckText
 	textpointer AboutTheDiscardPileText
 	textpointer AboutTheHandText
-	textpointer AboutTheArenaText
+	textpointer AboutTheActiveText
 	textpointer AboutTheBenchText
 	textpointer AboutTheActivePokemonText
 	textpointer AboutBenchPokemonText
@@ -717,7 +717,7 @@ TextOffsets::
 	textpointer DeckDescriptionText
 	textpointer DiscardPileDescriptionText
 	textpointer HandDescriptionText
-	textpointer ArenaDescriptionText
+	textpointer ActiveDescriptionText
 	textpointer BenchDescriptionText
 	textpointer ActivePokemonDescriptionText
 	textpointer BenchPokemonDescriptionText
@@ -2200,7 +2200,7 @@ TextOffsets::
 	textpointer DancingEmbersDescription
 	textpointer NinetalesLv35Description
 	textpointer GrowlitheName
-	textpointer FlareName
+	textpointer Flactiveme
 	textpointer PuppyName
 	textpointer GrowlitheDescription
 	textpointer ArcanineName
@@ -2630,7 +2630,7 @@ TextOffsets::
 	textpointer HaunterName
 	textpointer TransparencyName
 	textpointer TransparencyDescription
-	textpointer NightmareName
+	textpointer Nightmactiveme
 	textpointer HaunterDescription
 	textpointer DreamEaterName
 	textpointer DreamEaterDescription

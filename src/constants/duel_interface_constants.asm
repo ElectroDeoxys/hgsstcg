@@ -31,7 +31,7 @@ DEF HEADER_POKEMON EQU $02
 	const BOXMSG_BETWEEN_TURNS
 	const BOXMSG_DECISION
 	const BOXMSG_BENCH_POKEMON
-	const BOXMSG_ARENA_POKEMON
+	const BOXMSG_ACTIVE_POKEMON
 	const BOXMSG_COIN_TOSS
 
 ; wDuelDisplayedScreen constants
@@ -45,7 +45,7 @@ DEF LARGE_CARD_PICTURE  EQU $08
 DEF SHUFFLE_DECK        EQU $09
 DEF CHECK_PLAY_AREA     EQU $0a
 
-; wCardListItemSelectionMenuType constants
+; wListItemSelectionMenuType constants
 ;NONE        EQU $00
 DEF PLAY_CHECK   EQU $01
 DEF SELECT_CHECK EQU $02

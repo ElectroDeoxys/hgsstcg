@@ -1,14 +1,9 @@
 StartDuel::
 	push_wram BANK("WRAM Duel")
-.loop
+
 	; clear relevant WRAM
 	call ClearDuelWRAM
 	call ClearAIWRAM
-
-	; start with player
-	ld a, PLAYER_TURN
-	ld [wWhoseTurn], a
-	ldh [hWhoseTurn], a
 
 	call SetupDuel
 	call DuelLoop
@@ -57,6 +52,11 @@ ClearAIWRAM:
 	ret
 
 SetupDuel:
+	; start with player
+	ld a, PLAYER_TURN
+	ld [wWhoseTurn], a
+	ldh [hWhoseTurn], a
+
 	; load player's deck
 	call EnableSRAM
 	ld a, [sCurrentlySelectedDeck]
