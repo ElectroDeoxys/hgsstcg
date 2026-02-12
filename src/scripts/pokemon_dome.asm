@@ -354,7 +354,7 @@ Script_f84c:
 	set_active_npc_direction WEST
 	test_if_event_false EVENT_RECEIVED_LEGENDARY_CARDS
 	print_variable_npc_text Text0574, Text0575
-	start_duel PRIZES_6, LEGENDARY_MOLTRES_DECK_ID, MUSIC_DUEL_THEME_3
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_3
 	quit_script_fully
 
 Script_LostToCourtney:
@@ -406,7 +406,7 @@ Script_BeatCourtney:
 	print_npc_text Text0581
 	set_dialog_npc NPC_STEVE
 	print_npc_text Text0582
-	start_duel PRIZES_6, LEGENDARY_ZAPDOS_DECK_ID, MUSIC_DUEL_THEME_3
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_3
 	quit_script_fully
 
 .ows_f9af
@@ -458,7 +458,7 @@ Script_BeatSteve:
 	print_npc_text Text058d
 	set_dialog_npc NPC_JACK
 	print_npc_text Text058e
-	start_duel PRIZES_6, LEGENDARY_ARTICUNO_DECK_ID, MUSIC_DUEL_THEME_3
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_3
 	quit_script_fully
 
 .ows_fa1b
@@ -512,7 +512,7 @@ Script_BeatJack:
 	ask_question_jump_default_yes Text0599, .ows_fa90
 	test_if_event_false EVENT_RECEIVED_LEGENDARY_CARDS
 	print_variable_npc_text Text059a, Text059b
-	start_duel PRIZES_6, LEGENDARY_DRAGONITE_DECK_ID, MUSIC_DUEL_THEME_3
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_3
 	quit_script_fully
 
 .ows_fa90
@@ -595,7 +595,7 @@ Script_BeatRod:
 	set_dialog_npc NPC_ROD
 	print_npc_text Text05ad
 	set_dialog_npc NPC_RONALD1
-	start_duel PRIZES_6, LEGENDARY_RONALD_DECK_ID, MUSIC_DUEL_THEME_3
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_3
 	quit_script_fully
 
 .ows_fb40

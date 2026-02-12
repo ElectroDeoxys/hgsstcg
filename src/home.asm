@@ -9,8 +9,15 @@ SECTION "rst08", ROM0
 	ret
 	ds 7
 SECTION "rst10", ROM0
+; returns [[hWhoseTurn] << 8 + a] in a and in [hl]
+; i.e. duelvar a of the player whose turn it is
+GetTurnDuelistVariable::
+	ld l, a
+	ldh a, [hWhoseTurn]
+	ld h, a
+	ld a, [hl]
 	ret
-	ds 7
+	ds 2
 SECTION "rst18", ROM0
 	jp Bank1Call
 	ds 5
@@ -21,9 +28,12 @@ SECTION "rst28", ROM0
 	jp FarCall
 	ds 5
 SECTION "rst30", ROM0
-	ret
-	ds 7
-SECTION "rst38", ROM0
+SwapTurn::
+	push af
+	ldh a, [hWhoseTurn]
+	xor %1
+	ldh [hWhoseTurn], a
+	pop af
 	ret
 	ds 7
 
@@ -77,6 +87,7 @@ INCLUDE "home/objects.asm"
 INCLUDE "home/farcall.asm"
 INCLUDE "home/hblank.asm"
 INCLUDE "home/duel.asm"
+INCLUDE "home/list.asm"
 INCLUDE "home/card_collection.asm"
 INCLUDE "home/text_box.asm"
 INCLUDE "home/tiles.asm"

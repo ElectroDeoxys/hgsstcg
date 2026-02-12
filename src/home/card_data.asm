@@ -33,53 +33,70 @@ LoadCardDataToHL_FromCardID::
 	pop hl
 	ret
 
+; load data of card with deck index a (0-59) to wLoadedCard1
+LoadCardDataToBuffer1_FromDeckIndex::
+	push de
+	call GetCardIDFromDeckIndex
+	call LoadCardDataToBuffer1_FromCardID
+	pop de
+	ret
+
 ; return in a the type (TYPE_* constant) of the card with id at de
 GetCardType::
+	xor a ; ld a, CARD_DATA_TYPE
+;	fallthrough
+
+; get card byte data of card ID given by de
+; input:
+; - a  = CARD_DATA_* constant
+; - de = card ID
+; output:
+; - a = card data
+GetCardByte::
 	push hl
+	push bc
+	ld c, a
 	call GetCardPointer
 	jr c, .done
 	call BankpushROM2
-	ld l, [hl]
+	ld b, 0
+	add hl, bc
+	ld c, [hl]
 	call BankpopROM
-	ld a, l
+	ld a, c
 	or a
 .done
+	pop bc
 	pop hl
 	ret
 
 ; return in de the 2-byte text id of the name of the card with id at de
 GetCardName::
+	ld a, CARD_DATA_NAME
+;	fallthrough
+
+; get card word data of card ID given by de
+; input:
+; - a  = CARD_DATA_* constant
+; - de = card ID
+; output:
+; - de = card data
+GetCardWord::
 	push hl
+	push bc
+	ld c, a
 	call GetCardPointer
 	jr c, .done
 	call BankpushROM2
-	ld de, CARD_DATA_NAME
-	add hl, de
+	ld b, 0
+	add hl, bc
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
 	call BankpopROM
 	or a
 .done
-	pop hl
-	ret
-
-; from the card id in de, returns type into a, rarity into b, and set into c
-GetCardTypeRarityAndSet::
-	push hl
-	call GetCardPointer
-	jr c, .done
-	call BankpushROM2
-	ld e, [hl] ; CARD_DATA_TYPE
-	ld bc, CARD_DATA_RARITY
-	add hl, bc
-	ld b, [hl] ; CARD_DATA_RARITY
-	inc hl
-	ld c, [hl] ; CARD_DATA_SET
-	call BankpopROM
-	ld a, e
-	or a
-.done
+	pop bc
 	pop hl
 	ret
 

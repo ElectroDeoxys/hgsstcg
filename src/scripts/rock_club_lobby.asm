@@ -31,7 +31,7 @@ Script_Chris:
 
 .ows_df04
 	print_npc_text Text077d
-	start_duel PRIZES_4, MUSCLES_FOR_BRAINS_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatChrisInRockClubLobby:
@@ -89,7 +89,7 @@ Script_Matthew:
 
 .ows_df5b
 	print_npc_text Text0786
-	start_duel PRIZES_4, HARD_POKEMON_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatMatthew:

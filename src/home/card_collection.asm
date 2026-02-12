@@ -5,7 +5,7 @@ GetAmountOfCardsOwned::
 	call EnableSRAM
 	ld hl, 0
 	ld de, sDeck1Cards
-	ld c, NUM_DECKS
+	ld c, NUM_PLAYER_DECKS
 .next_deck
 	push bc
 	ld a, [de]

@@ -153,7 +153,7 @@ ENDM
 MACRO start_duel
 	run_command ScriptCommand_StartDuel
 	db \1 ; Prize Amount (ex PRIZES_2)
-	db \2 ; Deck ID (ex SAMS_PRACTICE_DECK_ID)
+	db \2 ; Deck ID (ex TEST_DECK)
 	db \3 ; Duel Music (ex MUSIC_DUEL_THEME_1)
 ENDM
 
@@ -411,7 +411,7 @@ ENDM
 MACRO start_challenge_hall_duel
 	run_command ScriptCommand_StartChallengeHallDuel
 	db \1 ; Prize Amount (ex PRIZES_2)
-	db \2 ; Deck ID (ex SAMS_PRACTICE_DECK_ID)
+	db \2 ; Deck ID (ex TEST_DECK)
 	db \3 ; Duel Music (ex MUSIC_DUEL_THEME_1)
 ENDM
 

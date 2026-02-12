@@ -75,14 +75,14 @@ SetNPCOpponentNameAndPortrait:
 	ret
 
 ; set the deck id and duel theme for the NPC id in register a
-SetNPCDeckIDAndDuelTheme:
+SetNPCDeckAndDuelTheme:
 	push hl
 	push bc
 	call GetNPCHeaderPointer
-	ld bc, NPC_DATA_DECK_ID
+	ld bc, TEST_DECK
 	add hl, bc
 	ld a, [hli]
-	ld [wNPCDuelDeckID], a
+	ld [wNPCDuelDeck], a
 	ld a, [hli]
 	ld [wDuelTheme], a
 	pop bc
@@ -118,10 +118,10 @@ INCLUDE "data/npcs.asm"
 _GetChallengeMachineDuelConfigurations:
 	push bc
 	push de
-	ld a, [wNPCDuelDeckID]
+	ld a, [wNPCDuelDeck]
 	ld e, a
 	ld bc, 9 ; size of struct - 1
-	ld hl, DeckIDDuelConfigurations
+	ld hl, DeckDuelConfigurations
 .loop_deck_ids
 	ld a, [hli]
 	cp -1 ; end of list?

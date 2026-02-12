@@ -120,7 +120,8 @@ FindCardsInSetAndRarity:
 ; return nc if card de belongs to the current set and rarity
 CheckCardInSetAndRarity:
 	push bc
-	call GetCardTypeRarityAndSet
+	; TODO
+	;call GetCardTypeRarityAndSet
 	ld [wBoosterCurrentCardType], a
 	ld a, b
 	ld [wBoosterCurrentCardRarity], a

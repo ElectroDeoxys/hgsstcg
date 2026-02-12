@@ -41,8 +41,6 @@ wDeckToBuild::
 
 ENDU
 
-SECTION "WRAM Duel 1", WRAM0
-
 ; In order to be identified during a duel, the 60 cards of each duelist are given an index between 0 and 59.
 ; These indexes are assigned following the order of the card list in wPlayerDeck or wOpponentDeck,
 ; which, in turn, follows the internal order of the cards.
@@ -53,8 +51,13 @@ SECTION "WRAM Duel 1", WRAM0
 ;   that is, its temporary position in the wPlayerDeck or wOpponentDeck card list during the current duel.
 ; - The card ID is its actual internal identifier, that is, its number from card_constants.asm.
 ; check macros/wram.asm for information on each variable
-wPlayerDuelVariables::   duel_vars wPlayer   ; c200
-wOpponentDuelVariables:: duel_vars wOpponent ; c300
+wPlayerDuelVariables::   duel_vars wPlayer
+wOpponentDuelVariables:: duel_vars wOpponent
+
+; this holds an $ff-terminated list of card deck indexes (e.g. cards in hand or in bench)
+; or (less often) the attack list of a Pokemon card
+wList::
+	ds $80
 
 UNION
 
@@ -79,11 +82,6 @@ wOpponentDeck::
 ; this holds names like player's or opponent's.
 wNameBuffer::
 	ds NAME_BUFFER_LENGTH
-
-; this holds an $ff-terminated list of card deck indexes (e.g. cards in hand or in bench)
-; or (less often) the attack list of a Pokemon card
-wDuelTempList::
-	ds $80
 
 UNION
 
@@ -294,11 +292,6 @@ wBackgroundPalettesCGB::
 wObjectPalettesCGB::
 	ds NUM_OBJECT_PALETTES palettes
 
-	ds $2
-
-
-SECTION "WRAM Duel 2", WRAM0
-
 ; When we're viewing a card's information, the page we are currently at.
 ; For Pokemon cards, values from $1 to $6 (two pages for attack descriptions)
 ; For Energy cards, it's always $9
@@ -332,12 +325,12 @@ wPokemonLengthPrintOffset::
 wAttackPageNumber::
 	ds $1
 
-; DUELIST_TYPE_* of the turn holder
-wDuelistType::
+; stores the player's result in a duel (0: win, 1: loss)
+; to be read by the overworld caller
+wDuelResult::
 	ds $1
 
-; this holds the current opponent's deck minus 2 (that is, a *_DECK_ID constant),
-; in order to account for the two unused pointers at the beginning of DeckPointers.
+; this holds the current opponent's deck ID
 wOpponentDeckID::
 	ds $1
 
@@ -353,7 +346,7 @@ wNPCDuelPrizes::
 	ds $1
 
 ; an overworld script starting a duel sets this address to the value to be written into wOpponentDeckID
-wNPCDuelDeckID::
+wNPCDuelDeck::
 	ds $1
 
 ; song played during a duel
@@ -618,11 +611,6 @@ wTransitionTablePtr::
 
 ; same as wDuelInitialPrizes but with upper 2 bits set
 wDuelInitialPrizesUpperBitsSet::
-	ds $1
-
-; if TRUE, SwapTurn is called
-; after some operations are concluded
-wIsSwapTurnPending::
 	ds $1
 
 ; it's used for restore the position of cursor
@@ -1123,11 +1111,6 @@ wOverworldNPCFlags::
 
 ; only used with GAME_EVENT_DUEL
 wActiveGameEvent::
-	ds $1
-
-; stores the player's result in a duel (0: win, 1: loss, 2: ???, -1: transmission error?)
-; to be read by the overworld caller
-wDuelResult::
 	ds $1
 
 wNPCDuelist::
@@ -1892,7 +1875,7 @@ wBoosterData_EnergyFunctionPointer::
 wBoosterData_TypeChances::
 	ds NUM_BOOSTER_CARD_TYPES
 
-; index into ChallengeMachine_OpponentDeckIDs
+; index into ChallengeMachine_OpponentDecks
 ; not the typical NPC duelist ID
 wChallengeMachineOpponent::
 	ds $1
@@ -1923,6 +1906,33 @@ wFilteredCardList::
 ; list of all the different cards in a deck configuration
 wUniqueDeckCardList::
 	ds DECK_SIZE * 2
+
+SECTION "WRAM Duel", WRAMX
+
+; saved at start of DuelLoop
+; sp will return here once duel is over
+wDuelLoopSP:: dw
+
+; the value of hWhoseTurn gets loaded here at the beginning of each duelist's turn.
+; more reliable than hWhoseTurn, as hWhoseTurn may change temporarily in order to handle status
+; conditions or other events of the non-turn duelist. used mostly between turns (to check which
+; duelist's turn just finished), or to restore the value of hWhoseTurn at some point.
+wWhoseTurn:: db
+
+; current duel is a [wDuelInitialPrizes]-prize match
+wDuelInitialPrizes:: db
+
+; number of mulligans each player takes at the beginning of the duel
+wMulligans::
+wPlayerMulligans::   db
+wOpponentMulligans:: db
+
+SECTION "WRAM AI", WRAMX
+
+; just so ClearAIWRAM doesn't do an "infinite" loop
+wDummy::
+	ds $1
+
 
 SECTION "WRAM Audio", WRAMX
 

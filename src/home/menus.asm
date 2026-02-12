@@ -201,7 +201,7 @@ DrawCursor2::
 
 ; print the items of a list of cards (hand cards in a duel, cards from a booster pack...)
 ; and initialize the parameters of the list given:
-  ; wDuelTempList = card list source
+  ; wList = card list source
   ; a = list length
   ; de = initial page scroll offset, initial item (in the visible page)
   ; hl: 9 bytes with the rest of the parameters
@@ -252,7 +252,7 @@ ReloadCardListItems::
 	ld a, [wListScrollOffset]
 	ld e, a
 	ld d, $00
-	ld hl, wDuelTempList
+	ld hl, wList
 	add hl, de
 	ld a, [wNumMenuItems]
 	ld b, a

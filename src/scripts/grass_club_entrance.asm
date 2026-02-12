@@ -73,7 +73,7 @@ Script_Michael:
 
 .ows_e58f
 	print_npc_text Text06dc
-	start_duel PRIZES_4, HEATED_BATTLE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatMichaelInGrassClubEntrance:

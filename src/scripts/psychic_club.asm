@@ -43,7 +43,7 @@ Script_Daniel:
 
 .ows_ea8a
 	print_npc_text Text066f
-	start_duel PRIZES_4, NAP_TIME_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatDaniel:
@@ -71,7 +71,7 @@ Script_Stephanie:
 
 .ows_eab8
 	print_npc_text Text0677
-	start_duel PRIZES_4, STRANGE_POWER_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatStephanie:
@@ -116,7 +116,7 @@ Script_Murray:
 
 .ows_eb07
 	print_npc_text Text0681
-	start_duel PRIZES_6, STRANGE_PSYSHOCK_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 Script_BeatMurray:
@@ -145,7 +145,7 @@ Script_LostToMurray:
 
 .ows_eb3d
 	print_npc_text Text0688
-	start_duel PRIZES_6, STRANGE_PSYSHOCK_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 .ows_eb45

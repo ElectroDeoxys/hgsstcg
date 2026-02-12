@@ -553,10 +553,10 @@ ChallengeMachine_GetOpponentNameAndDeck:
 	ld a, [wChallengeMachineOpponent]
 	ld e, a
 	ld d, 0
-	ld hl, ChallengeMachine_OpponentDeckIDs
+	ld hl, ChallengeMachine_OpponentDecks
 	add hl, de
 	ld a, [hl]
-	ld [wNPCDuelDeckID], a
+	ld [wNPCDuelDeck], a
 	call _GetChallengeMachineDuelConfigurations
 	pop de
 	ret
@@ -761,50 +761,50 @@ ChallengeMachine_CheckIfOpponentAlreadySelected:
 	scf
 	ret
 
-ChallengeMachine_OpponentDeckIDs:
+ChallengeMachine_OpponentDecks:
 .club_members
-	db MUSCLES_FOR_BRAINS_DECK_ID
-	db HEATED_BATTLE_DECK_ID
-	db LOVE_TO_BATTLE_DECK_ID
-	db EXCAVATION_DECK_ID
-	db BLISTERING_POKEMON_DECK_ID
-	db HARD_POKEMON_DECK_ID
-	db WATERFRONT_POKEMON_DECK_ID
-	db LONELY_FRIENDS_DECK_ID
-	db SOUND_OF_THE_WAVES_DECK_ID
-	db PIKACHU_DECK_ID
-	db BOOM_BOOM_SELFDESTRUCT_DECK_ID
-	db POWER_GENERATOR_DECK_ID
-	db ETCETERA_DECK_ID
-	db FLOWER_GARDEN_DECK_ID
-	db KALEIDOSCOPE_DECK_ID
-	db GHOST_DECK_ID
-	db NAP_TIME_DECK_ID
-	db STRANGE_POWER_DECK_ID
-	db FLYIN_POKEMON_DECK_ID
-	db LOVELY_NIDORAN_DECK_ID
-	db POISON_DECK_ID
-	db ANGER_DECK_ID
-	db FLAMETHROWER_DECK_ID
-	db RESHUFFLE_DECK_ID
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
 .club_masters
-	db FIRST_STRIKE_DECK_ID
-	db ROCK_CRUSHER_DECK_ID
-	db GO_GO_RAIN_DANCE_DECK_ID
-	db ZAPPING_SELFDESTRUCT_DECK_ID
-	db FLOWER_POWER_DECK_ID
-	db STRANGE_PSYSHOCK_DECK_ID
-	db WONDERS_OF_SCIENCE_DECK_ID
-	db FIRE_CHARGE_DECK_ID
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
 .grand_masters
-	db LEGENDARY_MOLTRES_DECK_ID
-	db LEGENDARY_ZAPDOS_DECK_ID
-	db LEGENDARY_ARTICUNO_DECK_ID
-	db LEGENDARY_DRAGONITE_DECK_ID
-	db LIGHTNING_AND_FIRE_DECK_ID
-	db WATER_AND_FIGHTING_DECK_ID
-	db GRASS_AND_PSYCHIC_DECK_ID
-	db IMAKUNI_DECK_ID
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
 
-DEF CLUB_MASTERS_START  EQU ChallengeMachine_OpponentDeckIDs.club_masters - ChallengeMachine_OpponentDeckIDs.club_members
-DEF GRAND_MASTERS_START EQU ChallengeMachine_OpponentDeckIDs.grand_masters - ChallengeMachine_OpponentDeckIDs.club_members
+DEF CLUB_MASTERS_START  EQU ChallengeMachine_OpponentDecks.club_masters - ChallengeMachine_OpponentDecks.club_members
+DEF GRAND_MASTERS_START EQU ChallengeMachine_OpponentDecks.grand_masters - ChallengeMachine_OpponentDecks.club_members

@@ -28,7 +28,7 @@ Script_Kristin:
 
 .ows_e714
 	print_npc_text Text0708
-	start_duel PRIZES_4, FLOWER_GARDEN_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatKristin:
@@ -60,7 +60,7 @@ Script_Heather:
 
 .ows_e758
 	print_npc_text Text0711
-	start_duel PRIZES_4, KALEIDOSCOPE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatHeather:
@@ -107,12 +107,12 @@ Script_Nikki:
 .ows_e7bf
 	jump_if_event_true EVENT_BEAT_NIKKI, .ows_e7cb
 	print_npc_text Text071d
-	start_duel PRIZES_6, FLOWER_POWER_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 .ows_e7cb
 	print_npc_text Text071e
-	start_duel PRIZES_6, FLOWER_POWER_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 Script_BeatNikki:

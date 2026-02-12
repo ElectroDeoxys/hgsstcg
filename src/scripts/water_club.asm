@@ -45,7 +45,7 @@ Script_Sara:
 
 .start_duel
 	print_npc_text SaraStartDuelText
-	start_duel PRIZES_2, WATERFRONT_POKEMON_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_2, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatSara:
@@ -69,7 +69,7 @@ Script_Amanda:
 
 .start_duel
 	print_npc_text AmandaDuelStartText
-	start_duel PRIZES_3, LONELY_FRIENDS_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_3, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatAmanda:
@@ -180,7 +180,7 @@ Script_Joshua:
 .start_duel
 	print_npc_text JoshuaDuelStartText
 	try_give_pc_pack $04
-	start_duel PRIZES_4, SOUND_OF_THE_WAVES_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_LostToJoshua:
@@ -279,7 +279,7 @@ Script_Amy:
 
 .start_duel
 	print_npc_text AmyDuelStartInitialText
-	start_duel PRIZES_6, GO_GO_RAIN_DANCE_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 Script_BeatAmy:
@@ -316,5 +316,5 @@ Script_Amy_AlreadyHaveMedal:
 
 .start_duel
 	print_npc_text AmyDuelStartRepeatText
-	start_duel PRIZES_6, GO_GO_RAIN_DANCE_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully

@@ -107,7 +107,7 @@ Script_Imakuni:
 
 .start_duel
 	print_npc_text ImakuniDuelStartText
-	start_duel PRIZES_6, IMAKUNI_DECK_ID, MUSIC_IMAKUNI
+	start_duel PRIZES_6, TEST_DECK, MUSIC_IMAKUNI
 	quit_script_fully
 
 Script_BeatImakuni:

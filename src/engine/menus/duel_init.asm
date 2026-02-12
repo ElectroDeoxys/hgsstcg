@@ -8,7 +8,7 @@ Duel_Init:
 	lb de,  0, 12
 	lb bc, 20,  6
 	call DrawRegularTextBox
-	ld a, [wNPCDuelDeckID]
+	ld a, [wNPCDuelDeck]
 	add a
 	add a
 	ld c, a
@@ -68,14 +68,8 @@ OpponentDeckNameLabel:
 OpponentTitlesAndDeckNames:
 	table_width 4
 
-	tx TechText
-	tx SamsPracticeDeckName
-
 	tx EmptyText
 	dw NULL
-
-	tx TechText
-	tx SamsPracticeDeckName
 
 	tx EmptyText
 	dw NULL
@@ -95,136 +89,4 @@ OpponentTitlesAndDeckNames:
 	tx EmptyText
 	dw NULL
 
-	tx TechText
-	tx LightningAndFireDeckName
-
-	tx TechText
-	tx WaterAndFightingDeckName
-
-	tx TechText
-	tx GrassAndPsychicDeckName
-
-	tx GrandMasterText
-	tx LegendaryMoltresDeckName
-
-	tx GrandMasterText
-	tx LegendaryZapdosDeckName
-
-	tx GrandMasterText
-	tx LegendaryArticunoDeckName
-
-	tx GrandMasterText
-	tx LegendaryDragoniteDeckName
-
-	tx FightingClubMasterText
-	tx FirstStrikeDeckName
-
-	tx RockClubMasterText
-	tx RockCrusherDeckName
-
-	tx WaterClubMasterText
-	tx GoGoRainDanceDeckName
-
-	tx LightningClubMasterText
-	tx ZappingSelfdestructDeckName
-
-	tx GrassClubMasterText
-	tx FlowerPowerDeckName
-
-	tx PsychicClubMasterText
-	tx StrangePsyshockDeckName
-
-	tx ScienceClubMasterText
-	tx WondersofScienceDeckName
-
-	tx FireClubMasterText
-	tx FireChargeDeckName
-
-	tx EmptyText
-	tx ImRonaldDeckName
-
-	tx EmptyText
-	tx PowerfulRonaldDeckName
-
-	tx EmptyText
-	tx InvincibleRonaldDeckName
-
-	tx EmptyText
-	tx LegendaryRonaldDeckName
-
-	tx FightingClubMemberText
-	tx MusclesforBrainsDeckName
-
-	tx FightingClubMemberText
-	tx HeatedBattleDeckName
-
-	tx FightingClubMemberText
-	tx LovetoBattleDeckName
-
-	tx RockClubMemberText
-	tx ExcavationDeckName
-
-	tx RockClubMemberText
-	tx BlisteringPokemonDeckName
-
-	tx RockClubMemberText
-	tx HardPokemonDeckName
-
-	tx WaterClubMemberText
-	tx WaterfrontPokemonDeckName
-
-	tx WaterClubMemberText
-	tx LonelyFriendsDeckName
-
-	tx WaterClubMemberText
-	tx SoundoftheWavesDeckName
-
-	tx LightningClubMemberText
-	tx PikachuDeckName
-
-	tx LightningClubMemberText
-	tx BoomBoomSelfdestructDeckName
-
-	tx LightningClubMemberText
-	tx PowerGeneratorDeckName
-
-	tx GrassClubMemberText
-	tx EtceteraDeckName
-
-	tx GrassClubMemberText
-	tx FlowerGardenDeckName
-
-	tx GrassClubMemberText
-	tx KaleidoscopeDeckName
-
-	tx PsychicClubMemberText
-	tx GhostDeckName
-
-	tx PsychicClubMemberText
-	tx NapTimeDeckName
-
-	tx PsychicClubMemberText
-	tx StrangePowerDeckName
-
-	tx ScienceClubMemberText
-	tx FlyinPokemonDeckName
-
-	tx ScienceClubMemberText
-	tx LovelyNidoranDeckName
-
-	tx ScienceClubMemberText
-	tx PoisonDeckName
-
-	tx FireClubMemberText
-	tx AngerDeckName
-
-	tx FireClubMemberText
-	tx FlamethrowerDeckName
-
-	tx FireClubMemberText
-	tx ReshuffleDeckName
-
-	tx StrangeLifeformText
-	tx ImakuniDeckName
-
-	assert_table_length NUM_DECK_IDS
+	assert_table_length NUM_DECKS

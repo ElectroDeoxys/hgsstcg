@@ -33,7 +33,7 @@ Script_Jennifer:
 
 .ows_e415
 	print_npc_text Text061e
-	start_duel PRIZES_4, PIKACHU_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatJennifer:
@@ -57,7 +57,7 @@ Script_Nicholas:
 
 .ows_e43c
 	print_npc_text Text0625
-	start_duel PRIZES_4, BOOM_BOOM_SELFDESTRUCT_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatNicholas:
@@ -90,7 +90,7 @@ Script_Brandon:
 
 .ows_e478
 	print_npc_text Text062e
-	start_duel PRIZES_4, POWER_GENERATOR_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatBrandon:
@@ -141,7 +141,7 @@ Script_Isaac:
 
 .ows_e4d9
 	print_npc_text Text0637
-	start_duel PRIZES_6, ZAPPING_SELFDESTRUCT_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 Script_BeatIsaac:
@@ -170,7 +170,7 @@ Script_LostToIsaac:
 
 .ows_e50f
 	print_npc_text Text063e
-	start_duel PRIZES_6, ZAPPING_SELFDESTRUCT_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 .ows_e517

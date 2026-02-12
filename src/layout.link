@@ -13,8 +13,6 @@ ROM0
 	"rst28"
 	org $0030
 	"rst30"
-	org $0038
-	"rst38"
 	org $0040
 	"vblank"
 	org $0048
@@ -179,16 +177,18 @@ ROMX $45
 	"Sfx 3"
 WRAM0
 	"WRAM"
-	"WRAM Duel 1"
 	org $c600
 	"WRAM Text Engine"
 	"WRAM 1"
-	"WRAM Duel 2"
 	"WRAM 2"
 	org $cf00
 	"Stack"
 WRAMX $1
 	"WRAM1"
+WRAMX $2
+	"WRAM Duel"
+WRAMX $3
+	"WRAM AI"
 WRAMX $7
 	"WRAM Audio"
 VRAM $00

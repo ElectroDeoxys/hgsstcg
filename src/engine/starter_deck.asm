@@ -17,7 +17,7 @@ _AddStarterDeck:
 	add 2
 	push hl
 	ld hl, sDeck1
-	call StoreDeckIDInSRAM
+	call StoreDeckInSRAM
 
 ; wPlayerDeck = main starter deck
 	call EnableSRAM
@@ -65,9 +65,9 @@ _AddStarterDeck:
 
 .StarterCardIDs
 	; main deck, extra cards
-	db CHARMANDER_AND_FRIENDS_DECK_ID, CHARMANDER_EXTRA_DECK_ID
-	db SQUIRTLE_AND_FRIENDS_DECK_ID,   SQUIRTLE_EXTRA_DECK_ID
-	db BULBASAUR_AND_FRIENDS_DECK_ID,  BULBASAUR_EXTRA_DECK_ID
+	db CHARMANDER_AND_FRIENDS_DECK, CHARMANDER_EXTRA_DECK
+	db SQUIRTLE_AND_FRIENDS_DECK,   SQUIRTLE_EXTRA_DECK
+	db BULBASAUR_AND_FRIENDS_DECK,  BULBASAUR_EXTRA_DECK
 
 ; clears saved data (card Collection/saved decks/etc)
 ; then adds the starter decks as saved decks
@@ -90,13 +90,13 @@ InitSaveData:
 ; add the starter decks
 	ld a, CHARMANDER_AND_FRIENDS_DECK
 	ld hl, sSavedDeck1
-	call StoreDeckIDInSRAM
+	call StoreDeckInSRAM
 	ld a, SQUIRTLE_AND_FRIENDS_DECK
 	ld hl, sSavedDeck2
-	call StoreDeckIDInSRAM
+	call StoreDeckInSRAM
 	ld a, BULBASAUR_AND_FRIENDS_DECK
 	ld hl, sSavedDeck3
-	call StoreDeckIDInSRAM
+	call StoreDeckInSRAM
 
 ; marks all cards in Collection to not owned
 	call EnableSRAM
@@ -133,7 +133,7 @@ InitSaveData:
 ; input:
 ;    a = Deck ID
 ;    hl = destination to copy
-StoreDeckIDInSRAM:
+StoreDeckInSRAM:
 	push de
 	push bc
 	push hl

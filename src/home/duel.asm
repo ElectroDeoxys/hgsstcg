@@ -1,12 +1,3 @@
-; returns [[hWhoseTurn] << 8 + a] in a and in [hl]
-; i.e. duelvar a of the player whose turn it is
-GetTurnDuelistVariable::
-	ld l, a
-	ldh a, [hWhoseTurn]
-	ld h, a
-	ld a, [hl]
-	ret
-
 ; returns [([hWhoseTurn] ^ $1) << 8 + a] in a and in [hl]
 ; i.e. duelvar a of the player whose turn it is not
 GetNonTurnDuelistVariable::
@@ -21,12 +12,12 @@ GetNonTurnDuelistVariable::
 	ret
 
 ; sort a $ff-terminated list of deck index cards by ID (lowest to highest ID).
-; the list is wDuelTempList.
+; the list is wList.
 SortCardsInDuelTempListByID::
 	ld hl, hTempListPtr_ff99
-	ld [hl], LOW(wDuelTempList)
+	ld [hl], LOW(wList)
 	inc hl
-	ld [hl], HIGH(wDuelTempList)
+	ld [hl], HIGH(wList)
 	jr SortCardsInListByID_CheckForListTerminator
 
 ; sort a $ff-terminated list of deck index cards by ID (lowest to highest ID).

@@ -77,7 +77,7 @@ DrawDecksScreen:
 	call PlaceTextItems
 
 ; mark all decks as invalid
-	ld a, NUM_DECKS
+	ld a, NUM_PLAYER_DECKS
 	ld hl, wDecksValid
 	call ClearMemory_Bank2
 
@@ -156,7 +156,7 @@ DrawDecksScreen:
 	or a
 	jr nz, .valid_selected_deck
 	inc c
-	ld a, NUM_DECKS
+	ld a, NUM_PLAYER_DECKS
 	cp c
 	jr nz, .check_valid_deck
 	ld c, 0 ; roll back to deck 1
@@ -774,7 +774,7 @@ CheckIfHasOtherValidDecks:
 	lb bc, 0, 0
 .loop
 	inc b
-	ld a, NUM_DECKS
+	ld a, NUM_PLAYER_DECKS
 	cp b
 	jr c, .check_has_cards
 	ld a, [hli]
@@ -2804,7 +2804,7 @@ SortCurDeckCardsByID:
 ; so that it can be later sorted by ID
 	ld hl, wCurDeckCards
 	ld de, wOpponentDeck
-	ld bc, wDuelTempList
+	ld bc, wList
 	ld a, -1
 	ld [bc], a
 .loop_copy
@@ -2827,7 +2827,7 @@ SortCurDeckCardsByID:
 
 .sort_cards
 	pop af
-	ld a, $ff ; terminator byte for wDuelTempList
+	ld a, $ff ; terminator byte for wList
 	ld [bc], a
 
 ; force Opp Turn so that SortCardsInDuelTempListByID can be used
@@ -2844,7 +2844,7 @@ SortCurDeckCardsByID:
 ; (first ordered card is deck index 0, second is deck index 1, etc)
 ; place these in this order in wCurDeckCards
 	ld hl, wCurDeckCards
-	ld de, wDuelTempList
+	ld de, wList
 .loop_order_by_deck_index
 	ld a, [de]
 	cp $ff

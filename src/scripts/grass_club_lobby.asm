@@ -19,7 +19,7 @@ Script_Brittany:
 
 .start_duel
 	print_npc_text Text06e4
-	start_duel PRIZES_4, ETCETERA_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatBrittany:

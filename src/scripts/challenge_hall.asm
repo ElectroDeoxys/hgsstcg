@@ -172,7 +172,7 @@ Script_f353:
 	close_text_box
 	move_active_npc NPCMovement_f38e
 	print_npc_text Clerk12ChallengeCupRound1DuelStartText
-	start_challenge_hall_duel PRIZES_4, SAMS_PRACTICE_DECK_ID, MUSIC_STOP
+	start_challenge_hall_duel PRIZES_4, TEST_DECK, MUSIC_STOP
 	quit_script_fully
 
 NPCMovement_f37d:
@@ -340,7 +340,7 @@ Script_WonAtChallengeHall:
 	ask_question_jump_default_yes Clerk12PrepareYourDeckText, .ows_f4bd
 	test_if_event_equal EVENT_CHALLENGE_CUP_OPPONENT_NUMBER, 2
 	print_variable_npc_text Clerk12ChallengeCupRound2DuelStartText, Clerk12ChallengeCupRound3DuelStartText
-	start_challenge_hall_duel PRIZES_4, SAMS_PRACTICE_DECK_ID, MUSIC_STOP
+	start_challenge_hall_duel PRIZES_4, TEST_DECK, MUSIC_STOP
 	quit_script_fully
 
 .ows_f4bd

@@ -72,7 +72,7 @@ Script_Jessica:
 
 .ows_edb2
 	print_npc_text Text0691
-	start_duel PRIZES_4, LOVE_TO_BATTLE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatJessicaInFireClubLobby:

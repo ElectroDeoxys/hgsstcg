@@ -140,7 +140,7 @@ CheckWhichDecksToDismantleToBuildSavedDeck:
 	call .CheckIfCanBuild
 	ret nc
 	sla a ; next deck
-	cp (1 << NUM_DECKS)
+	cp (1 << NUM_PLAYER_DECKS)
 	jr z, .two_deck_combinations
 	jr .loop_single_built_decks
 

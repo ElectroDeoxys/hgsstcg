@@ -692,16 +692,16 @@ ScriptCommand_StartDuel:
 	call GetItemInLoadedNPCIndex
 	ld a, [hl]
 	farcall SetNPCMatchStartTheme
-	ld a, [wNPCDuelDeckID]
+	ld a, [wNPCDuelDeck]
 	cp $ff
 	jr nz, .not_aaron_duel
 	ld a, [wMultichoiceTextboxResult_ChooseDeckToDuelAgainst]
 	ld c, a
 	ld b, 0
-	ld hl, AaronDeckIDs
+	ld hl, AaronDecks
 	add hl, bc
 	ld a, [hl]
-	ld [wNPCDuelDeckID], a
+	ld [wNPCDuelDeck], a
 .not_aaron_duel
 	ld a, [wScriptNPC]
 	ld l, LOADED_NPC_ID
@@ -723,22 +723,22 @@ ScriptCommand_StartDuel:
 ScriptCommand_StartChallengeHallDuel:
 	call SetNPCDuelParams
 	ld a, [wChallengeHallNPC]
-	farcall SetNPCDeckIDAndDuelTheme
+	farcall SetNPCDeckAndDuelTheme
 	ld a, MUSIC_MATCH_START_2
 	ld [wMatchStartTheme], a
 	ld a, [wChallengeHallNPC]
 	jr ScriptCommand_StartDuel.start_duel
 
-AaronDeckIDs:
-	db LIGHTNING_AND_FIRE_DECK_ID
-	db WATER_AND_FIGHTING_DECK_ID
-	db GRASS_AND_PSYCHIC_DECK_ID
+AaronDecks:
+	db TEST_DECK
+	db TEST_DECK
+	db TEST_DECK
 
 SetNPCDuelParams:
 	ld a, c
 	ld [wNPCDuelPrizes], a
 	ld a, b
-	ld [wNPCDuelDeckID], a
+	ld [wNPCDuelDeck], a
 	call GetScriptArgs3AfterPointer
 	ld a, c
 	ld [wDuelTheme], a

@@ -204,11 +204,11 @@ Script_Sam:
 	set_player_direction WEST
 	move_active_npc NPCMovement_d889
 	jump_if_event_equal EVENT_SAM_MENU_CHOICE, SAM_MENU_NORMAL_DUEL, .ows_d685
-	start_duel PRIZES_2, SAMS_PRACTICE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_2, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 .ows_d685
-	start_duel PRIZES_2, SAMS_NORMAL_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_2, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatSam:
@@ -421,7 +421,7 @@ Script_EnterLabFirstTime:
 
 .ows_d827
 	start_script
-	start_duel PRIZES_2, SAMS_PRACTICE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_2, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 .ows_d82d

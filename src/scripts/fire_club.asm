@@ -33,7 +33,7 @@ Script_John:
 
 .ows_eec0
 	print_npc_text Text06a8
-	start_duel PRIZES_4, ANGER_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatJohn:
@@ -56,7 +56,7 @@ Script_Adam:
 
 .ows_eee5
 	print_npc_text Text06af
-	start_duel PRIZES_4, FLAMETHROWER_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatAdam:
@@ -79,7 +79,7 @@ Script_Jonathan:
 
 .ows_ef0a
 	print_npc_text Text06b6
-	start_duel PRIZES_4, RESHUFFLE_DECK_ID, MUSIC_DUEL_THEME_1
+	start_duel PRIZES_4, TEST_DECK, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
 Script_BeatJonathan:
@@ -115,7 +115,7 @@ Script_Ken:
 
 .start_duel
 	print_npc_text Text06c0
-	start_duel PRIZES_6, FIRE_CHARGE_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully
 
 Script_BeatKen:
@@ -145,5 +145,5 @@ Script_Ken_AlreadyHaveMedal:
 
 .start_duel
 	print_npc_text Text06c7
-	start_duel PRIZES_6, FIRE_CHARGE_DECK_ID, MUSIC_DUEL_THEME_2
+	start_duel PRIZES_6, TEST_DECK, MUSIC_DUEL_THEME_2
 	quit_script_fully

@@ -138,7 +138,7 @@ Script_FirstRonaldDuel:
 	move_player SOUTH, 1
 	print_npc_text Text064b
 	set_event EVENT_RONALD_FIRST_DUEL_STATE, RONALD_DUEL_WON
-	start_duel PRIZES_6, IM_RONALD_DECK_ID, MUSIC_RONALD
+	start_duel PRIZES_6, TEST_DECK, MUSIC_RONALD
 	quit_script_fully
 
 Script_BeatFirstRonaldDuel:
@@ -202,7 +202,7 @@ Script_SecondRonaldDuel:
 	move_player SOUTH, 1
 	print_npc_text Text0650
 	set_event EVENT_RONALD_SECOND_DUEL_STATE, RONALD_DUEL_WON
-	start_duel PRIZES_6, POWERFUL_RONALD_DECK_ID, MUSIC_RONALD
+	start_duel PRIZES_6, TEST_DECK, MUSIC_RONALD
 	quit_script_fully
 
 Script_BeatSecondRonaldDuel:

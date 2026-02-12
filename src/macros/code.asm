@@ -108,3 +108,11 @@ MACRO? pop_wram
 	pop af
 	ldh [rWBK], a
 ENDM
+
+MACRO? get_turn_duelist_var
+	rst GetTurnDuelistVariable
+ENDM
+
+MACRO? swap_turn
+	rst SwapTurn
+ENDM
