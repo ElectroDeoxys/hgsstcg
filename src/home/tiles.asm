@@ -106,6 +106,12 @@ LoadDuelCardSymbolTiles2::
 	ld b, $c
 	jr CopyFontsOrDuelGraphicsTiles
 
+LoadDuelCursorTiles::
+	ld hl, DuelCursorGraphics - $4000
+	ld de, v0Tiles0
+	ld b, 28 ; tiles
+	jr CopyFontsOrDuelGraphicsTiles
+
 ; same as LoadDuelFaceDownCardTiles, plus also load the ACT / BPx tiles
 LoadDuelCheckPokemonScreenTiles::
 	ld b, $24

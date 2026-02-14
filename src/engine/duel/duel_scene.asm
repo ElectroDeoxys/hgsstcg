@@ -8,13 +8,9 @@ DuelScene:
 	ld hl, DuelSceneDoFrame
 	call SetDoFrameFunction
 
-	ld de, v1Tiles0
-	ld hl, .CursorTile
-	ld bc, 1 tiles
-	call CopyDataHLtoDE
-
 	; load necessary graphics
 	call SetDefaultConsolePalettes
+	call LoadDuelCursorTiles
 
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
@@ -98,12 +94,12 @@ DuelScene:
 
 .free_movement
 	ldh a, [hKeysHeld]
-	ld b, a
-	cp PAD_B | PAD_UP
-	jr z, .scroll_area_up
-	ld a, b
-	cp PAD_B | PAD_DOWN
-	jr nz,.no_scroll_area
+	bit B_PAD_B, a
+	jr z, .no_b_btn
+	bit B_PAD_UP, a
+	jr nz, .scroll_area_up
+	bit B_PAD_DOWN, a
+	jr z,.done_input
 
 ; scroll area down
 	ld a, [wDuelSceneSCY + 1]
@@ -128,7 +124,7 @@ DuelScene:
 	ld [wTargetDuelSceneSCY], a
 	jr .done_input
 
-.no_scroll_area
+.no_b_btn
 	ld hl, wDuelCursorX
 	ldh a, [hKeysHeld]
 	bit B_PAD_LEFT, a
@@ -201,11 +197,11 @@ ScrollDuelScene:
 ScrollSpeeds:
 	dw 0.00 ; 0
 	dw 0.50 ; 1
-	dw 1.50 ; 2
-	dw 2.75 ; 3
-	dw 3.50 ; 4
-	dw 3.88 ; 5
-	dw 4.25 ; 6
+	dw 0.75 ; 2
+	dw 1.00 ; 3
+	dw 1.50 ; 4
+	dw 2.50 ; 5
+	dw 4.00 ; 6
 
 DrawPlayerDuelScene:
 	; force PLAYER_TURN temporarily
@@ -235,9 +231,9 @@ DrawPlayerDuelScene:
 	ld hl, wPlayerPlayArea + PLAY_AREA_BENCH_1
 	lb de, 3, 28 ; x, y
 
-REPT MAX_BENCH_POKEMON
-	call .DrawBenchSymbol
-ENDR
+	REPT MAX_BENCH_POKEMON
+		call .DrawBenchSymbol
+	ENDR
 
 	pop af
 	ldh [hWhoseTurn], a
@@ -280,9 +276,9 @@ DrawOpponentDuelScene:
 	ld hl, wOpponentPlayArea + PLAY_AREA_BENCH_1
 	lb de, 15, 2 ; x, y
 
-REPT MAX_BENCH_POKEMON
-	call .DrawBenchSymbol
-ENDR
+	REPT MAX_BENCH_POKEMON
+		call .DrawBenchSymbol
+	ENDR
 
 	pop af
 	ldh [hWhoseTurn], a

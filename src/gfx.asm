@@ -28,6 +28,9 @@ DuelCardHeaderGraphics::
 DuelCgbSymbolGraphics::
 	INCBIN "gfx/duel/cgb_symbols.2bpp"
 
+DuelCursorGraphics::
+	INCBIN "gfx/duel/cursor.2bpp"
+
 SECTION "Gfx 2", ROMX
 
 DuelOtherGraphics::
