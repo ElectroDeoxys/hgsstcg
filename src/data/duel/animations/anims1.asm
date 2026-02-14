@@ -1611,6 +1611,73 @@ AnimData70::
 	frame_data -1, 2, 0, 0
 	frame_data 0, 0, 0, 0
 
+AnimFrameDuelCursor::
+	dw .frame_0
+	dw .frame_1
+	dw .frame_2
+	dw .frame_3
+	dw .frame_4
+	dw .frame_5
+	dw .frame_6
+
+.frame_0
+	db 4 ; size
+	db 0, 0, $00, 0
+	db 8, 0, $01, 0
+	db 0, 8, $0e, 0
+	db 8, 8, $0f, 0
+
+.frame_1
+	db 4 ; size
+	db 0, 0, $02, 0
+	db 8, 0, $03, 0
+	db 0, 8, $10, 0
+	db 8, 8, $11, 0
+
+.frame_2
+	db 4 ; size
+	db 0, 0, $04, 0
+	db 8, 0, $05, 0
+	db 0, 8, $12, 0
+	db 8, 8, $13, 0
+
+.frame_3
+	db 4 ; size
+	db 0, 0, $06, 0
+	db 8, 0, $07, 0
+	db 0, 8, $14, 0
+	db 8, 8, $15, 0
+
+.frame_4
+	db 4 ; size
+	db 0, 0, $08, 0
+	db 8, 0, $09, 0
+	db 0, 8, $16, 0
+	db 8, 8, $17, 0
+
+.frame_5
+	db 4 ; size
+	db 0, 0, $0a, 0
+	db 8, 0, $0b, 0
+	db 0, 8, $18, 0
+	db 8, 8, $19, 0
+
+.frame_6
+	db 4 ; size
+	db 0, 0, $0c, 0
+	db 8, 0, $0d, 0
+	db 0, 8, $1a, 0
+	db 8, 8, $1b, 0
+
+AnimDataDuelCursorPoint::
+	frame_table AnimFrameDuelCursor
+	frame_data  0, 10,   1,   1
+	frame_data  1, 10,   0,   0
+	frame_data  2, 10,   0,   0
+	frame_data  3, 32,   0,   0
+	frame_data  3, -1,   0,   0
+	frame_data  0,  0,   0,   0
+
 AnimFrameTableGlow::
 	dw .frame_0
 	dw .frame_1

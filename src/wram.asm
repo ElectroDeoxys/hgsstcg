@@ -1919,6 +1919,13 @@ wVDMADestBank::   db ; VRAM bank
 wVDMADest::       dw ; big endian
 wVDMALen::        db
 
+wDuelAnimations::
+wDuelAnimation1:: duel_anim_struct wDuelAnimation1
+wDuelAnimation2:: duel_anim_struct wDuelAnimation2
+wDuelAnimation3:: duel_anim_struct wDuelAnimation3
+wDuelAnimation4:: duel_anim_struct wDuelAnimation4
+wDuelAnimation5:: duel_anim_struct wDuelAnimation5
+
 SECTION "WRAM AI", WRAMX
 
 ; just so ClearAIWRAM doesn't do an "infinite" loop

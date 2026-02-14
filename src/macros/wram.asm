@@ -84,13 +84,11 @@ MACRO sprite_vram_struct
 ENDM
 
 MACRO duel_anim_struct
-\1ID::             ds 1
-\1Screen::         ds 1
-\1DuelistSide::    ds 1
-\1LocationParam::  ds 1
-\1Damage::         ds 2
-\1Unknown2::       ds 1
-\1Bank::           ds 1
+\1Flags::       db
+\1OAMBank::     db
+\1OAMPtr::      dw
+\1FramesetPtr:: dw
+\1Duration::    db
 ENDM
 
 MACRO deck_struct
