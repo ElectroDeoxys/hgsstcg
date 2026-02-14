@@ -2,10 +2,6 @@ FadeScreenToWhite:
 	ld a, [wLCDC]
 	bit B_LCDC_ENABLE, a
 	jr z, .lcd_off
-	xor a
-	ld [wTempBGP], a
-	ld [wTempOBP0], a
-	ld [wTempOBP1], a
 	ld de, PALRGB_WHITE
 	ld hl, wTempBackgroundPalettesCGB
 	ld bc, NUM_BACKGROUND_PALETTES palettes
@@ -15,10 +11,6 @@ FadeScreenToWhite:
 	jp DisableLCD
 
 .lcd_off
-	xor a
-	ld [wBGP], a
-	ld [wOBP0], a
-	ld [wOBP1], a
 	ld de, PALRGB_WHITE
 	ld hl, wBackgroundPalettesCGB
 	ld bc, NUM_BACKGROUND_PALETTES palettes
@@ -33,12 +25,6 @@ FadeScreenFromWhite:
 	jp FadeScreenToTempPals
 
 .BackupPalsAndSetWhite
-	ld a, [wBGP]
-	ld [wTempBGP], a
-	ld a, [wOBP0]
-	ld [wTempOBP0], a
-	ld a, [wOBP1]
-	ld [wTempOBP1], a
 	ld hl, wBackgroundPalettesCGB
 	ld de, wTempBackgroundPalettesCGB
 	ld bc, NUM_BACKGROUND_PALETTES palettes + NUM_OBJECT_PALETTES palettes
@@ -47,10 +33,6 @@ FadeScreenFromWhite:
 
 ; fills wBackgroundPalettesCGB with white pal
 SetWhitePalettes:
-	xor a
-	ld [wBGP], a
-	ld [wOBP0], a
-	ld [wOBP1], a
 	ld de, PALRGB_WHITE
 	ld hl, wBackgroundPalettesCGB
 	ld bc, NUM_BACKGROUND_PALETTES palettes
@@ -85,19 +67,12 @@ RestoreFirstColorInOBPals:
 FadeScreenToTempPals:
 	ld a, [wVBlankCounter]
 	push af
-	ld c, $10
+	ld c, $8
 .loop
-	push bc
-	ld a, c
-	and %11
-	cp 0
-	call z, FadeDMGPalettes
 	call FadeBGPalIntoTemp3
 	call FadeOBPalIntoTemp
 	call FlushAllPalettes
 	call DoFrameIfLCDEnabled
-	pop bc
-	dec c
 	dec c
 	jr nz, .loop
 	pop af
@@ -105,91 +80,6 @@ FadeScreenToTempPals:
 	ld a, [wVBlankCounter]
 	sub b
 	ret
-
-; mixes shades in wBGP with wTempBGP
-FadeDMGPalettes:
-	push bc
-	ld c, 3 ; for BGP, OBP0 and OBP1
-	ld hl, wBGP
-	ld de, wTempBGP
-.loop_palettes
-	push bc
-	ld b, [hl]
-	ld a, [de]
-	ld c, a
-	call .CalculateMixPalette
-	ld [hl], a
-	pop bc
-	inc de
-	inc hl
-	dec c
-	jr nz, .loop_palettes
-	pop bc
-	ret
-
-.CalculateMixPalette:
-	push bc
-	push de
-	lb de, $00, PAL_COLORS
-.loop_shades
-	call .GetMixShadeValue
-	or d
-	rlca
-	rlca
-	ld d, a
-	rlc b
-	rlc b
-	rlc c
-	rlc c
-	dec e
-	jr nz, .loop_shades
-	ld a, d
-	pop de
-	pop bc
-	ret
-
-; outputs the shade value resulting
-; from mixing shade b with shade c
-.GetMixShadeValue:
-	; calculates ((b & %11) << 2) | (c & %11)
-	; that is, %0000xxyy, where x and y are
-	; the 2 lower bits of b and c respectively
-	push hl
-	push bc
-	ld a, %11
-	and b
-	add a
-	add a
-	ld b, a
-	ld a, %11
-	and c
-	or b
-	ld c, a
-	ld b, $00
-	ld hl, .MixShadeValues
-	add hl, bc
-	ld a, [hl]
-	pop bc
-	pop hl
-	ret
-
-.MixShadeValues:
-	db SHADE_WHITE ; b = SHADE_WHITE | c = SHADE_WHITE
-	db SHADE_LIGHT ; b = SHADE_WHITE | c = SHADE_LIGHT
-	db SHADE_LIGHT ; b = SHADE_WHITE | c = SHADE_DARK
-	db SHADE_LIGHT ; b = SHADE_WHITE | c = SHADE_BLACK
-	db SHADE_WHITE ; b = SHADE_LIGHT | c = SHADE_WHITE
-	db SHADE_LIGHT ; b = SHADE_LIGHT | c = SHADE_LIGHT
-	db SHADE_DARK  ; b = SHADE_LIGHT | c = SHADE_DARK
-	db SHADE_DARK  ; b = SHADE_LIGHT | c = SHADE_BLACK
-	db SHADE_LIGHT ; b = SHADE_DARK  | c = SHADE_WHITE
-	db SHADE_LIGHT ; b = SHADE_DARK  | c = SHADE_LIGHT
-	db SHADE_DARK  ; b = SHADE_DARK  | c = SHADE_DARK
-	db SHADE_BLACK ; b = SHADE_DARK  | c = SHADE_BLACK
-	db SHADE_DARK  ; b = SHADE_BLACK | c = SHADE_WHITE
-	db SHADE_DARK  ; b = SHADE_BLACK | c = SHADE_LIGHT
-	db SHADE_DARK  ; b = SHADE_BLACK | c = SHADE_DARK
-	db SHADE_BLACK ; b = SHADE_BLACK | c = SHADE_BLACK
 
 FadeOBPalIntoTemp:
 	push bc
@@ -442,12 +332,6 @@ LoadPalsFromSRAMBuffer:
 ; backs up all palettes
 ; and writes 4 BG pals with white pal
 Func_10d17:
-	ld a, [wBGP]
-	ld [wTempBGP], a
-	ld a, [wOBP0]
-	ld [wTempOBP0], a
-	ld a, [wOBP1]
-	ld [wTempOBP1], a
 	ld hl, wBackgroundPalettesCGB
 	ld de, wTempBackgroundPalettesCGB
 	ld bc, NUM_BACKGROUND_PALETTES palettes + NUM_OBJECT_PALETTES palettes
@@ -466,12 +350,6 @@ Func_10d17:
 	ret
 
 Func_10d50:
-	xor a
-	ld [wTempBGP], a
-	ld a, [wOBP0]
-	ld [wTempOBP0], a
-	ld a, [wOBP1]
-	ld [wTempOBP1], a
 	ld de, PALRGB_WHITE
 	ld hl, wTempBackgroundPalettesCGB
 	ld bc, 4 palettes
@@ -493,8 +371,6 @@ Func_10d74:
 	ret z
 	and %11
 	ld c, a
-	cp $1
-	call z, FadeDMGPalettes
 	bit 0, c
 	call z, FadeBGPalIntoTemp1
 	bit 0, c

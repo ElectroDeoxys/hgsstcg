@@ -18,8 +18,6 @@ DrawLargePictureOfCard:
 	call EmptyScreen
 	call LoadSymbolsFont
 	call SetDefaultConsolePalettes
-	ld a, LARGE_CARD_PICTURE
-	ld [wDuelDisplayedScreen], a
 	call LoadCardOrDuelMenuBorderTiles
 	ld e, HEADER_TRAINER
 	ld a, [wLoadedCard1Type]

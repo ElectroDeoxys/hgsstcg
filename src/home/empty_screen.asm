@@ -1,10 +1,7 @@
 ; initialize the screen by emptying the tilemap. used during screen transitions
 EmptyScreen::
 	call DisableLCD
-	call FillTileMap
-	xor a
-	ld [wDuelDisplayedScreen], a
-	ret
+	jp FillTileMap
 
 ; returns v*BGMap0 + TILEMAP_WIDTH * c + b in de.
 ; used to map coordinates at bc to a BGMap0 address.

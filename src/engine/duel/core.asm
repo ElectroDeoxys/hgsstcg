@@ -167,6 +167,12 @@ SetupDuel:
 	swap_turn
 
 .resolved_mulligans
+	; TODO handle initial Play Area selection
+	; for now it's done automatically
+	call PlayAllBasics
+	swap_turn
+	call PlayAllBasics
+	swap_turn
 	ret
 
 .InitDuelistVariables:
@@ -252,11 +258,36 @@ SetupDuel:
 	scf
 	ret
 
+PlayAllBasics:
+	call CreateHandCardList
+	ld hl, wList
+.loop_hand
+	ld a, [hli]
+	ld b, a
+	cp -1
+	ret z
+	call LoadCardDataToBuffer1_FromDeckIndex
+	ld a, [wLoadedCard1Type]
+	cp TYPE_ENERGY
+	jr nc, .loop_hand ; not pkmn card
+	ld a, [wLoadedCard1Stage]
+	or a
+	jr nz, .loop_hand ; not basic
+	ld a, b
+	push hl
+	call PlayPkmnCardFromHand
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	get_turn_duelist_var
+	pop hl
+	cp MAX_PLAY_AREA_POKEMON
+	ret z ; no more space
+	jr .loop_hand
+
 DuelLoop:
 	ld [wDuelLoopSP], sp
 
 .loop
-
+	call DuelScene
 	jp .loop
 
 ; draws a number of cards
@@ -342,4 +373,57 @@ PlaceCardOnTopOfDeck:
 	add DUELVARS_NUMBER_OF_CARDS_IN_DECK
 	ld l, a
 	dec [hl]
+	ret
+
+; plays Pkmn card with card index given in a
+; to turn-duelist's Play Area
+PlayPkmnCardFromHand:
+	ld b, a
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	get_turn_duelist_var
+	inc [hl] ; increment num of Pkmn in Play Area
+	ld c, a ; play area location
+
+	; set play area card
+	inc a
+	add l
+	ld l, a
+	ld [hl], b ; DUELVARS_PLAY_AREA + n
+
+	; set its location
+	ld a, c
+	or CARD_LOCATION_PLAY_AREA
+	ld l, b
+	ld [hl], a
+
+	ld l, DUELVARS_NUMBER_OF_CARDS_IN_HAND
+	dec [hl] ; decrement num of cards in hand
+
+	; initialise Play Area variables
+	ld a, b
+	call LoadCardDataToBuffer1_FromDeckIndex
+	ld b, 0
+
+	; hp
+	ld l, DUELVARS_PLAY_AREA_HP
+	add hl, bc
+	ld a, [wLoadedCard1HP]
+	ld [hl], a
+	; stage
+	ld l, DUELVARS_PLAY_AREA_STAGE
+	add hl, bc
+	ld a, [wLoadedCard1Stage]
+	ld [hl], a
+	; defenders
+	ld l, DUELVARS_PLAY_AREA_ATTACHED_DEFENDER
+	add hl, bc
+	ld [hl], 0
+	; pluspowers
+	ld l, DUELVARS_PLAY_AREA_ATTACHED_PLUSPOWER
+	add hl, bc
+	ld [hl], 0
+	; changed type
+	ld l, DUELVARS_ACTIVE_CHANGED_TYPE
+	add hl, bc
+	ld [hl], NONE
 	ret

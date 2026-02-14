@@ -116,3 +116,32 @@ ENDM
 MACRO? swap_turn
 	rst SwapTurn
 ENDM
+
+; call this anytime in duel to load gfx during V-Blank
+; through VDMA (maximum $80 tiles)
+; \1 = gfx
+; \2 = destination in VRAM
+; \3 = number of tiles
+MACRO? request_vdma
+	ASSERT \3 >    0, "Has to be at least 1 tile to transfer"
+	ASSERT \3 <= $80, "Only able to transfer max. $80 tiles"
+
+	ld hl, wVDMASourceBank
+	ld a, BANK(\1)
+	ld [hli], a ; wVDMASourceBank
+	ld a, HIGH(\1)
+	ld [hli], a ; wVDMASource
+	ld a, LOW(\1)
+	ld [hli], a
+	ld a, BANK(\2)
+	ld [hli], a ; wVDMADestBank
+	ld a, HIGH(\2)
+	ld [hli], a ; wVDMADest
+	ld a, LOW(\2)
+	ld [hli], a
+	ld a, \3 - 1
+	ld [hli], a ; wVDMALen
+
+	ld a, TRUE
+	ld [wVDMAPending], a
+ENDM

@@ -64,8 +64,6 @@ HandleDeckMissingCardsList:
 .open_card_pge
 	ld a, $01
 	call PlaySFXConfirmOrCancel
-	ld a, [wListCursorPos]
-	ld [wced7], a
 
 	; set wUniqueDeckCardList as current card list
 	; and show card page screen

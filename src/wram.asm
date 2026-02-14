@@ -190,11 +190,6 @@ wVBlankOAMCopyToggle::
 wTempByte::
 	ds $1
 
-; which screen or interface is currently displayed in the screen during a duel
-; used to prevent loading graphics or drawing stuff more times than necessary
-wDuelDisplayedScreen::
-	ds $1
-
 ; used to increase the play time counter every four timer interrupts (60.24 Hz)
 wTimerCounter::
 	ds $1
@@ -290,6 +285,16 @@ wBackgroundPalettesCGB::
 
 ; temporary CGB palette data buffer to eventually save into OBPD registers.
 wObjectPalettesCGB::
+	ds NUM_OBJECT_PALETTES palettes
+
+; temporarily holds the palettes from
+; wBackgroundPalettesCGB
+wTempBackgroundPalettesCGB::
+	ds NUM_BACKGROUND_PALETTES palettes
+
+; temporarily holds the palettes from
+; wObjectPalettesCGB
+wTempObjectPalettesCGB::
 	ds NUM_OBJECT_PALETTES palettes
 
 ; When we're viewing a card's information, the page we are currently at.
@@ -594,9 +599,6 @@ wCheckMenuPlayAreaWhichDuelist::
 wCheckMenuPlayAreaWhichLayout::
 	ds $1
 
-; the position of cursor in the "In Play Area" screen
-wInPlayAreaCurPosition::
-
 ; holds the position of the cursor when selecting
 ; in the "Your Play Area" or "Opp Play Area" screens
 wYourOrOppPlayAreaCurPosition::
@@ -852,10 +854,6 @@ wTempFilteredCardListNumCursorPositions::
 wced6::
 	ds $1
 
-; maybe unused, is written to but never read
-wced7::
-	ds $1
-
 wListVisibleOffsetBackup::
 	ds $1
 
@@ -873,13 +871,17 @@ wCurDeckCards::
 
 wCurDeckCardsEnd::
 
+SECTION "Stack", WRAM0
+
+	ds $100
+wStack::
+
+SECTION "WRAM1", WRAMX
+
 ; stores the count number of cards owned
 ; can be 0 in the case that a card is not available
 ; i.e. already inside a built deck
 wOwnedCardsCountList::
-
-; used by _AIProcessHandTrainerCards, AI related
-wTempHandCardList::
 	ds DECK_SIZE
 
 	ds $15
@@ -926,8 +928,6 @@ wCardConfirmationText::
 	ds $2
 
 wDeckCompressionCmdByte::
-	ds $1
-
 	ds $1
 
 ; the tile to draw in place of the cursor, in case
@@ -995,13 +995,6 @@ wNamingScreenNamePosition::
 
 wd009::
 	ds $4
-
-SECTION "Stack", WRAM0
-
-	ds $100
-wStack::
-
-SECTION "WRAM1", WRAMX
 
 ; pointers to all decks of current deck machine
 wMachineDeckPtrs::
@@ -1291,25 +1284,6 @@ wWriteBGMapToSRAM::
 	ds $1
 
 	ds $1
-
-wTempBGP::
-	ds $1
-
-wTempOBP0::
-	ds $1
-
-wTempOBP1::
-	ds $1
-
-; temporarily holds the palettes from
-; wBackgroundPalettesCGB
-wTempBackgroundPalettesCGB::
-	ds NUM_BACKGROUND_PALETTES palettes
-
-; temporarily holds the palettes from
-; wObjectPalettesCGB
-wTempObjectPalettesCGB::
-	ds NUM_OBJECT_PALETTES palettes
 
 wd317::
 	ds $1
@@ -1926,6 +1900,24 @@ wDuelInitialPrizes:: db
 wMulligans::
 wPlayerMulligans::   db
 wOpponentMulligans:: db
+
+; y scroll, in q8 precision
+wDuelSceneSCY:: dw
+wTargetDuelSceneSCY:: db
+
+wDuelCursorX:: db
+wDuelCursorY:: db
+
+; duel scene is 20x32 tiles in dimension
+wDuelSceneTilemap::
+	ds SCREEN_WIDTH * TILEMAP_HEIGHT
+
+wVDMAPending::    db ; if true, trigger VDMA during V-Blank
+wVDMASourceBank:: db
+wVDMASource::     dw ; big endian
+wVDMADestBank::   db ; VRAM bank
+wVDMADest::       dw ; big endian
+wVDMALen::        db
 
 SECTION "WRAM AI", WRAMX
 

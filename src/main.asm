@@ -10,6 +10,7 @@ INCLUDE "engine/menus/common.asm"
 SECTION "Duel Core", ROMX
 INCLUDE "engine/menus/display_card.asm"
 INCLUDE "engine/duel/core.asm"
+INCLUDE "engine/duel/duel_scene.asm"
 INCLUDE "engine/duel/saved_duel.asm"
 
 SECTION "Menus 1", ROMX

@@ -18,6 +18,7 @@ VBlankHandler::
 	ld [wVBlankOAMCopyToggle], a
 .no_oam_copy
 	; flush scaling/windowing parameters
+	call wVBlankFunctionTrampoline
 	ldh a, [hSCX]
 	ldh [rSCX], a
 	ldh a, [hSCY]
@@ -30,7 +31,6 @@ VBlankHandler::
 	ld a, [wLCDC]
 	ldh [rLCDC], a
 	ei
-	call wVBlankFunctionTrampoline
 	call FlushPalettesIfRequested
 	ld hl, wVBlankCounter
 	inc [hl]

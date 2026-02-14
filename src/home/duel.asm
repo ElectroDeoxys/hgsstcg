@@ -227,3 +227,65 @@ CopyOpponentName::
 .print_player2
 	ldtx hl, Player2Text
 	jp CopyText
+
+; called during V-Blank
+; does any pending VDMA transfers
+DuelSceneVBlank::
+	push_wram BANK("WRAM Duel")
+	ld hl, wVDMAPending
+	ld a, [hl]
+	or a
+	jr z, .no_vdma
+	xor a
+	ld [hli], a
+	ldh a, [hBankROM]
+	push af
+	ld a, [hli] ; wVDMASourceBank
+	call BankswitchROM
+	ld c, LOW(rVDMA_SRC_HIGH)
+	ld a, [hli] ; wVDMASource
+	ld [$ff00+c], a ; rVDMA_SRC_HIGH
+	inc c
+	ld a, [hli]
+	ld [$ff00+c], a ; rVDMA_SRC_LOW
+	inc c
+	ld a, [hli] ; wVDMADestBank
+	or a
+	call nz, BankswitchVRAM1
+	ld a, [hli] ; wVDMADest
+	ld [$ff00+c], a ; rVDMA_DEST_HIGH
+	inc c
+	ld a, [hli]
+	ld [$ff00+c], a ; rVDMA_DEST_LOW
+	inc c
+	ld a, [hli] ; wVDMALen
+	ld [$ff00+c], a ; rVDMA_LEN
+	pop af
+	call BankswitchROM
+	call BankswitchVRAM0
+
+.no_vdma
+	pop_wram
+	ret
+
+; applies duel scene scroll
+; and cursor positioning
+DuelSceneDoFrame::
+	push_wram BANK("WRAM Duel")
+	ld a, [wDuelSceneSCY + 1]
+	ldh [hSCY], a
+
+	ld a, [wDuelCursorX]
+	add OAM_X_OFS
+	ld d, a
+	ld a, [wDuelCursorY]
+	add OAM_Y_OFS
+	ld e, a
+	lb bc, $00, $00
+	call SetOneObjectAttributes
+
+	ld a, $1
+	ld [wVBlankOAMCopyToggle], a
+
+	pop_wram
+	ret

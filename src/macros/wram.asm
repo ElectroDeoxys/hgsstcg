@@ -138,16 +138,16 @@ MACRO duel_vars
 ; if bit 7 == 1, then bits 0-3 override the Pokemon's actual color
 \1PlayAreaAttachedDefender::     ds MAX_PLAY_AREA_POKEMON
 \1PlayAreaAttachedPlusPower::    ds MAX_PLAY_AREA_POKEMON
+\1PlayAreaChangedType::          ds MAX_PLAY_AREA_POKEMON
 
 \1ActiveCardStatus::              ds $1
 \1ActiveCardFlags::               ds $1
 \1ActiveCardSubstatus1::          ds $1
 \1ActiveCardSubstatus2::          ds $1
-\1ActiveCardChangedType::         ds $1
 
 ; each bit represents a prize that this duelist can draw (1 = not drawn ; 0 = drawn)
 \1Prizes::                       ds $1
 
-	ds $59
+	ds $54
 
 ENDM

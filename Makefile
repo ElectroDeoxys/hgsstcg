@@ -61,7 +61,7 @@ tools:
 	$(MAKE) -C tools/
 
 
-RGBASMFLAGS += -I src/
+RGBASMFLAGS += -I src/ -Q .8
 # Create a sym/map for debug purposes if `make` run with `DEBUG=1`
 ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E

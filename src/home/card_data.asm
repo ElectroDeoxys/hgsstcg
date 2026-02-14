@@ -41,6 +41,11 @@ LoadCardDataToBuffer1_FromDeckIndex::
 	pop de
 	ret
 
+; return in a the stage of the card with id at de
+GetCardStage::
+	ld a, CARD_DATA_STAGE
+	jr GetCardByte
+
 ; return in a the type (TYPE_* constant) of the card with id at de
 GetCardType::
 	xor a ; ld a, CARD_DATA_TYPE

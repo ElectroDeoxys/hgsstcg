@@ -4,9 +4,9 @@ GetPlayAreaCardColor::
 	push hl
 	push de
 	ld e, a
-	add DUELVARS_ACTIVE_CARD_CHANGED_TYPE
+	add DUELVARS_PLAY_AREA_CHANGED_TYPE
 	get_turn_duelist_var
-	bit HAS_CHANGED_COLOR_F, a
+	bit HAS_CHANGED_TYPE_F, a
 	jr nz, .has_changed_color
 	ld a, e
 	add DUELVARS_ACTIVE
@@ -18,7 +18,7 @@ GetPlayAreaCardColor::
 	ret
 .has_changed_color
 	ld a, e
-	add DUELVARS_ACTIVE_CARD_CHANGED_TYPE
+	add DUELVARS_PLAY_AREA_CHANGED_TYPE
 	get_turn_duelist_var
 	pop de
 	pop hl
