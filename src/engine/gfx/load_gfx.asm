@@ -301,7 +301,7 @@ ClearSRAMBGMaps:
 
 ; l - GFXTABLE_* constant (banks 0,1,2,3,4)
 ; a - map index (inside of the given bank)
-GetMapDataPointer:
+GetMapDataPointer::
 	push bc
 	push af
 	ld bc, GfxTablePointers
@@ -322,7 +322,7 @@ GetMapDataPointer:
 	ret
 
 ; Loads a pointer from [hl] to wTempPointer. Adds the graphics bank offset ($20)
-LoadGraphicsPointerFromHL:
+LoadGraphicsPointerFromHL::
 	ld a, [hli]
 	ld [wTempPointer], a
 	ld a, [hli]
@@ -330,6 +330,13 @@ LoadGraphicsPointerFromHL:
 	ld a, [hli]
 	add BANK(GfxTablePointers)
 	ld [wTempPointerBank], a
+	ret
+
+; like LoadGraphicsPointerFromHL but also outputs
+; num of tiles in a
+LoadSpriteGraphicsPointerFromHL::
+	call LoadGraphicsPointerFromHL
+	ld a, [hli] ; num of tiles
 	ret
 
 ; loads graphics data from third map data pointers

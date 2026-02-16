@@ -83,14 +83,6 @@ MACRO sprite_vram_struct
 \1TileSize::   ds 1
 ENDM
 
-MACRO duel_anim_struct
-\1Flags::       db
-\1OAMBank::     db
-\1OAMPtr::      dw
-\1FramesetPtr:: dw
-\1Duration::    db
-ENDM
-
 MACRO deck_struct
 \1Name::  ds DECK_NAME_SIZE
 \1Cards:: ds DECK_COMPRESSED_SIZE

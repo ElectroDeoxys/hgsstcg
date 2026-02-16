@@ -10,7 +10,6 @@ DuelScene:
 
 	; load necessary graphics
 	call SetDefaultConsolePalettes
-	call LoadDuelCursorTiles
 
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
@@ -60,9 +59,9 @@ DuelScene:
 	cpl
 	inc a
 .got_target_distance
-	cp 6 + 1 ; over 6 px, do maximum speed
+	cp 8 + 1 ; over 8 px, do maximum speed
 	jr c, .got_scy_speed_entry
-	ld a, 6
+	ld a, 8
 .got_scy_speed_entry
 	ld hl, ScrollSpeeds
 	add a
@@ -164,10 +163,6 @@ DuelScene:
 .done_input
 	jp .loop
 
-.CursorTile:
-	db $e0, $c0, $98, $b0, $84, $8c, $83, $82
-	db $86, $8f, $9d, $be, $f4, $f8, $50, $60
-
 ; input:
 ; - bc = 8-bit precision to offset
 ScrollDuelScene:
@@ -200,8 +195,10 @@ ScrollSpeeds:
 	dw 0.75 ; 2
 	dw 1.00 ; 3
 	dw 1.50 ; 4
-	dw 2.50 ; 5
-	dw 4.00 ; 6
+	dw 2.00 ; 5
+	dw 2.50 ; 6
+	dw 3.50 ; 7
+	dw 4.00 ; 8
 
 DrawPlayerDuelScene:
 	; force PLAYER_TURN temporarily
@@ -296,8 +293,8 @@ DrawOpponentDuelScene:
 ; gets correct bench symbol/attribute in bc
 ; from turn-duelist's bench pokemon with deck index a
 GetBenchSymbolAndAttribute:
-	lb bc, $dc, $3
 	cp -1 ; is empty?
+	lb bc, $dc, $3
 	ret z
 
 	push de

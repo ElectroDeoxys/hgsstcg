@@ -56,6 +56,7 @@ Sprites:
 	gfx_pointer LightningGfx,        $04 ; SPRITE_LIGHTNING
 	gfx_pointer PsychicGfx,          $04 ; SPRITE_PSYCHIC
 	gfx_pointer FightingGfx,         $04 ; SPRITE_FIGHTING
+	gfx_pointer DuelCursorGraphics,       $1c ; SPRITE_DUEL_CURSOR
 	gfx_pointer Duel3dAttackGfx,          $19 ; SPRITE_DUEL_3D_ATTACK
 	gfx_pointer DuelBallGfx,              $08 ; SPRITE_DUEL_BALL
 	gfx_pointer DuelBarrierGfx,           $16 ; SPRITE_DUEL_BARRIER

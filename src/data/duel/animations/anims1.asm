@@ -1673,9 +1673,6 @@ AnimDataDuelCursorPoint::
 	frame_table AnimFrameDuelCursor
 	frame_data  0, 10,   1,   1
 	frame_data  1, 10,   0,   0
-	frame_data  2, 10,   0,   0
-	frame_data  3, 32,   0,   0
-	frame_data  3, -1,   0,   0
 	frame_data  0,  0,   0,   0
 
 AnimFrameTableGlow::

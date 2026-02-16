@@ -275,17 +275,352 @@ DuelSceneDoFrame::
 	ld a, [wDuelSceneSCY + 1]
 	ldh [hSCY], a
 
-	ld a, [wDuelCursorX]
-	add OAM_X_OFS
-	ld d, a
-	ld a, [wDuelCursorY]
-	add OAM_Y_OFS
-	ld e, a
-	lb bc, $00, $00
-	call SetOneObjectAttributes
+	call ProcessDuelAnimationQueue
+	call UpdateDuelAnimations
 
 	ld a, $1
 	ld [wVBlankOAMCopyToggle], a
 
 	pop_wram
+	ret
+
+ProcessDuelAnimationQueue::
+	call CheckIfDuelAnimationIsRunning
+	ret c ; still running an animation
+
+	ld a, [wTargetDuelSceneSCY]
+	inc a
+	ret nz ; still scrolling
+
+	; no animations running, green light
+	ld hl, wDuelAnimationQueue
+	ld a, [wDuelAnimationQueueSize]
+	ld c, a
+	ld b, 0 ; num of anims processed
+	or a
+	jr .start_loop
+.loop_queue
+	inc hl
+	ld a, [wDuelSceneSCY + 1]
+	cp [hl]
+	jr nz, .set_target_scy
+	; is on target scroll, start animation
+	dec hl
+	call .AddAnimation
+	inc b
+.next_in_queue
+	; we only process up to the first non-concurrent
+	bit DUELANIMENTRYF_CONCURRENT_F, [hl]
+	jr z, .done_queue
+	dec c
+.start_loop
+	jr nz, .loop_queue
+	
+.done_queue
+	; check if we need to reduce queue
+	ld a, b
+	or a
+	ret z ; none processed
+	ld a, [wDuelAnimationQueueSize]
+	sub b
+	ld [wDuelAnimationQueueSize], a
+	ld a, DUEL_ANIMS_QUEUE_CAPACITY
+	sub b
+	ld c, a
+	add a
+	add a
+	add c ; *5
+	ld c, a
+	ld b, 0
+	ld hl, wDuelAnimationQueue
+	add hl, bc
+	ld de, wDuelAnimationQueue
+	jp CopyDataHLtoDE
+
+.set_target_scy
+	ld [wTargetDuelSceneSCY], a
+	dec hl
+	jr .next_in_queue
+
+.AddAnimation:
+	push hl
+	push bc
+	; find first inactive duel animation
+	inc hl
+	inc hl
+	ld e, l
+	ld d, h
+	ld hl, wDuelAnimations
+	ld bc, DUELANIM_STRUCT_SIZE
+	ld a, NUM_DUEL_ANIMS
+.loop_find_inactive
+	bit DUELANIMF_ACTIVE_F, [hl]
+	jr z, .found
+	add hl, bc
+	dec a
+	jr nz, .loop_find_inactive
+	scf ; none found, should not happen
+	pop bc
+	pop hl
+	ret
+
+.found
+	ld a, [de] ; sprite id
+	cp -1
+	jr z, .skip_load_sprite
+	push hl
+	ld l, GFXTABLE_SPRITES
+	farcall GetMapDataPointer
+	farcall LoadSpriteGraphicsPointerFromHL
+	dec a ; -1
+	ld [wVDMALen], a
+	ld hl, wVDMASourceBank
+	ld a, [wTempPointerBank]
+	ld [hli], a ; wVDMASourceBank
+	ld a, [wTempPointer + 1]
+	ld [hli], a ; wVDMASource
+	ld a, [wTempPointer + 0]
+	ld [hli], a
+	ld a, BANK("VRAM0")
+	ld [hli], a ; wVDMADestBank
+	ld a, TRUE
+	ld [wVDMAPending], a ; trigger VDMA
+	pop hl
+
+.skip_load_sprite
+	inc de
+	ld a, [de] ; anim id
+	push hl
+	ld l, GFXTABLE_SPRITE_ANIMATIONS
+	farcall GetMapDataPointer
+	farcall LoadGraphicsPointerFromHL
+	pop hl
+
+	push hl
+	ld a, [hBankROM]
+	push af
+	ld a, [wTempPointerBank]
+	call BankswitchROM
+	inc hl
+	inc hl
+	ld a, [wTempPointer + 0]
+	ld c, a
+	ld a, [wTempPointer + 1]
+	ld b, a
+	ld a, [bc]
+	inc bc
+	add BANK("Load Gfx")
+	ld [hli], a ; OAM bank
+	ld a, [bc]
+	inc bc
+	ld [hli], a ; OAM ptr
+	ld a, [bc]
+	inc bc
+	ld [hli], a
+	ld a, c
+	ld [hli], a ; frameset ptr
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hli], a ; starting frameset ptr
+	ld a, b
+	ld [hli], a
+
+	; set starting duration
+	inc bc
+	ld a, [bc]
+	ld bc, DUELANIM_DURATION - (DUELANIM_START_FRAMESET_PTR + 2)
+	add hl, bc
+	ld [hl], a
+	pop af
+	call BankswitchROM
+	pop hl
+
+	set DUELANIMF_ACTIVE_F, [hl]
+	pop bc
+	pop hl
+	ret
+
+UpdateDuelAnimations::
+	call ZeroObjectPositions
+
+	ld hl, wDuelAnimations
+	ld bc, DUELANIM_STRUCT_SIZE
+	ld a, NUM_DUEL_ANIMS
+.loop
+	bit DUELANIMF_ACTIVE_F, [hl]
+	call nz, .Update
+	add hl, bc
+	dec a
+	jr nz, .loop
+	ret
+
+.Update:
+	push af
+	push hl
+	push bc
+	inc hl
+	xor a ; FALSE
+	ld [wChangeAnimFrame], a
+	ld a, [hl]
+	dec [hl]
+	or a
+	jr nz, .skip_decrement_duration
+	; change to next frame
+	ld a, TRUE
+	ld [wChangeAnimFrame], a
+.skip_decrement_duration
+	ld a, [hBankROM]
+	push af
+	push hl
+	inc hl
+	ld a, [hli] ; OAM bank
+	call BankswitchROM
+	ld a, [hli] ; OAM ptr
+	ld d, [hl]
+	ld e, a
+	inc hl
+
+.get_frame_data
+	; get frame data
+	push hl
+	ld a, [hli] ; frameset ptr
+	ld h, [hl]
+	ld l, a
+	ld a, [wChangeAnimFrame]
+	or a
+	jr z, .got_frameset_ptr
+	; next frame
+	ld bc, SPRITE_FRAME_OFFSET_SIZE
+	add hl, bc
+	ld c, l
+	ld b, h
+.got_frameset_ptr
+	ld a, [hli] ; frame
+	ld [wCurAnimFrame], a
+	ld a, [hli] ; duration
+	ld [wCurAnimDuration], a
+	ld a, [hli] ; x
+	ld [wCurAnimX], a
+	ld a, [hli] ; y
+	ld [wCurAnimY], a
+	pop hl
+
+	ld a, [wChangeAnimFrame]
+	or a
+	jr z, .skip_frameset_ptr_update
+	ld a, c
+	ld [hli], a
+	ld [hl], b
+	dec hl
+
+.skip_frameset_ptr_update
+	; if duration = -1 then it means it's end of frames
+	ld a, [wCurAnimDuration]
+	inc a ; cp -1
+	jr nz, .valid_duration
+	; is -1, if non-looping animation, end it here
+	ld bc, DUELANIM_FLAGS - DUELANIM_FRAMESET_PTR
+	add hl, bc
+	bit DUELANIMF_LOOPING_F, [hl]
+	jr z, .end_animation
+	; is looping, set oam ptr to start
+	inc hl
+	inc hl
+	ld a, [hli]
+	ld c, a
+	ld a, [hld]
+	dec hl
+	ld [hld], a
+	ld [hl], c
+	jr .get_frame_data
+
+.valid_duration
+	; if frame == -1, then don't output OAM
+	ld a, [wCurAnimFrame]
+	cp -1
+	ld hl, EmptyFrameData
+	jr z, .got_frame_data_ptr
+	add a ; *2
+	add e
+	ld e, a
+	ld a, 0
+	adc d
+	ld d, a
+	ld a, [de]
+	inc de
+	ld l, a
+	ld a, [de]
+	ld h, a
+.got_frame_data_ptr
+	ld a, [hli] ; size
+	or a
+	jr .start_loop_oam
+.loop_oam
+	ld a, [wCurAnimY]
+	add [hl]
+	inc hl
+	ld e, a ; y
+	ld a, [wCurAnimX]
+	add [hl]
+	inc hl
+	ld d, a ; x
+	ld a, [hli]
+	ld c, a ; tile
+	ld a, [hli]
+	ld b, a ; attributes
+	call SetOneObjectAttributes
+	ld a, [wCurOAMCount]
+	dec a
+.start_loop_oam
+	ld [wCurOAMCount], a
+	jr nz, .loop_oam
+
+	pop hl
+	ld a, [wChangeAnimFrame]
+	or a
+	jr z, .skip_duration_update
+	ld a, [wCurAnimDuration]
+	ld [hl], a
+.skip_duration_update
+	pop af
+	call BankswitchROM
+	pop bc
+	pop hl
+	pop af
+	ret
+
+.end_animation
+	pop hl
+	pop af
+	call BankswitchROM
+	pop bc
+	pop hl
+	pop af
+	res DUELANIMF_ACTIVE_F, [hl]
+	ret
+
+EmptyFrameData:
+	db 0 ; size
+
+; returns carry set if animation is running
+CheckIfDuelAnimationIsRunning:
+	push hl
+	push bc
+	ld hl, wDuelAnimations
+	ld bc, DUELANIM_STRUCT_SIZE
+	ld a, NUM_DUEL_ANIMS
+.loop
+	bit DUELANIMF_ACTIVE_F, [hl]
+	jr nz, .set_carry
+	add hl, bc
+	dec a
+	jr nz, .loop
+	or a
+	jr .done
+.set_carry
+	scf
+.done
+	pop bc
+	pop hl
 	ret

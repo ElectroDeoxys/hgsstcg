@@ -666,29 +666,11 @@ wPrizeCardCursorTemporaryPosition::
 wGlossaryPageNo::
 	ds $1
 
-	ds $3
-
-; keeps track of which Bench Pokemon is pointed
-; by the cursor during Gigashock selection screen
-wCurGigashockItem::
-	ds $1
-
-; card index and its attack index chosen
-; to be used by Metronome.
-wMetronomeSelectedAttack::
+; these next 3 seem to be an address (bank @ end) for copying bg data
+wTempPointer::
 	ds $2
 
-; stores the amount of cards that are being ordered.
-wNumberOfCardsToOrder::
-	ds $1
-
-	ds $6
-
-; used in CountPokemonIDInPlayArea
-wTempPokemonID_ce7c::
-	ds $2
-
-wAttackAnimationIsPlaying::
+wTempPointerBank::
 	ds $1
 
 wDamageAnimAmount::
@@ -1542,13 +1524,6 @@ wDecimalChars::
 wVRAMPointer::
 	ds $2
 
-; these next 3 seem to be an address (bank @ end) for copying bg data
-wTempPointer::
-	ds $2
-
-wTempPointerBank::
-	ds $1
-
 ; stores number of bytes per tile for current sprite
 wCurSpriteTileSize::
 	ds $1
@@ -1919,12 +1894,19 @@ wVDMADestBank::   db ; VRAM bank
 wVDMADest::       dw ; big endian
 wVDMALen::        db
 
-wDuelAnimations::
-wDuelAnimation1:: duel_anim_struct wDuelAnimation1
-wDuelAnimation2:: duel_anim_struct wDuelAnimation2
-wDuelAnimation3:: duel_anim_struct wDuelAnimation3
-wDuelAnimation4:: duel_anim_struct wDuelAnimation4
-wDuelAnimation5:: duel_anim_struct wDuelAnimation5
+wDuelAnimationQueueSize:: db ; in num of entries
+wDuelAnimationQueue::
+	ds DUEL_ANIMS_QUEUE_CAPACITY * DUELANIMENTRY_STRUCT_SIZE
+wDuelAnimations:: ; concurrent animations
+	ds NUM_DUEL_ANIMS * DUELANIM_STRUCT_SIZE
+
+wChangeAnimFrame:: db ; if TRUE, then move to next frame
+wAnimFinished::    db ; if TRUE, animation reached ending frame
+wCurAnimFrame::    db
+wCurAnimDuration:: db
+wCurAnimX::        db
+wCurAnimY::        db
+wCurOAMCount::     db
 
 SECTION "WRAM AI", WRAMX
 
