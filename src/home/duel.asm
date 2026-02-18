@@ -275,6 +275,7 @@ DuelSceneDoFrame::
 	ld a, [wDuelSceneSCY + 1]
 	ldh [hSCY], a
 
+	call UpdateDuelCursorAnimation
 	call ProcessDuelAnimationQueue
 	call UpdateDuelAnimations
 
@@ -282,6 +283,152 @@ DuelSceneDoFrame::
 	ld [wVBlankOAMCopyToggle], a
 
 	pop_wram
+	ret
+
+UpdateDuelCursorAnimation::
+	ld a, [wDuelCursorAnimIdx]
+	cp -1
+	jr nz, .got_idx
+	ld a, SPRITE_DUEL_CURSOR
+	ld b, BANK("VRAM1")
+	call LoadDuelSprite
+	ld a, SPRITE_ANIM_DUEL_CURSOR_POINT
+	call LoadDuelAnimation
+	ld [wDuelCursorAnimIdx], a
+.got_idx
+	call GetLoadedDuelAnimation
+	set DUELANIMF_LOOPING_F, [hl]
+	ld bc, DUELANIM_YPOS
+	add hl, bc
+	ld a, [wDuelCursorY]
+	ld [hli], a
+	ld a, [wDuelCursorX]
+	ld [hli], a
+	ld a, 0 ; tile offset
+	ld [hli], a
+	ld a, 0 | OAM_BANK1
+	ld [hli], a
+	ret
+
+; find first inactive duel animation
+; outputs in a which duel animation index was found
+FindInactiveDuelAnimation:
+	push bc
+	push de
+	ld hl, wDuelAnimations
+	ld bc, DUELANIM_STRUCT_SIZE
+	ld a, NUM_DUEL_ANIMS
+	ld d, 0
+.loop_find_inactive
+	bit DUELANIMF_ACTIVE_F, [hl]
+	jr z, .found
+	add hl, bc
+	inc d
+	dec a
+	jr nz, .loop_find_inactive
+	pop de
+	pop bc
+	scf ; this should not happen
+	ret
+.found
+	ld a, d
+	pop de
+	pop bc
+	or a
+	ret
+
+; loads duel animation given in a (SPRITE_ANIM_* constant)
+; outputs in a which duel animation index was used
+LoadDuelAnimation:
+	push hl
+	push bc
+	ld l, GFXTABLE_SPRITE_ANIMATIONS
+	farcall GetMapDataPointer
+	farcall LoadGraphicsPointerFromHL
+
+	call FindInactiveDuelAnimation
+	set DUELANIMF_ACTIVE_F, [hl]
+	push af
+
+	ld a, [hBankROM]
+	push af
+	ld a, [wTempPointerBank]
+	call BankswitchROM
+	inc hl
+	inc hl
+	ld a, [wTempPointer + 0]
+	ld c, a
+	ld a, [wTempPointer + 1]
+	ld b, a
+	ld a, [bc]
+	inc bc
+	add BANK("Load Gfx")
+	ld [hli], a ; OAM bank
+	ld a, [bc]
+	inc bc
+	ld [hli], a ; OAM ptr
+	ld a, [bc]
+	inc bc
+	ld [hli], a
+	ld a, c
+	ld [hli], a ; frameset ptr
+	ld a, b
+	ld [hli], a
+	ld a, c
+	ld [hli], a ; starting frameset ptr
+	ld a, b
+	ld [hli], a
+
+	; set starting duration
+	inc bc
+	ld a, [bc]
+	ld bc, DUELANIM_DURATION - (DUELANIM_START_FRAMESET_PTR + 2)
+	add hl, bc
+	ld [hl], a
+	pop af
+	call BankswitchROM
+
+	pop af
+	pop bc
+	pop hl
+	ret
+
+; set VDMA to load sprite given in a (SPRITE_* constant)
+; to VRAM bank given in b
+LoadDuelSprite:
+	push hl
+	ld l, GFXTABLE_SPRITES
+	farcall GetMapDataPointer
+	farcall LoadSpriteGraphicsPointerFromHL
+	dec a ; -1
+	ld [wVDMALen], a
+	ld hl, wVDMASourceBank
+	ld a, [wTempPointerBank]
+	ld [hli], a ; wVDMASourceBank
+	ld a, [wTempPointer + 1]
+	ld [hli], a ; wVDMASource
+	ld a, [wTempPointer + 0]
+	ld [hli], a
+	ld a, b
+	ld [hli], a ; wVDMADestBank
+	ld a, TRUE
+	ld [wVDMAPending], a ; trigger VDMA
+	pop hl
+	ret
+
+; returns pointer to ath loaded duel animation in hl
+GetLoadedDuelAnimation:
+	push bc
+	ld hl, wDuelAnimations
+	ld bc, DUELANIM_STRUCT_SIZE
+	or a
+	jr .start_loop
+.loop
+	add hl, bc
+	dec a
+.start_loop
+	jr nz, .loop
+	pop bc
 	ret
 
 ProcessDuelAnimationQueue::
@@ -345,98 +492,19 @@ ProcessDuelAnimationQueue::
 .AddAnimation:
 	push hl
 	push bc
-	; find first inactive duel animation
 	inc hl
 	inc hl
 	ld e, l
 	ld d, h
-	ld hl, wDuelAnimations
-	ld bc, DUELANIM_STRUCT_SIZE
-	ld a, NUM_DUEL_ANIMS
-.loop_find_inactive
-	bit DUELANIMF_ACTIVE_F, [hl]
-	jr z, .found
-	add hl, bc
-	dec a
-	jr nz, .loop_find_inactive
-	scf ; none found, should not happen
-	pop bc
-	pop hl
-	ret
 
-.found
 	ld a, [de] ; sprite id
 	cp -1
-	jr z, .skip_load_sprite
-	push hl
-	ld l, GFXTABLE_SPRITES
-	farcall GetMapDataPointer
-	farcall LoadSpriteGraphicsPointerFromHL
-	dec a ; -1
-	ld [wVDMALen], a
-	ld hl, wVDMASourceBank
-	ld a, [wTempPointerBank]
-	ld [hli], a ; wVDMASourceBank
-	ld a, [wTempPointer + 1]
-	ld [hli], a ; wVDMASource
-	ld a, [wTempPointer + 0]
-	ld [hli], a
-	ld a, BANK("VRAM0")
-	ld [hli], a ; wVDMADestBank
-	ld a, TRUE
-	ld [wVDMAPending], a ; trigger VDMA
-	pop hl
+	ld b, BANK("VRAM0")
+	call nz, LoadDuelSprite
 
-.skip_load_sprite
 	inc de
 	ld a, [de] ; anim id
-	push hl
-	ld l, GFXTABLE_SPRITE_ANIMATIONS
-	farcall GetMapDataPointer
-	farcall LoadGraphicsPointerFromHL
-	pop hl
-
-	push hl
-	ld a, [hBankROM]
-	push af
-	ld a, [wTempPointerBank]
-	call BankswitchROM
-	inc hl
-	inc hl
-	ld a, [wTempPointer + 0]
-	ld c, a
-	ld a, [wTempPointer + 1]
-	ld b, a
-	ld a, [bc]
-	inc bc
-	add BANK("Load Gfx")
-	ld [hli], a ; OAM bank
-	ld a, [bc]
-	inc bc
-	ld [hli], a ; OAM ptr
-	ld a, [bc]
-	inc bc
-	ld [hli], a
-	ld a, c
-	ld [hli], a ; frameset ptr
-	ld a, b
-	ld [hli], a
-	ld a, c
-	ld [hli], a ; starting frameset ptr
-	ld a, b
-	ld [hli], a
-
-	; set starting duration
-	inc bc
-	ld a, [bc]
-	ld bc, DUELANIM_DURATION - (DUELANIM_START_FRAMESET_PTR + 2)
-	add hl, bc
-	ld [hl], a
-	pop af
-	call BankswitchROM
-	pop hl
-
-	set DUELANIMF_ACTIVE_F, [hl]
+	call LoadDuelAnimation
 	pop bc
 	pop hl
 	ret
@@ -501,9 +569,9 @@ UpdateDuelAnimations::
 	ld a, [hli] ; duration
 	ld [wCurAnimDuration], a
 	ld a, [hli] ; x
-	ld [wCurAnimX], a
+	ld [wCurAnimFrameX], a
 	ld a, [hli] ; y
-	ld [wCurAnimY], a
+	ld [wCurAnimFrameY], a
 	pop hl
 
 	ld a, [wChangeAnimFrame]
@@ -515,24 +583,45 @@ UpdateDuelAnimations::
 	dec hl
 
 .skip_frameset_ptr_update
+	ld bc, DUELANIM_YPOS - DUELANIM_FRAMESET_PTR
+	add hl, bc
+	ld a, [hli]
+	ld [wCurAnimY], a
+	ld a, [hli]
+	ld [wCurAnimX], a
+	ld a, [hli]
+	ld [wCurAnimTileOffset], a
+	ld a, [hl]
+	ld [wCurAnimOBPal], a
+
 	; if duration = -1 then it means it's end of frames
 	ld a, [wCurAnimDuration]
 	inc a ; cp -1
 	jr nz, .valid_duration
 	; is -1, if non-looping animation, end it here
-	ld bc, DUELANIM_FLAGS - DUELANIM_FRAMESET_PTR
+	ld bc, DUELANIM_FLAGS - DUELANIM_OBPAL
 	add hl, bc
 	bit DUELANIMF_LOOPING_F, [hl]
 	jr z, .end_animation
 	; is looping, set oam ptr to start
-	inc hl
-	inc hl
+	ld bc, DUELANIM_START_FRAMESET_PTR - DUELANIM_FLAGS
+	add hl, bc
 	ld a, [hli]
 	ld c, a
 	ld a, [hld]
+	ld b, a
 	dec hl
 	ld [hld], a
 	ld [hl], c
+	inc bc ; duration
+	ld a, [bc]
+	push hl
+	ld bc, DUELANIM_DURATION - DUELANIM_FRAMESET_PTR
+	add hl, bc
+	ld [hl], a
+	pop hl
+	xor a ; FALSE
+	ld [wChangeAnimFrame], a
 	jr .get_frame_data
 
 .valid_duration
@@ -558,16 +647,26 @@ UpdateDuelAnimations::
 	jr .start_loop_oam
 .loop_oam
 	ld a, [wCurAnimY]
+	ld b, a
+	ld a, [wCurAnimFrameY]
 	add [hl]
 	inc hl
+	add b
 	ld e, a ; y
 	ld a, [wCurAnimX]
+	ld b, a
+	ld a, [wCurAnimFrameX]
 	add [hl]
 	inc hl
+	add b
 	ld d, a ; x
-	ld a, [hli]
+	ld a, [wCurAnimTileOffset]
+	add [hl]
+	inc hl
 	ld c, a ; tile
-	ld a, [hli]
+	ld a, [wCurAnimOBPal]
+	or [hl]
+	inc hl
 	ld b, a ; attributes
 	call SetOneObjectAttributes
 	ld a, [wCurOAMCount]

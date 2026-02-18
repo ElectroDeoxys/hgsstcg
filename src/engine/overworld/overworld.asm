@@ -676,7 +676,6 @@ Func_c49c:
 
 Func_c4b9:
 	xor a
-	ld [wWhichOBP], a ; OBP0
 	ld [wWhichOBPalIndex], a ; palette index 0
 	ld a, PALETTE_29
 	farcall LoadOBPalette

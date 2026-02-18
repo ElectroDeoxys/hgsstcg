@@ -217,23 +217,23 @@ AnimFrameTablePetalDance::
 
 AnimDataPetalDance::
 	frame_table AnimFrameTablePetalDance
-	frame_data  0,  6,   0,   0
-	frame_data  1,  6,   0,   0
-	frame_data  2,  6,   0,   0
-	frame_data  3,  6,   0,   0
-	frame_data  4,  6,   0,   0
-	frame_data  5,  6,   0,   0
-	frame_data  6,  6,   0,   0
-	frame_data  7,  6,   0,   0
-	frame_data  8,  6,   0,   0
-	frame_data  9,  6,   0,   0
-	frame_data 10,  6,   0,   0
-	frame_data 11,  6,   0,   0
-	frame_data 12,  6,   0,   0
-	frame_data 13,  6,   0,   0
-	frame_data 14,  6,   0,   0
-	frame_data 14, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  6,   0,   0
+	frame  1,  6,   0,   0
+	frame  2,  6,   0,   0
+	frame  3,  6,   0,   0
+	frame  4,  6,   0,   0
+	frame  5,  6,   0,   0
+	frame  6,  6,   0,   0
+	frame  7,  6,   0,   0
+	frame  8,  6,   0,   0
+	frame  9,  6,   0,   0
+	frame 10,  6,   0,   0
+	frame 11,  6,   0,   0
+	frame 12,  6,   0,   0
+	frame 13,  6,   0,   0
+	frame 14,  6,   0,   0
+	frame_end 14
+	frame_exit
 
 AnimFrameTableProtect::
 	dw .frame_0
@@ -591,25 +591,25 @@ AnimFrameTableProtect::
 
 AnimDataProtect::
 	frame_table AnimFrameTableProtect
-	frame_data  0,  6,   0,   0
-	frame_data  1,  6,   0,   0
-	frame_data  2,  6,   0,   0
-	frame_data  3,  6,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data 14,  4,   0,   0
-	frame_data 15,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  8,   0,   0
-	frame_data  9,  8,   0,   0
-	frame_data 10,  8,   0,   0
-	frame_data 11,  5,   0,   0
-	frame_data 12,  5,   0,   0
-	frame_data 13,  6,   0,   0
-	frame_data 13, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  6,   0,   0
+	frame  1,  6,   0,   0
+	frame  2,  6,   0,   0
+	frame  3,  6,   0,   0
+	frame  4,  4,   0,   0
+	frame  5,  4,   0,   0
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame 14,  4,   0,   0
+	frame 15,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  8,   0,   0
+	frame  9,  8,   0,   0
+	frame 10,  8,   0,   0
+	frame 11,  5,   0,   0
+	frame 12,  5,   0,   0
+	frame 13,  6,   0,   0
+	frame_end 13
+	frame_exit
 
 AnimFrameTableBarrier::
 	dw .frame_0
@@ -819,21 +819,21 @@ AnimFrameTableBarrier::
 
 AnimDataBarrier::
 	frame_table AnimFrameTableBarrier
-	frame_data  0,  5,   0,   0
-	frame_data  1,  5,   0,   0
-	frame_data  2,  5,   0,   0
-	frame_data  3,  5,   0,   0
-	frame_data  4,  5,   0,   0
-	frame_data  5,  5,   0,   0
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data  6,  2,   0,   0
-	frame_data  6, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  5,   0,   0
+	frame  1,  5,   0,   0
+	frame  2,  5,   0,   0
+	frame  3,  5,   0,   0
+	frame  4,  5,   0,   0
+	frame  5,  5,   0,   0
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  4,   0,   0
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  4,   0,   0
+	frame  6,  2,   0,   0
+	frame_end  6
+	frame_exit
 
 AnimFrameTableSpeed::
 	dw .frame_0
@@ -885,27 +885,27 @@ AnimFrameTableSpeed::
 
 AnimDataSpeed::
 	frame_table AnimFrameTableSpeed
-	frame_data  0,  2,   0,   0
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data  0,  2,  20,   7
-	frame_data -1,  8,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1,  2, -20,  -7
-	frame_data  1, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  2,   0,   0
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame  0,  2,  20,   7
+	frame_hide  8
+	frame  1,  2,   0,   0
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame  1,  2, -20,  -7
+	frame_end  1
+	frame_exit
 
 AnimFrameTableWhirlwind::
 	dw .frame_0
@@ -949,52 +949,52 @@ AnimFrameTableWhirlwind::
 
 AnimDataWhirlwind::
 	frame_table AnimFrameTableWhirlwind
-	frame_data  0,  8, -24,  16
-	frame_data  0,  8,  32,   0
-	frame_data  1,  8,   8, -10
-	frame_data  2,  8, -16, -16
-	frame_data  2,  8, -20,   0
-	frame_data  1,  8,   0,  16
-	frame_data  1,  8,  14,  -6
-	frame_data  1,  8,  14,  -8
-	frame_data  1,  8,   8, -10
-	frame_data  1, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  8, -24,  16
+	frame  0,  8,  32,   0
+	frame  1,  8,   8, -10
+	frame  2,  8, -16, -16
+	frame  2,  8, -20,   0
+	frame  1,  8,   0,  16
+	frame  1,  8,  14,  -6
+	frame  1,  8,  14,  -8
+	frame  1,  8,   8, -10
+	frame_end  1
+	frame_exit
 
 AnimDataWhirlwindBench::
 	frame_table AnimFrameTableWhirlwind
-	frame_data  1,  6, -80, -58
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  4,  16,   8
-	frame_data  2,  4,   0,   8
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  4, -16,   8
-	frame_data  1,  4,   0,   8
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  6,  32,   0
-	frame_data  1,  4,  16,   8
-	frame_data  2,  4,   0,   8
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  6, -32,   0
-	frame_data  2,  4, -16,   8
-	frame_data  1,  4,   0,   8
-	frame_data  1,  3,  32,   0
-	frame_data  1,  3,  32,   0
-	frame_data  1,  3,  32,   0
-	frame_data  1,  3,  32,   0
-	frame_data  1,  3,  32,   0
-	frame_data  1, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  1,  6, -80, -58
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  4,  16,   8
+	frame  2,  4,   0,   8
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  4, -16,   8
+	frame  1,  4,   0,   8
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  6,  32,   0
+	frame  1,  4,  16,   8
+	frame  2,  4,   0,   8
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  6, -32,   0
+	frame  2,  4, -16,   8
+	frame  1,  4,   0,   8
+	frame  1,  3,  32,   0
+	frame  1,  3,  32,   0
+	frame  1,  3,  32,   0
+	frame  1,  3,  32,   0
+	frame  1,  3,  32,   0
+	frame_end  1
+	frame_exit
 
 AnimFrameTableCry::
 	dw .frame_0
@@ -1109,25 +1109,25 @@ AnimFrameTableCry::
 
 AnimDataCry::
 	frame_table AnimFrameTableCry
-	frame_data  0,  9,   0,   0
-	frame_data  1,  9,   0,   0
-	frame_data  0,  9,   0,   0
-	frame_data  1,  9,   0,   0
-	frame_data  0,  9,   0,   0
-	frame_data  1,  9,   0,   0
-	frame_data  0,  9,   0,   0
-	frame_data  1,  9,   0,   0
-	frame_data  2,  9,   0,   0
-	frame_data  3,  9,   0,   0
-	frame_data  4,  9,   0,   0
-	frame_data  5,  9,   0,   0
-	frame_data  6,  9,   0,   0
-	frame_data  5,  9,   0,   0
-	frame_data  4,  9,   0,   0
-	frame_data  5,  9,   0,   0
-	frame_data  6,  9,   0,   0
-	frame_data  6, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  9,   0,   0
+	frame  1,  9,   0,   0
+	frame  0,  9,   0,   0
+	frame  1,  9,   0,   0
+	frame  0,  9,   0,   0
+	frame  1,  9,   0,   0
+	frame  0,  9,   0,   0
+	frame  1,  9,   0,   0
+	frame  2,  9,   0,   0
+	frame  3,  9,   0,   0
+	frame  4,  9,   0,   0
+	frame  5,  9,   0,   0
+	frame  6,  9,   0,   0
+	frame  5,  9,   0,   0
+	frame  4,  9,   0,   0
+	frame  5,  9,   0,   0
+	frame  6,  9,   0,   0
+	frame_end  6
+	frame_exit
 
 AnimFrameTableQuestionMark::
 	dw .frame_0
@@ -1330,30 +1330,30 @@ AnimFrameTableQuestionMark::
 
 AnimDataQuestionMark::
 	frame_table AnimFrameTableQuestionMark
-	frame_data  0,  6,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  0,  8,   0,   0
-	frame_data  1,  8,   0,   0
-	frame_data  2,  8,   0,   0
-	frame_data  3,  6,   0,   0
-	frame_data  4,  6,   0,   0
-	frame_data  5,  6,   0,   0
-	frame_data  6,  6,   0,   0
-	frame_data  7,  6,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  9,  4,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data -1,  2,   0,   0
-	frame_data  9, 16,   0,   0
-	frame_data  9, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  6,   0,   0
+	frame_hide  2
+	frame  0,  8,   0,   0
+	frame  1,  8,   0,   0
+	frame  2,  8,   0,   0
+	frame  3,  6,   0,   0
+	frame  4,  6,   0,   0
+	frame  5,  6,   0,   0
+	frame  6,  6,   0,   0
+	frame  7,  6,   0,   0
+	frame_hide  2
+	frame  8,  4,   0,   0
+	frame_hide  2
+	frame  9,  4,   0,   0
+	frame_hide  2
+	frame  8,  4,   0,   0
+	frame_hide  2
+	frame  7,  4,   0,   0
+	frame_hide  2
+	frame  8,  4,   0,   0
+	frame_hide  2
+	frame  9, 16,   0,   0
+	frame_end  9
+	frame_exit
 
 AnimFrameTableSelfdestruct::
 	dw .frame_0
@@ -1503,27 +1503,27 @@ AnimFrameTableSelfdestruct::
 
 AnimDataSelfdestruct::
 	frame_table AnimFrameTableSelfdestruct
-	frame_data  6,  5,   0,   0
-	frame_data  3,  8,   0,   0
-	frame_data  7,  8,   0,   0
-	frame_data  7, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  6,  5,   0,   0
+	frame  3,  8,   0,   0
+	frame  7,  8,   0,   0
+	frame_end  7
+	frame_exit
 
 AnimDataBigSelfdestruct1::
 	frame_table AnimFrameTableSelfdestruct
-	frame_data  0,  5,   0,   0
-	frame_data  1,  8,   0,   0
-	frame_data  1, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  5,   0,   0
+	frame  1,  8,   0,   0
+	frame_end  1
+	frame_exit
 
 AnimDataBigSelfdestruct2::
 	frame_table AnimFrameTableSelfdestruct
-	frame_data  2,  8,   0,   0
-	frame_data  3,  8,   0,   0
-	frame_data  4,  8,   0,   0
-	frame_data  5,  8,   0,   0
-	frame_data  5, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  2,  8,   0,   0
+	frame  3,  8,   0,   0
+	frame  4,  8,   0,   0
+	frame  5,  8,   0,   0
+	frame_end  5
+	frame_exit
 
 AnimFrameTableHeal::
 	dw .frame_0
@@ -1654,57 +1654,57 @@ AnimFrameTableHeal::
 
 AnimDataHeal::
 	frame_table AnimFrameTableHeal
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  2,   0,   0
-	frame_data  3,  3,   0,  -6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,  -6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,  -6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,  -6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,  -6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,  -6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,  -6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,  -6
-	frame_data  2,  3,   0,   0
-	frame_data  2, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  2,   0,   0
+	frame  3,  3,   0,  -6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,  -6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,  -6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,  -6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,  -6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,  -6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,  -6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,  -6
+	frame  2,  3,   0,   0
+	frame_end  2
+	frame_exit
 
 AnimDataHealingWind::
 	frame_table AnimFrameTableHeal
-	frame_data  5,  4, -96,   0
-	frame_data  6,  4,   8,  -2
-	frame_data  7,  4,   8,  -1
-	frame_data  8,  4,   8,   0
-	frame_data  5,  4,   8,   1
-	frame_data  6,  4,   8,   2
-	frame_data  7,  4,   8,   2
-	frame_data  8,  4,   8,   1
-	frame_data  5,  4,   8,   0
-	frame_data  6,  4,   8,  -1
-	frame_data  7,  4,   8,  -2
-	frame_data  8,  4,   8,  -2
-	frame_data  5,  4,   8,  -1
-	frame_data  6,  4,   8,   0
-	frame_data  7,  4,   8,   1
-	frame_data  8,  4,   8,   2
-	frame_data  5,  4,   8,   2
-	frame_data  6,  4,   8,   1
-	frame_data  7,  4,   8,   0
-	frame_data  8,  4,   8,  -1
-	frame_data  5,  4,   8,  -2
-	frame_data  6,  4,   8,   0
-	frame_data  7,  4,   8,   0
-	frame_data  8,  4,   8,   0
-	frame_data  5,  4,   8,   0
-	frame_data  5, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  5,  4, -96,   0
+	frame  6,  4,   8,  -2
+	frame  7,  4,   8,  -1
+	frame  8,  4,   8,   0
+	frame  5,  4,   8,   1
+	frame  6,  4,   8,   2
+	frame  7,  4,   8,   2
+	frame  8,  4,   8,   1
+	frame  5,  4,   8,   0
+	frame  6,  4,   8,  -1
+	frame  7,  4,   8,  -2
+	frame  8,  4,   8,  -2
+	frame  5,  4,   8,  -1
+	frame  6,  4,   8,   0
+	frame  7,  4,   8,   1
+	frame  8,  4,   8,   2
+	frame  5,  4,   8,   2
+	frame  6,  4,   8,   1
+	frame  7,  4,   8,   0
+	frame  8,  4,   8,  -1
+	frame  5,  4,   8,  -2
+	frame  6,  4,   8,   0
+	frame  7,  4,   8,   0
+	frame  8,  4,   8,   0
+	frame  5,  4,   8,   0
+	frame_end  5
+	frame_exit
 
 AnimFrameTableDrain::
 	dw .frame_0
@@ -1767,27 +1767,27 @@ AnimFrameTableDrain::
 
 AnimDataDrain::
 	frame_table AnimFrameTableDrain
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  2,   0,   0
-	frame_data  3,  3,   0,   6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,   6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,   6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,   6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,   6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,   6
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,   6
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,   6
-	frame_data  2,  3,   0,   0
-	frame_data  2, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  2,   0,   0
+	frame  3,  3,   0,   6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,   6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,   6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,   6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,   6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,   6
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,   6
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,   6
+	frame  2,  3,   0,   0
+	frame_end  2
+	frame_exit
 
 AnimFrameTableGlowBench::
 	dw .frame_0
@@ -1841,17 +1841,17 @@ AnimFrameTableGlowBench::
 
 AnimDataGlowBench::
 	frame_table AnimFrameTableGlowBench
-	frame_data  0,  4,   0,   0
-	frame_data  1,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  3,  4,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  0,  4,   0,   0
-	frame_data  1,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  2, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  4,   0,   0
+	frame  1,  4,   0,   0
+	frame  2,  4,   0,   0
+	frame  3,  4,   0,   0
+	frame  4,  4,   0,   0
+	frame  5,  4,   0,   0
+	frame  0,  4,   0,   0
+	frame  1,  4,   0,   0
+	frame  2,  4,   0,   0
+	frame_end  2
+	frame_exit
 
 AnimFrameTableExpand::
 	dw .frame_0
@@ -2065,21 +2065,21 @@ AnimFrameTableExpand::
 
 AnimDataExpand::
 	frame_table AnimFrameTableExpand
-	frame_data  0,  4,   0,   0
-	frame_data  1,  5,   0,   0
-	frame_data  2,  6,   0,   0
-	frame_data  3,  6,   0,   0
-	frame_data  4,  6,   0,   0
-	frame_data  5,  6,   0,   0
-	frame_data  6,  6,   0,   0
-	frame_data  7,  6,   0,   0
-	frame_data  8,  6,   0,   0
-	frame_data  9,  6,   0,   0
-	frame_data 10,  6,   0,   0
-	frame_data  5,  6,   0,   0
-	frame_data  6,  6,   0,   0
-	frame_data  6, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  4,   0,   0
+	frame  1,  5,   0,   0
+	frame  2,  6,   0,   0
+	frame  3,  6,   0,   0
+	frame  4,  6,   0,   0
+	frame  5,  6,   0,   0
+	frame  6,  6,   0,   0
+	frame  7,  6,   0,   0
+	frame  8,  6,   0,   0
+	frame  9,  6,   0,   0
+	frame 10,  6,   0,   0
+	frame  5,  6,   0,   0
+	frame  6,  6,   0,   0
+	frame_end  6
+	frame_exit
 
 AnimFrameTableCatPunch::
 	dw .frame_0
@@ -2144,16 +2144,16 @@ AnimFrameTableCatPunch::
 
 AnimDataCatPunch::
 	frame_table AnimFrameTableCatPunch
-	frame_data  0,  3,   0,   0
-	frame_data  4,  3,   0,   0
-	frame_data  1,  3,   0,   0
-	frame_data  3,  5,   0,   0
-	frame_data  5,  6,   0,   0
-	frame_data  3,  5,   0,   0
-	frame_data  2, 10,   0,   0
-	frame_data  3, 16,   0,   0
-	frame_data  3, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  3,   0,   0
+	frame  4,  3,   0,   0
+	frame  1,  3,   0,   0
+	frame  3,  5,   0,   0
+	frame  5,  6,   0,   0
+	frame  3,  5,   0,   0
+	frame  2, 10,   0,   0
+	frame  3, 16,   0,   0
+	frame_end  3
+	frame_exit
 
 AnimFrameTableThunderWave::
 	dw .frame_0
@@ -2415,50 +2415,50 @@ AnimFrameTableThunderWave::
 
 AnimDataThunderWave::
 	frame_table AnimFrameTableThunderWave
-	frame_data  6,  2,   0,   0
-	frame_data  7,  2,   0,   0
-	frame_data  8,  2,   0,   0
-	frame_data  9,  2,   0,   0
-	frame_data 10,  2,   0,   0
-	frame_data 11,  2,   0,   0
-	frame_data 12,  2,   0,   0
-	frame_data 13,  2,   0,   0
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  2,   0,   0
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   0
-	frame_data  5,  2,   0,   0
-	frame_data  6,  2,   0,   0
-	frame_data  7,  2,   0,   0
-	frame_data  8,  2,   0,   0
-	frame_data  9,  2,   0,   0
-	frame_data 10,  2,   0,   0
-	frame_data 11,  2,   0,   0
-	frame_data 12,  2,   0,   0
-	frame_data 13,  2,   0,   0
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  2,   0,   0
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   0
-	frame_data  5,  2,   0,   0
-	frame_data  6,  2,   0,   0
-	frame_data  7,  2,   0,   0
-	frame_data  8,  2,   0,   0
-	frame_data  9,  2,   0,   0
-	frame_data 10,  2,   0,   0
-	frame_data 11,  2,   0,   0
-	frame_data 12,  2,   0,   0
-	frame_data 13,  2,   0,   0
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  2,   0,   0
-	frame_data  3,  2,   0,   0
-	frame_data  4,  2,   0,   0
-	frame_data  5,  2,   0,   0
-	frame_data  5, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  6,  2,   0,   0
+	frame  7,  2,   0,   0
+	frame  8,  2,   0,   0
+	frame  9,  2,   0,   0
+	frame 10,  2,   0,   0
+	frame 11,  2,   0,   0
+	frame 12,  2,   0,   0
+	frame 13,  2,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  2,   0,   0
+	frame  3,  2,   0,   0
+	frame  4,  2,   0,   0
+	frame  5,  2,   0,   0
+	frame  6,  2,   0,   0
+	frame  7,  2,   0,   0
+	frame  8,  2,   0,   0
+	frame  9,  2,   0,   0
+	frame 10,  2,   0,   0
+	frame 11,  2,   0,   0
+	frame 12,  2,   0,   0
+	frame 13,  2,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  2,   0,   0
+	frame  3,  2,   0,   0
+	frame  4,  2,   0,   0
+	frame  5,  2,   0,   0
+	frame  6,  2,   0,   0
+	frame  7,  2,   0,   0
+	frame  8,  2,   0,   0
+	frame  9,  2,   0,   0
+	frame 10,  2,   0,   0
+	frame 11,  2,   0,   0
+	frame 12,  2,   0,   0
+	frame 13,  2,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  2,   0,   0
+	frame  3,  2,   0,   0
+	frame  4,  2,   0,   0
+	frame  5,  2,   0,   0
+	frame_end  5
+	frame_exit
 
 AnimFrameTableFireball::
 	dw .frame_0
@@ -2935,44 +2935,44 @@ AnimFrameTableFireball::
 
 AnimDataFireball::
 	frame_table AnimFrameTableFireball
-	frame_data  0,  3,  12, -32
-	frame_data  1,  3,   0,   0
-	frame_data  2,  3,   0,   0
-	frame_data  3,  3,   0,   0
-	frame_data  4,  3,  -3,   8
-	frame_data  5,  3,  -3,   8
-	frame_data  3,  3,  -3,   8
-	frame_data  4,  3,  -3,   8
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  6,   0,   0
-	frame_data  9,  4,   0,   0
-	frame_data  9, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  3,  12, -32
+	frame  1,  3,   0,   0
+	frame  2,  3,   0,   0
+	frame  3,  3,   0,   0
+	frame  4,  3,  -3,   8
+	frame  5,  3,  -3,   8
+	frame  3,  3,  -3,   8
+	frame  4,  3,  -3,   8
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  6,   0,   0
+	frame  9,  4,   0,   0
+	frame_end  9
+	frame_exit
 
 AnimDataContinuousFireball::
 	frame_table AnimFrameTableFireball
-	frame_data  0,  4,   7, -32
-	frame_data  1,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data 10,  4,  -7,  32
-	frame_data 11,  4,   0,   0
-	frame_data 12,  4,   0,   0
-	frame_data 13,  4,   0,   0
-	frame_data 14,  4,   0,   0
-	frame_data 15,  4,   0,   0
-	frame_data 16,  4,   0,   0
-	frame_data 17,  4,   0,   0
-	frame_data 18,  4,   0,   0
-	frame_data 19,  4,   0,   0
-	frame_data 20,  4,   0,   0
-	frame_data 21,  4,   0,   0
-	frame_data 22,  4,   0,   0
-	frame_data 23,  4,   0,   0
-	frame_data  8,  4,   8, -16
-	frame_data  9,  4,   0,   0
-	frame_data  9, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  4,   7, -32
+	frame  1,  4,   0,   0
+	frame  2,  4,   0,   0
+	frame 10,  4,  -7,  32
+	frame 11,  4,   0,   0
+	frame 12,  4,   0,   0
+	frame 13,  4,   0,   0
+	frame 14,  4,   0,   0
+	frame 15,  4,   0,   0
+	frame 16,  4,   0,   0
+	frame 17,  4,   0,   0
+	frame 18,  4,   0,   0
+	frame 19,  4,   0,   0
+	frame 20,  4,   0,   0
+	frame 21,  4,   0,   0
+	frame 22,  4,   0,   0
+	frame 23,  4,   0,   0
+	frame  8,  4,   8, -16
+	frame  9,  4,   0,   0
+	frame_end  9
+	frame_exit
 
 AnimFrameTableBenchManipulation::
 	dw .frame_0
@@ -3268,24 +3268,24 @@ AnimFrameTableBenchManipulation::
 
 AnimDataBenchManipulation::
 	frame_table AnimFrameTableBenchManipulation
-	frame_data  0,  3,   0,   0
-	frame_data  1,  3,   0,   0
-	frame_data  2,  3,   0,   0
-	frame_data  3,  4,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  6,  5,   0,   0
-	frame_data  7,  5,   0,   0
-	frame_data  8,  5,   0,   0
-	frame_data  9,  5,   0,   0
-	frame_data 10,  5,   0,   0
-	frame_data 11,  5,   0,   0
-	frame_data 12,  5,   0,   0
-	frame_data 13,  6,   0,   0
-	frame_data 14,  6,   0,   0
-	frame_data 15,  6,   0,   0
-	frame_data 15, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  3,   0,   0
+	frame  1,  3,   0,   0
+	frame  2,  3,   0,   0
+	frame  3,  4,   0,   0
+	frame  4,  4,   0,   0
+	frame  5,  4,   0,   0
+	frame  6,  5,   0,   0
+	frame  7,  5,   0,   0
+	frame  8,  5,   0,   0
+	frame  9,  5,   0,   0
+	frame 10,  5,   0,   0
+	frame 11,  5,   0,   0
+	frame 12,  5,   0,   0
+	frame 13,  6,   0,   0
+	frame 14,  6,   0,   0
+	frame 15,  6,   0,   0
+	frame_end 15
+	frame_exit
 
 AnimFrameTablePsychicBeam::
 	dw .frame_0
@@ -3583,19 +3583,19 @@ AnimFrameTablePsychicBeam::
 
 AnimDataPsychicBeam::
 	frame_table AnimFrameTablePsychicBeam
-	frame_data  0,  2,   0,   0
-	frame_data  1,  2,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  3,  4,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data  9,  4,   0,   0
-	frame_data 10,  6,   0,   0
-	frame_data 10, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  2,   0,   0
+	frame  1,  2,   0,   0
+	frame  2,  4,   0,   0
+	frame  3,  4,   0,   0
+	frame  4,  4,   0,   0
+	frame  5,  4,   0,   0
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  4,   0,   0
+	frame  9,  4,   0,   0
+	frame 10,  6,   0,   0
+	frame_end 10
+	frame_exit
 
 AnimFrameTablePsychicBeamBench::
 	dw .frame_0
@@ -3840,19 +3840,19 @@ AnimFrameTablePsychicBeamBench::
 
 AnimDataPsychicBeamBench::
 	frame_table AnimFrameTablePsychicBeamBench
-	frame_data  0,  4,   0,   0
-	frame_data  1,  4,   0,   0
-	frame_data  2,  4,   0,   0
-	frame_data  3,  4,   0,   0
-	frame_data  4,  4,   0,   0
-	frame_data  5,  4,   0,   0
-	frame_data  6,  4,   0,   0
-	frame_data  7,  4,   0,   0
-	frame_data  8,  4,   0,   0
-	frame_data  9,  4,   0,   0
-	frame_data 10,  4,   0,   0
-	frame_data 10, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  4,   0,   0
+	frame  1,  4,   0,   0
+	frame  2,  4,   0,   0
+	frame  3,  4,   0,   0
+	frame  4,  4,   0,   0
+	frame  5,  4,   0,   0
+	frame  6,  4,   0,   0
+	frame  7,  4,   0,   0
+	frame  8,  4,   0,   0
+	frame  9,  4,   0,   0
+	frame 10,  4,   0,   0
+	frame_end 10
+	frame_exit
 
 AnimFrameTableBoulderSmash::
 	dw .frame_0
@@ -4306,28 +4306,28 @@ AnimFrameTableBoulderSmash::
 
 AnimDataBoulderSmash::
 	frame_table AnimFrameTableBoulderSmash
-	frame_data  0,  2,   0, -72
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  0,  2,   0,   8
-	frame_data  1,  2,   0,   8
-	frame_data  2,  2,   0,   0
-	frame_data  3,  3,   0,   0
-	frame_data  4,  3,   0,   0
-	frame_data  5,  2,   0,   0
-	frame_data  6,  2,   0,   0
-	frame_data  7,  2,   0,   0
-	frame_data  8,  2,   0,   0
-	frame_data  9,  2,   0,   0
-	frame_data 10,  2,   0,   0
-	frame_data 11,  2,   0,   0
-	frame_data 12,  2,   0,   0
-	frame_data 13,  8,   0,   0
-	frame_data 14, 16,   0,   0
-	frame_data 14, -1,   0,   0
-	frame_data  0,  0,   0,   0
+	frame  0,  2,   0, -72
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  0,  2,   0,   8
+	frame  1,  2,   0,   8
+	frame  2,  2,   0,   0
+	frame  3,  3,   0,   0
+	frame  4,  3,   0,   0
+	frame  5,  2,   0,   0
+	frame  6,  2,   0,   0
+	frame  7,  2,   0,   0
+	frame  8,  2,   0,   0
+	frame  9,  2,   0,   0
+	frame 10,  2,   0,   0
+	frame 11,  2,   0,   0
+	frame 12,  2,   0,   0
+	frame 13,  8,   0,   0
+	frame 14, 16,   0,   0
+	frame_end 14
+	frame_exit

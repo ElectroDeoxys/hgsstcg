@@ -78,11 +78,23 @@ MACRO? frame_table
 	dw \1
 ENDM
 
-MACRO? frame_data
+MACRO? frame
 	db \1 ; frame index
 	db \2 ; anim count
 	db \3 ; x translation
 	db \4 ; y translation
+ENDM
+
+MACRO? frame_hide
+	frame -1, \1, 0, 0
+ENDM
+
+MACRO? frame_end
+	frame \1, -1, 0, 0
+ENDM
+
+MACRO? frame_exit
+	frame 0, 0, 0, 0
 ENDM
 
 MACRO? tx

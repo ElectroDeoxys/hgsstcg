@@ -53,8 +53,6 @@ LoadCollectedMedalTilemaps:
 	xor a
 	ld [wWhichVRAMBank], a ; VRAM0
 	farcall LoadTilesetGfx
-	xor a
-	ld [wWhichOBP], a ; not used
 	ld a, 1 ; palette index
 	ld [wWhichBGPalIndex], a
 	ld a, PALETTE_118

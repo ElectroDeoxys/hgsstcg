@@ -1869,3 +1869,7 @@ PaletteDuelResult::
 	rgb 31,  0,  0
 	rgb 31, 31,  0
 	rgb  0,  0,  0
+
+PaletteDuelCursor::
+	db 1
+	INCBIN "gfx/duel/cursor.pal"

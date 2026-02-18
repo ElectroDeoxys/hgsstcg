@@ -1538,10 +1538,6 @@ wGeneralSaveDataByteCount::
 ; stores tile offset in VRAM
 wVRAMTileOffset::
 
-; for LoadOBPalette
-; which object palette to load to (DMG)
-wWhichOBP::
-
 ; temporary storage of variables when
 ; calculating booster chances of cards
 wTempBoosterChances::
@@ -1882,6 +1878,7 @@ wTargetDuelSceneSCY:: db
 
 wDuelCursorX:: db
 wDuelCursorY:: db
+wDuelCursorAnimIdx:: db
 
 ; duel scene is 20x32 tiles in dimension
 wDuelSceneTilemap::
@@ -1900,13 +1897,16 @@ wDuelAnimationQueue::
 wDuelAnimations:: ; concurrent animations
 	ds NUM_DUEL_ANIMS * DUELANIM_STRUCT_SIZE
 
-wChangeAnimFrame:: db ; if TRUE, then move to next frame
-wAnimFinished::    db ; if TRUE, animation reached ending frame
-wCurAnimFrame::    db
-wCurAnimDuration:: db
-wCurAnimX::        db
-wCurAnimY::        db
-wCurOAMCount::     db
+wChangeAnimFrame::   db ; if TRUE, then move to next frame
+wCurAnimFrame::      db
+wCurAnimDuration::   db
+wCurAnimFrameX::     db
+wCurAnimFrameY::     db
+wCurOAMCount::       db
+wCurAnimX::          db
+wCurAnimY::          db
+wCurAnimTileOffset:: db
+wCurAnimOBPal::      db
 
 SECTION "WRAM AI", WRAMX
 

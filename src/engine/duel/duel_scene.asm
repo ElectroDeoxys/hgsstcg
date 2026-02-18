@@ -10,7 +10,8 @@ DuelScene:
 
 	; load necessary graphics
 	call SetDefaultConsolePalettes
-
+	ld a, PALETTE_DUEL_CURSOR
+	farcall LoadOBPalette
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
 
@@ -28,6 +29,8 @@ DuelScene:
 	ld [wDuelCursorX], a
 	ld a, SCREEN_HEIGHT_PX / 2
 	ld [wDuelCursorY], a
+	ld a, -1
+	ld [wDuelCursorAnimIdx], a
 
 	farcall FadeScreenFromWhite
 

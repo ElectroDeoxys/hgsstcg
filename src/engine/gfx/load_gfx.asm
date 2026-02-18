@@ -673,8 +673,6 @@ LoadPaletteDataFromHL:
 
 ; loads object palette (PALETTE_*) given in a
 ; each palette has data for DMG OBP and for CGB RGB palettes
-; DMG:
-; - if [wWhichOBP] is 1, then load to OBP1, otherwise start load to OBP0
 ; CGB:
 ; - load palette starting from object palette index [wWhichOBPalIndex]
 LoadOBPalette:

@@ -63,6 +63,7 @@ Palettes:
 	palette_pointer Palette116, 4 ; PALETTE_116
 	palette_pointer Palette117, 1 ; PALETTE_117
 	palette_pointer Palette118, 7 ; PALETTE_118
+	palette_pointer PaletteDuelCursor,            1 ; PALETTE_DUEL_CURSOR
 	palette_pointer PaletteDuelGlow,              1 ; PALETTE_DUEL_GLOW
 	palette_pointer PaletteDuelParalysis,         1 ; PALETTE_DUEL_PARALYSIS
 	palette_pointer PaletteDuelSleep,             3 ; PALETTE_DUEL_SLEEP

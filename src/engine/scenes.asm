@@ -37,8 +37,6 @@ _LoadScene::
 	ld l, a
 	ld a, [hli]
 	push af ; palette
-	xor a
-	ld [wWhichOBP], a ; not used
 	ld a, [hli]
 	ld [wWhichBGPalIndex], a ; palette offset
 	ld [wd291], a ; palette offset
@@ -62,8 +60,6 @@ _LoadScene::
 	ld [wSceneSprite], a
 	ld a, [hli]
 	push af ; sprite palette
-	xor a
-	ld [wWhichOBP], a ; OBP0
 	ld a, [hli]
 	ld [wWhichOBPalIndex], a ; palette index
 	pop af ; sprite palette

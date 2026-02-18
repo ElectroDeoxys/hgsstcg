@@ -40,8 +40,6 @@ LoadMapTilesAndPals:
 	ld [wWhichVRAMBank], a
 	call LoadTilesetGfx
 
-	xor a
-	ld [wWhichOBP], a ; not used
 	ld a, [wd291]
 	ld [wWhichBGPalIndex], a
 	ld a, [wCurMapInitialPalette]

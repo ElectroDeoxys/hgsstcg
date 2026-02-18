@@ -136,6 +136,8 @@ src/gfx/titlescreen/title_screen.2bpp: RGBGFXFLAGS += -x 12
 src/gfx/cards/%.2bpp: RGBGFXFLAGS += -Z -P -A
 src/gfx/duelists/%.2bpp: RGBGFXFLAGS += -P -A
 
+src/gfx/duel/cursor.2bpp: RGBGFXFLAGS += -P
+
 ### Catch-all graphics rules
 
 %.png: ;
