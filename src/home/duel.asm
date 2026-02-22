@@ -265,7 +265,54 @@ DuelSceneVBlank::
 	call BankswitchVRAM0
 
 .no_vdma
+	; color in opponent's active card
+	ld hl, wOppCardPalette
+	ld a, BGPI_AUTOINC | 5 * PAL_SIZE
+	ldh [rBGPI], a
+	ld b, 3 palettes
+	ld c, LOW(rBGPD)
+.loop_copy_pal
+	ld a, [hli]
+	ld [$ff00+c], a
+	dec b
+	jr nz, .loop_copy_pal
+
+	; update next LYC (to color player's active card)
+	ld a, [wDuelSceneSCY + 1]
+	ld b, a
+	ld a, 15 * 8 ; 15th tile
+	sub b
+	ldh [rLYC], a
 	pop_wram
+	ret
+
+DuelSceneStat::
+	push af
+	push hl
+	push bc
+
+	; color in player's active card
+	ld hl, wPlayerCardPalette
+	ld a, BGPI_AUTOINC | 5 * PAL_SIZE
+	ldh [rBGPI], a
+	ld b, 4
+	ld c, LOW(rBGPD)
+
+.loop_copy_pals
+	; wait until beginning of H-Blank
+	wait_not_hblank
+	wait_hblank
+	; we can only fit 6 read/writes here at worst
+REPT 6
+	ld a, [hli]
+	ld [$ff00+c], a
+ENDR
+	dec b
+	jr nz, .loop_copy_pals
+
+	pop bc
+	pop hl
+	pop af
 	ret
 
 ; applies duel scene scroll
@@ -286,16 +333,33 @@ DuelSceneDoFrame::
 	ret
 
 UpdateDuelCursorAnimation::
+	ld hl, wDuelCursorState
+	bit CURSOR_PENDING_UPDATE_F, [hl]
+	ld a, [wDuelCursorAnimIdx]
+	jr z, .no_update
+	res CURSOR_PENDING_UPDATE_F, [hl]
+
+	; get its loaded animation and deactivate it
+	push hl
 	ld a, [wDuelCursorAnimIdx]
 	cp -1
-	jr nz, .got_idx
-	ld a, SPRITE_DUEL_CURSOR
-	ld b, BANK("VRAM1")
-	call LoadDuelSprite
-	ld a, SPRITE_ANIM_DUEL_CURSOR_POINT
+	jr z, .not_active
+	call GetLoadedDuelAnimation
+	res DUELANIMF_ACTIVE_F, [hl]
+	ld a, -1
+	ld [wDuelCursorAnimIdx], a
+.not_active
+	pop hl
+	ld a, [hl]
+	or a ; cp CURSOR_HIDDEN
+	ret z ; done
+
+	ld a, [hl]
+	add SPRITE_ANIM_DUEL_CURSOR_IDLE - 1
 	call LoadDuelAnimation
 	ld [wDuelCursorAnimIdx], a
-.got_idx
+
+.no_update
 	call GetLoadedDuelAnimation
 	set DUELANIMF_LOOPING_F, [hl]
 	ld bc, DUELANIM_YPOS
@@ -395,7 +459,7 @@ LoadDuelAnimation:
 
 ; set VDMA to load sprite given in a (SPRITE_* constant)
 ; to VRAM bank given in b
-LoadDuelSprite:
+LoadDuelSprite::
 	push hl
 	ld l, GFXTABLE_SPRITES
 	farcall GetMapDataPointer

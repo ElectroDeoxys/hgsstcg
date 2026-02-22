@@ -484,8 +484,6 @@ wListItemNameMaxLength::
 wListFunctionPointer::
 	ds $2
 
-	ds $50
-
 ; in a card list, the Y position where the <sel_item>/<num_items> indicator is placed
 ; if wListIndicatorYPosition == $ff, no indicator is displayed
 wListIndicatorYPosition::
@@ -529,6 +527,11 @@ wCardPalette::
 	ds 3 palettes
 wCardAttrMap::
 	ds $30
+
+wPlayerCardPalette::
+	ds 3 palettes
+wOppCardPalette::
+	ds 3 palettes
 
 ; information about the text being currently processed, including font width,
 ; the rom bank, and the memory address of the next character to be printed.
@@ -1878,6 +1881,7 @@ wTargetDuelSceneSCY:: db
 
 wDuelCursorX:: db
 wDuelCursorY:: db
+wDuelCursorState:: db
 wDuelCursorAnimIdx:: db
 
 ; duel scene is 20x32 tiles in dimension

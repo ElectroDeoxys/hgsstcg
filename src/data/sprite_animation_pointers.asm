@@ -62,7 +62,9 @@ SpriteAnimations:
 	anim_data_pointer AnimData68                 ; SPRITE_ANIM_CARD_BOTTOM_LEFT
 	anim_data_pointer AnimData69                 ; SPRITE_ANIM_CARD_BOTTOM_RIGHT
 	anim_data_pointer AnimData70                 ; SPRITE_ANIM_CARD_RIGHT_SPARK
+	anim_data_pointer AnimDataDuelCursorIdle     ; SPRITE_ANIM_DUEL_CURSOR_IDLE
 	anim_data_pointer AnimDataDuelCursorPoint    ; SPRITE_ANIM_DUEL_CURSOR_POINT
+	anim_data_pointer AnimDataDuelCursorSnap     ; SPRITE_ANIM_DUEL_CURSOR_SNAP
 	anim_data_pointer AnimDataGlow               ; SPRITE_ANIM_GLOW
 	anim_data_pointer AnimDataParalysis          ; SPRITE_ANIM_PARALYSIS
 	anim_data_pointer AnimDataSleep              ; SPRITE_ANIM_SLEEP

@@ -7,11 +7,13 @@ DuelScene:
 	call SetDuelSceneVBlank
 	ld hl, DuelSceneDoFrame
 	call SetDoFrameFunction
+	call SetDuelStatFunction
 
 	; load necessary graphics
 	call SetDefaultConsolePalettes
 	ld a, PALETTE_DUEL_CURSOR
 	farcall LoadOBPalette
+
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
 
@@ -24,15 +26,21 @@ DuelScene:
 	ld a, -1
 	ld [hli], a ; wTargetDuelSceneSCY
 
-	; center cursor
+	; init cursor
 	ld a, SCREEN_WIDTH_PX / 2
 	ld [wDuelCursorX], a
 	ld a, SCREEN_HEIGHT_PX / 2
 	ld [wDuelCursorY], a
 	ld a, -1
 	ld [wDuelCursorAnimIdx], a
+	ld a, CURSOR_IDLE | CURSOR_PENDING_UPDATE
+	ld [wDuelCursorState], a
 
-	farcall FadeScreenFromWhite
+	call EnableLCD
+
+	ld a, SPRITE_DUEL_CURSOR
+	ld b, BANK("VRAM1")
+	call LoadDuelSprite
 
 .loop
 	call ZeroObjectPositions
@@ -162,6 +170,13 @@ DuelScene:
 	jr .done_input
 
 .no_move_cursor_y
+	; update cursor state
+	ld hl, wDuelCursorX
+	ld a, [hli]
+	ld b, a ; x
+	ld a, [wDuelSceneSCY + 1]
+	add [hl]
+	ld c, a ; y
 
 .done_input
 	jp .loop
@@ -215,16 +230,25 @@ DrawPlayerDuelScene:
 	get_turn_duelist_var
 	cp -1
 	jr z, .no_active
+
+	; draw active card
 	call LoadCardDataToBuffer1_FromDeckIndex
 	ld de, v0Tiles1 + $50 tiles
 	call LoadLoaded1CardGfx
-	call SetBGP5ToCardPalette
+	ld c, $5
+	ld de, wCardAttrMap
+	call SetCardGfxPaletteIndex
 	ld a, $d0 ; v0Tiles1 + $50 tiles
 	lb hl, 6, 1
 	lb de, 6, 17
 	lb bc, 8, 6
 	call FillRectangle
 	call ApplyCardCGBAttributes
+	; copy over palettes
+	ld hl, wCardPalette
+	ld de, wPlayerCardPalette
+	ld bc, 3 palettes
+	call CopyDataHLtoDE
 
 .no_active
 	; draw bench
@@ -260,16 +284,25 @@ DrawOpponentDuelScene:
 	get_turn_duelist_var
 	cp -1
 	jr z, .no_active
+
+	; draw active card
 	call LoadCardDataToBuffer1_FromDeckIndex
 	ld de, v0Tiles1 + $20 tiles
 	call LoadLoaded1CardGfx
-	call SetBGP2ToCardPalette
+	ld c, $5
+	ld de, wCardAttrMap
+	call SetCardGfxPaletteIndex
 	ld a, $a0 ; v0Tiles1 + $20 tiles
 	lb hl, 6, 1
 	lb de, 6, 9
 	lb bc, 8, 6
 	call FillRectangle
 	call ApplyCardCGBAttributes
+	; copy over palettes
+	ld hl, wCardPalette
+	ld de, wOppCardPalette
+	ld bc, 3 palettes
+	call CopyDataHLtoDE
 
 .no_active
 	; draw bench
@@ -329,6 +362,22 @@ SetDuelSceneVBlank:
 	ld [hli], a
 	ld [hl], HIGH(DuelSceneVBlank)
 	reti
+
+SetDuelStatFunction:
+	di
+	ld hl, wLCDCFunctionTrampoline + 1
+	ld a, LOW(DuelSceneStat)
+	ld [hli], a
+	ld [hl], HIGH(DuelSceneStat)
+	ei
+
+	ld hl, rSTAT
+	set B_STAT_LYC, [hl]
+	xor a
+	ldh [rLYC], a
+	ld hl, rIE
+	set B_IE_STAT, [hl]
+	ret
 
 DrawSquareSymbol:
 	push hl

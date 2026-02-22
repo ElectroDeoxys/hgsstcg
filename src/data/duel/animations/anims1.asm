@@ -1669,11 +1669,26 @@ AnimFrameDuelCursor::
 	db 8, 0, $1a, 0
 	db 8, 8, $1b, 0
 
+AnimDataDuelCursorIdle::
+	frame_table AnimFrameDuelCursor
+	frame  2, 40,   0,   0
+	frame  3, 40,   0,   0
+	frame_end  3
+	frame_exit
+
 AnimDataDuelCursorPoint::
 	frame_table AnimFrameDuelCursor
 	frame  0, 40,   0,   0
 	frame  1, 40,   0,   0
 	frame_end  1
+	frame_exit
+
+AnimDataDuelCursorSnap::
+	frame_table AnimFrameDuelCursor
+	frame  4, 40,   0,   0
+	frame  5,  6,   0,   0
+	frame  6, 40,   0,   0
+	frame_end  6
 	frame_exit
 
 AnimFrameTableGlow::
@@ -5200,237 +5215,4 @@ AnimDataBlizzard::
 	frame  8,  3,  16,   0
 	frame  8,  3,  16,   0
 	frame_end  8
-	frame_exit
-
-AnimFrameTablePsychic::
-	dw .frame_0
-	dw .frame_1
-	dw .frame_2
-	dw .frame_3
-	dw .frame_4
-	dw .frame_5
-	dw .frame_6
-	dw .frame_7
-	dw .frame_8
-	dw .frame_9
-	dw .frame_10
-	dw .frame_11
-	dw .frame_12
-	dw .frame_13
-	dw .frame_14
-	dw .frame_15
-	dw .frame_16
-
-.frame_0
-	db 4 ; size
-	db -26, -35, $00, 0
-	db -26,  27, $00, 0 | OAM_XFLIP
-	db  18,  27, $00, 0 | OAM_XFLIP | OAM_YFLIP
-	db  18, -35, $00, 0 | OAM_YFLIP
-
-.frame_1
-	db 4 ; size
-	db -25, -34, $00, 0
-	db -25,  26, $00, 0 | OAM_XFLIP
-	db  17,  26, $00, 0 | OAM_XFLIP | OAM_YFLIP
-	db  17, -34, $00, 0 | OAM_YFLIP
-
-.frame_2
-	db 4 ; size
-	db -24, -32, $01, 0
-	db -24,  24, $01, 0 | OAM_XFLIP
-	db  16,  24, $01, 0 | OAM_XFLIP | OAM_YFLIP
-	db  16, -32, $01, 0 | OAM_YFLIP
-
-.frame_3
-	db 4 ; size
-	db -23, -28, $02, 0
-	db -23,  20, $02, 0 | OAM_XFLIP
-	db  15,  20, $02, 0 | OAM_XFLIP | OAM_YFLIP
-	db  15, -28, $02, 0 | OAM_YFLIP
-
-.frame_4
-	db 4 ; size
-	db -20, -24, $03, 0
-	db -20,  16, $03, 0 | OAM_XFLIP
-	db  12,  16, $03, 0 | OAM_XFLIP | OAM_YFLIP
-	db  12, -24, $03, 0 | OAM_YFLIP
-
-.frame_5
-	db 8 ; size
-	db -17, -21, $04, 0
-	db -17,  13, $04, 0 | OAM_XFLIP
-	db   9,  13, $04, 0 | OAM_XFLIP | OAM_YFLIP
-	db   9, -21, $04, 0 | OAM_YFLIP
-	db -17, -13, $05, 0
-	db -17,   5, $05, 0 | OAM_XFLIP
-	db   9,   5, $05, 0 | OAM_XFLIP | OAM_YFLIP
-	db   9, -13, $05, 0 | OAM_YFLIP
-
-.frame_6
-	db 12 ; size
-	db -17, -24, $06, 0
-	db -17,  16, $06, 0 | OAM_XFLIP
-	db   9,  16, $06, 0 | OAM_XFLIP | OAM_YFLIP
-	db   9, -24, $06, 0 | OAM_YFLIP
-	db -17, -16, $07, 0
-	db -17,   8, $07, 0 | OAM_XFLIP
-	db   9,   8, $07, 0 | OAM_XFLIP | OAM_YFLIP
-	db   9, -16, $07, 0 | OAM_YFLIP
-	db  -9, -16, $08, 0
-	db  -9,   8, $08, 0 | OAM_XFLIP
-	db   1,   8, $08, 0 | OAM_XFLIP | OAM_YFLIP
-	db   1, -16, $08, 0 | OAM_YFLIP
-
-.frame_7
-	db 12 ; size
-	db -16, -16, $09, 0
-	db -16,   8, $09, 0 | OAM_XFLIP
-	db   8,   8, $09, 0 | OAM_XFLIP | OAM_YFLIP
-	db   8, -16, $09, 0 | OAM_YFLIP
-	db -16,  -8, $0a, 0
-	db -16,   0, $0a, 0 | OAM_XFLIP
-	db   8,   0, $0a, 0 | OAM_XFLIP | OAM_YFLIP
-	db   8,  -8, $0a, 0 | OAM_YFLIP
-	db  -8, -16, $0b, 0
-	db  -8,   8, $0b, 0 | OAM_XFLIP
-	db   0,   8, $0b, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0, -16, $0b, 0 | OAM_YFLIP
-
-.frame_8
-	db 12 ; size
-	db -11, -12, $0c, 0
-	db  -3, -10, $08, 0
-	db -14,  -4, $0a, 0
-	db -11,   4, $0c, 0 | OAM_XFLIP
-	db   3,   4, $0c, 0 | OAM_XFLIP | OAM_YFLIP
-	db   3, -12, $0c, 0 | OAM_YFLIP
-	db -14,  -4, $0a, 0 | OAM_XFLIP
-	db   6,  -4, $0a, 0 | OAM_XFLIP | OAM_YFLIP
-	db   6,  -4, $0a, 0 | OAM_YFLIP
-	db  -3,   2, $08, 0 | OAM_XFLIP
-	db  -5,   2, $08, 0 | OAM_XFLIP | OAM_YFLIP
-	db  -5, -10, $08, 0 | OAM_YFLIP
-
-.frame_9
-	db 8 ; size
-	db -16,  -4, $0d, 0
-	db   8,  -4, $0d, 0 | OAM_YFLIP
-	db  -4, -16, $0e, 0
-	db  -4,   8, $0e, 0 | OAM_XFLIP
-	db  -8,  -8, $0f, 0
-	db  -8,   0, $0f, 0 | OAM_XFLIP
-	db   0,   0, $0f, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $0f, 0 | OAM_YFLIP
-
-.frame_10
-	db 4 ; size
-	db  -8,  -8, $10, 0
-	db  -8,   0, $10, 0 | OAM_XFLIP
-	db   0,   0, $10, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $10, 0 | OAM_YFLIP
-
-.frame_11
-	db 6 ; size
-	db  -8, -12, $11, 0
-	db  -8,   4, $11, 0 | OAM_XFLIP
-	db   0,   4, $11, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0, -12, $11, 0 | OAM_YFLIP
-	db  -8,  -4, $12, 0
-	db   0,  -4, $12, 0 | OAM_XFLIP | OAM_YFLIP
-
-.frame_12
-	db 9 ; size
-	db  -4,  -4, $22, 1
-	db -16,  -4, $13, 0
-	db   8,  -4, $13, 0 | OAM_YFLIP
-	db  -4, -16, $14, 0
-	db  -4,   8, $14, 0 | OAM_XFLIP
-	db  -8,  -8, $15, 0
-	db  -8,   0, $15, 0 | OAM_XFLIP
-	db   0,   0, $15, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $15, 0 | OAM_YFLIP
-
-.frame_13
-	db 9 ; size
-	db  -4,  -4, $23, 1
-	db -16,  -4, $16, 0
-	db   8,  -4, $16, 0 | OAM_YFLIP
-	db  -4, -16, $17, 0
-	db  -4,   8, $17, 0 | OAM_XFLIP
-	db  -8,  -8, $18, 0
-	db  -8,   0, $18, 0 | OAM_XFLIP
-	db   0,   0, $18, 0 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $18, 0 | OAM_YFLIP
-
-.frame_14
-	db 8 ; size
-	db -16,  -4, $19, 0
-	db   8,  -4, $19, 0 | OAM_YFLIP
-	db  -4, -16, $1a, 0
-	db  -4,   8, $1a, 0 | OAM_XFLIP
-	db  -8,  -8, $1b, 1
-	db  -8,   0, $1b, 1 | OAM_XFLIP
-	db   0,   0, $1b, 1 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $1b, 1 | OAM_YFLIP
-
-.frame_15
-	db 8 ; size
-	db -16,  -4, $1c, 1
-	db   8,  -4, $1c, 1 | OAM_YFLIP
-	db  -4, -16, $1d, 1
-	db  -4,   8, $1d, 1 | OAM_XFLIP
-	db  -8,  -8, $1e, 1
-	db  -8,   0, $1e, 1 | OAM_XFLIP
-	db   0,   0, $1e, 1 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $1e, 1 | OAM_YFLIP
-
-.frame_16
-	db 8 ; size
-	db -16,  -4, $1f, 1
-	db   8,  -4, $1f, 1 | OAM_YFLIP
-	db  -4, -16, $20, 1
-	db  -4,   8, $20, 1 | OAM_XFLIP
-	db  -8,  -8, $21, 1
-	db  -8,   0, $21, 1 | OAM_XFLIP
-	db   0,   0, $21, 1 | OAM_XFLIP | OAM_YFLIP
-	db   0,  -8, $21, 1 | OAM_YFLIP
-
-AnimDataPsychic::
-	frame_table AnimFrameTablePsychic
-	frame  0,  3,   0,   0
-	frame  1,  3,   0,   0
-	frame  2,  3,   0,   0
-	frame  3,  3,   0,   0
-	frame  4,  3,   0,   0
-	frame  5,  3,   0,   0
-	frame  6,  3,   0,   0
-	frame  7,  3,   0,   0
-	frame  8,  3,   0,   0
-	frame  9,  3,   0,   0
-	frame 10,  3,   0,   0
-	frame 11,  3,   0,   0
-	frame 12,  3,   0,   0
-	frame 13,  3,   0,   0
-	frame 14,  4,   0,   0
-	frame 15,  5,   0,   0
-	frame 16,  6,   0,   0
-	frame  0,  3,   0,   0
-	frame  1,  3,   0,   0
-	frame  2,  3,   0,   0
-	frame  3,  3,   0,   0
-	frame  4,  3,   0,   0
-	frame  5,  3,   0,   0
-	frame  6,  3,   0,   0
-	frame  7,  3,   0,   0
-	frame  8,  3,   0,   0
-	frame  9,  3,   0,   0
-	frame 10,  3,   0,   0
-	frame 11,  3,   0,   0
-	frame 12,  3,   0,   0
-	frame 13,  3,   0,   0
-	frame 14,  5,   0,   0
-	frame 15,  6,   0,   0
-	frame 16,  7,   0,   0
-	frame_end 16
 	frame_exit

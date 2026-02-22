@@ -145,3 +145,19 @@ MACRO? request_vdma
 	ld a, TRUE
 	ld [wVDMAPending], a
 ENDM
+
+MACRO wait_not_hblank
+:
+	ldh a, [rSTAT]
+	and STAT_MODE
+	; z set if in Mode 0 (H-Blank)
+	jr z, :-
+ENDM
+
+MACRO wait_hblank
+:
+	ldh a, [rSTAT]
+	and STAT_MODE
+	; z set if in Mode 0 (H-Blank)
+	jr nz, :-
+ENDM

@@ -104,8 +104,11 @@ SetCardPalette:
 	ld [hli], a
 	dec b
 	jr nz, .copy_pal_loop
-
 	; de = wCardAttrMap
+;	fallthrough
+
+; c = starting pal index
+SetCardGfxPaletteIndex:
 	ld b, $30
 .loop_set_attr_pal
 	ld a, [de]
