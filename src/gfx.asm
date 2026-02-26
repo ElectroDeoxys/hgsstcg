@@ -33,6 +33,9 @@ SECTION "Gfx 2", ROMX
 DuelCursorGraphics::
 	INCBIN "gfx/duel/cursor.2bpp"
 
+DuelSymbolsGraphics::
+	INCBIN "gfx/duel/symbols.2bpp"
+
 DuelOtherGraphics::
 	INCBIN "gfx/duel/other.2bpp"
 

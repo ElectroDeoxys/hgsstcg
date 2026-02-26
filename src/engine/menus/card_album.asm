@@ -336,7 +336,7 @@ PrintCardSetListEntries:
 	jr .print_text
 .owned
 	ld a, 13
-	call CopyCardNameAndLevel
+	call CopyCardName
 .print_text
 	pop hl
 	pop bc

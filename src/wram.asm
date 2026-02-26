@@ -508,7 +508,7 @@ wRefreshMenuCursorSFX::
 wDefaultYesOrNo::
 	ds $1
 
-; used in _CopyCardNameAndLevel to keep track of the remaining space to copy the text
+; used in _CopyCardName to keep track of the remaining space to copy the text
 wCardNameLength::
 	ds $1
 

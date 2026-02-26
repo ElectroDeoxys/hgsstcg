@@ -4,7 +4,7 @@ DisplayLoadedCard1DetailScreen::
 	push hl
 	call DrawLargePictureOfCard
 	ld a, 18
-	call CopyCardNameAndLevel
+	call CopyCardName
 	ld [hl], TX_END
 	ld hl, 0
 	call LoadTxRam2
@@ -262,10 +262,7 @@ DisplayCardPage_PokemonOverview:
 	lb de, 1, 3
 	call InitTextPrinting_ProcessTextFromPointerToID
 .basic
-	; print card level and maximum HP
-	lb bc, 12, 2
-	ld a, [wLoadedCard1Level]
-	call WriteTwoDigitNumberInTxSymbolFormat
+	; print maximum HP
 	lb bc, 16, 2
 	ld a, [wLoadedCard1HP]
 	call WriteTwoByteNumberInTxSymbolFormat
@@ -282,7 +279,7 @@ DisplayCardPage_PokemonOverview:
 	call WriteDataBlocksToBGMap0
 	; print set 2 icon and rarity symbol at fixed positions
 	call DrawCardPageSet2AndRarityIcons
-	; print (Y coord at [wCurPlayAreaY]) card name, level, type, energies, HP, location...
+	; print (Y coord at [wCurPlayAreaY]) card name, type, energies, HP, location...
 	; TODO
 	; call PrintPlayAreaCardInformationAndLocation
 
@@ -588,10 +585,6 @@ DisplayCardPage_PokemonDescription:
 	; draw the card symbol associated to its TYPE_* at 3,2
 	lb de, 3, 2
 	call DrawCardSymbol
-	; print the Level and HP numbers at 12,2 and 16,2 respectively
-	lb bc, 12, 2
-	ld a, [wLoadedCard1Level]
-	call WriteTwoDigitNumberInTxSymbolFormat
 	lb bc, 16, 2
 	ld a, [wLoadedCard1HP]
 	call WriteTwoByteNumberInTxSymbolFormat

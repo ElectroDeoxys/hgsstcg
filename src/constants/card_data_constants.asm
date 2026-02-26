@@ -71,7 +71,6 @@ DEF CARD_DATA_WEAKNESS              rb
 DEF CARD_DATA_RESISTANCE            rb
 DEF CARD_DATA_CATEGORY              rw
 DEF CARD_DATA_POKEDEX_NUMBER        rb
-DEF CARD_DATA_LEVEL                 rb
 DEF CARD_DATA_LENGTH                rw
 DEF CARD_DATA_WEIGHT                rw
 DEF CARD_DATA_PKMN_DESCRIPTION      rw

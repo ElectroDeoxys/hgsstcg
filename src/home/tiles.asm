@@ -106,6 +106,14 @@ LoadDuelCardSymbolTiles2::
 	ld b, $c
 	jr CopyFontsOrDuelGraphicsTiles
 
+LoadDuelCardSymbols::
+	ld hl, DuelSymbolsGraphics
+	ld de, v1Tiles1
+	ld b, 20 ; tiles
+	call BankswitchVRAM1
+	call CopyFontsOrDuelGraphicsTiles
+	jp BankswitchVRAM0
+
 ; same as LoadDuelFaceDownCardTiles, plus also load the ACT / BPx tiles
 LoadDuelCheckPokemonScreenTiles::
 	ld b, $24

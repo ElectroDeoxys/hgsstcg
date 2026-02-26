@@ -14,6 +14,8 @@ DuelScene:
 	ld a, PALETTE_DUEL_CURSOR
 	farcall LoadOBPalette
 
+	call LoadDuelCardSymbols
+
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
 
@@ -251,8 +253,8 @@ DrawPlayerDuelScene:
 	call CopyDataHLtoDE
 
 	; print name
-	ld a, 13
-	call CopyCardNameAndLevel
+	ld a, 10
+	call CopyCardName
 	lb de, 7, 23
 	call InitTextPrinting
 	ld hl, wDefaultText
@@ -318,8 +320,8 @@ DrawOpponentDuelScene:
 	call CopyDataHLtoDE
 
 	; print name
-	ld a, 13
-	call CopyCardNameAndLevel
+	ld a, 10
+	call CopyCardName
 	lb de, 7, 7
 	call InitTextPrinting
 	ld hl, wDefaultText
@@ -356,7 +358,7 @@ DrawOpponentDuelScene:
 ; from turn-duelist's bench pokemon with deck index a
 GetBenchSymbolAndAttribute:
 	cp -1 ; is empty?
-	lb bc, $dc, $3
+	lb bc, $80, $3 | BG_BANK1
 	ret z
 
 	push de
@@ -377,9 +379,9 @@ GetBenchSymbolAndAttribute:
 	ret
 
 .StageSymbolsAndAttributes:
-	db $d0, $3 ; BASIC
-	db $d4, $3 ; STAGE1
-	db $d8, $3 ; STAGE2
+	db $84, $3 | BG_BANK1 ; BASIC
+	db $88, $3 | BG_BANK1 ; STAGE1
+	db $8c, $3 | BG_BANK1 ; STAGE2
 
 SetDuelSceneVBlank:
 	ld hl, wVBlankFunctionTrampoline + 1
@@ -442,7 +444,7 @@ DrawSquareSymbol:
 ; at play area location given in a
 ; to VRAM tile offset given in e
 ; to coordinates in bc
-DrawHPBar::
+DrawHPBar:
 	ld hl, wHPBarTileOffset
 	ld [hl], e ; wHPBarTileOffset
 	inc hl

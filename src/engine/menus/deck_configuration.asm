@@ -1503,7 +1503,7 @@ PrintTotalCardCount:
 	ld hl, wDefaultText
 	jp ProcessText
 
-; prints the name, level and storage count of the cards
+; prints the name and storage count of the cards
 ; that are visible in the list window
 ; in the form:
 ; CARD NAME/LEVEL X/Y
@@ -1554,7 +1554,7 @@ PrintDeckBuildingCardList:
 	push bc
 	push hl
 	push de
-	call CopyCardNameAndLevel
+	call CopyCardName
 	pop de
 	call AppendOwnedCardCountAndStorageCountNumbers
 	pop hl
@@ -2904,7 +2904,7 @@ CreateCurDeckUniqueCardList:
 
 ; prints the list of cards visible in the window
 ; of the confirmation screen
-; card info is presented with name, level and
+; card info is presented with name and
 ; its count preceded by "x"
 PrintConfirmationCardList:
 	push bc
@@ -2947,14 +2947,14 @@ PrintConfirmationCardList:
 	ld d, a
 	call AddCardIDToVisibleList
 	call LoadCardDataToBuffer1_FromCardID
-	; places in wDefaultText the card's name and level
+	; places in wDefaultText the card's name
 	; then appends at the end "x" with the count of that card
 	; draws the card's type icon as well
-	ld a, 13
+	ld a, 10
 	push bc
 	push hl
 	push de
-	call CopyCardNameAndLevel
+	call CopyCardName
 	pop de
 	call .PrintCardCount
 	pop hl
@@ -3380,7 +3380,7 @@ IncrementDeckCardsInTempCollection:
 	jr nz, .loop_inner
 	jr .loop_outer
 
-; prints the name, level and storage count of the cards
+; prints the name and storage count of the cards
 ; that are visible in the list window
 ; in the form:
 ; CARD NAME/LEVEL X
@@ -3425,14 +3425,14 @@ PrintCardSelectionList:
 	ld d, a
 	call AddCardIDToVisibleList
 	call LoadCardDataToBuffer1_FromCardID
-	; places in wDefaultText the card's name and level
+	; places in wDefaultText the card's name
 	; then appends at the end the count of that card
 	; in the card storage
-	ld a, 14
+	ld a, 10
 	push bc
 	push hl
 	push de
-	call CopyCardNameAndLevel
+	call CopyCardName
 	pop de
 	call AppendOwnedCardCountNumber
 	pop hl

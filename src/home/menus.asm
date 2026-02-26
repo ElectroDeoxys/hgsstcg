@@ -273,7 +273,7 @@ ReloadCardListItems::
 	call DrawCardSymbol
 	call InitTextPrinting
 	ld a, [wListItemNameMaxLength]
-	call CopyCardNameAndLevel
+	call CopyCardName
 	ld hl, wDefaultText
 	call ProcessText
 	pop de
@@ -562,8 +562,8 @@ CardSymbolTable::
 
 ; copy the name and level of the card at wLoadedCard1 to wDefaultText
 ; a = length in number of tiles (the resulting string will be padded with spaces to match it)
-CopyCardNameAndLevel::
-	farcall _CopyCardNameAndLevel
+CopyCardName::
+	farcall _CopyCardName
 	ret
 
 ; wait until A or B is pressed.
