@@ -41,6 +41,11 @@ LoadCardDataToBuffer1_FromDeckIndex::
 	pop de
 	ret
 
+; return in a the max HP of the card with id at de
+GetCardMaxHP::
+	ld a, CARD_DATA_HP
+	jr GetCardByte
+
 ; return in a the stage of the card with id at de
 GetCardStage::
 	ld a, CARD_DATA_STAGE

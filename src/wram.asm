@@ -39,6 +39,12 @@ NEXTU
 wDeckToBuild::
 	ds DECK_STRUCT_SIZE
 
+NEXTU
+
+; used by DrawHPBar to generate HP bar tiles
+wHPBarScratch::
+	ds TILE_SIZE
+
 ENDU
 
 ; In order to be identified during a duel, the 60 cards of each duelist are given an index between 0 and 59.
@@ -1911,6 +1917,14 @@ wCurAnimX::          db
 wCurAnimY::          db
 wCurAnimTileOffset:: db
 wCurAnimOBPal::      db
+
+; stuff related to drawing HP bar
+wHPBarTileOffset:: db ; tile offset in v1Tiles1
+wHPBarX:: db
+wHPBarY:: db
+wHPBarLength::   db ; in tiles
+wHPBarActivePx:: db ; in px
+
 
 SECTION "WRAM AI", WRAMX
 

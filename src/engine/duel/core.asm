@@ -272,7 +272,7 @@ PlayAllBasics:
 	jr nc, .loop_hand ; not pkmn card
 	ld a, [wLoadedCard1Stage]
 	or a
-	jr nz, .loop_hand ; not basic
+	;jr nz, .loop_hand ; not basic
 	ld a, b
 	push hl
 	call PlayPkmnCardFromHand
