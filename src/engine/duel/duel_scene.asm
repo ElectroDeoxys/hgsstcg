@@ -15,6 +15,9 @@ DuelScene:
 	farcall LoadOBPalette
 
 	call LoadDuelCardSymbols
+	ld hl, HPBarIndicatorGfx
+	ld a, $80
+	call PushHPBarTile
 
 	call DrawPlayerDuelScene
 	call DrawOpponentDuelScene
@@ -261,7 +264,7 @@ DrawPlayerDuelScene:
 	call ProcessText
 
 	xor a ; PLAY_AREA_ARENA
-	ld e, $80
+	ld e, $81
 	lb bc, 7, 24
 	call DrawHPBar
 
@@ -328,7 +331,7 @@ DrawOpponentDuelScene:
 	call ProcessText
 
 	xor a ; PLAY_AREA_ARENA
-	ld e, $85
+	ld e, $86
 	lb bc, 7, 8
 	call DrawHPBar
 
@@ -523,16 +526,16 @@ DrawHPBar:
 	ld a, [wHPBarTileOffset]
 	inc a
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	ld hl, HPBarEndGfx
 	ld a, [wHPBarTileOffset]
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	ld hl, HPBarMidGfx
 	ld a, [wHPBarTileOffset]
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	jr .draw_pattern_1
 
@@ -548,7 +551,7 @@ DrawHPBar:
 	call .GenerateHPBarTile
 	ld hl, wHPBarScratch
 	ld a, [wHPBarTileOffset]
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	ld hl, HPBarMidGfx
 	ld b, %11111111
@@ -556,7 +559,7 @@ DrawHPBar:
 	ld hl, wHPBarScratch
 	ld a, [wHPBarTileOffset]
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	ld hl, HPBarEndGfx
 	ld b, %11111111
@@ -565,7 +568,7 @@ DrawHPBar:
 	ld a, [wHPBarTileOffset]
 	inc a
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 .draw_pattern_1
 	; draw in pattern 1222..3
@@ -576,6 +579,11 @@ DrawHPBar:
 	call BCCoordToBGMap0Address
 	ld l, e
 	ld h, d
+
+	; HP indicator
+	ld a, $80
+	ld [hli], a
+
 	ld a, [wHPBarTileOffset]
 	ld b, a
 	ld [hli], a
@@ -600,7 +608,7 @@ DrawHPBar:
 	; push full left end tile
 	ld hl, HPBarEndGfx
 	ld a, [wHPBarTileOffset]
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	; if at least 7 + 8 pixels, then we need a full middle tile
 	ld a, [wHPBarActivePx]
@@ -609,7 +617,7 @@ DrawHPBar:
 	ld hl, HPBarMidGfx
 	ld a, [wHPBarTileOffset]
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 .not_enough_for_filled_middle_tile
 	pop bc
@@ -624,7 +632,7 @@ DrawHPBar:
 	ld hl, wHPBarScratch
 	ld a, [wHPBarTileOffset]
 	add 3
-	call .PushHPBarTile
+	call PushHPBarTile
 
 .not_enough_for_empty_middle_tile
 	; push empty right end tile
@@ -634,7 +642,7 @@ DrawHPBar:
 	ld hl, wHPBarScratch
 	ld a, [wHPBarTileOffset]
 	add 4
-	call .PushHPBarTile
+	call PushHPBarTile
 
 	; now generate half-empty middle tile
 	ld a, [wHPBarActivePx]
@@ -649,7 +657,7 @@ DrawHPBar:
 	ld a, [wHPBarTileOffset]
 	inc a
 	inc a
-	call .PushHPBarTile
+	call PushHPBarTile
 
 .multiple_of_8
 	; draw in pattern 122...344...5
@@ -660,6 +668,11 @@ DrawHPBar:
 	call BCCoordToBGMap0Address
 	ld l, e
 	ld h, d
+
+	; HP indicator
+	ld a, $80
+	ld [hli], a
+
 	ld a, [wHPBarTileOffset]
 	ld b, a
 	ld c, 0
@@ -718,10 +731,8 @@ DrawHPBar:
 	ld h, d
 	call BankswitchVRAM1
 	ld a, [wHPBarLength]
-	sub 2
 	ld c, a
 	ld a, 1
-	ld [hli], a
 .loop_attrs
 	ld [hli], a
 	dec c
@@ -788,7 +799,7 @@ DrawHPBar:
 	ret
 
 ; pushes tile in hl to tile given in a
-.PushHPBarTile:
+PushHPBarTile:
 	swap a
 	ld b, a
 	and $0f
@@ -800,15 +811,25 @@ DrawHPBar:
 	ld bc, TILE_SIZE
 	jp CopyDataHLtoDE
 
-HPBarEndGfx:
+HPBarIndicatorGfx:
 	dw `00000000
 	dw `03333333
+	dw `30303000
+	dw `30303030
+	dw `30003000
+	dw `30303033
+	dw `30303033
+	dw `03333333
+
+HPBarEndGfx:
+	dw `00000000
+	dw `33333333
 	dw `31111111
 	dw `31000000
 	dw `31111111
 	dw `31111111
 	dw `31111111
-	dw `03333333
+	dw `33333333
 
 	dw `00000000
 	dw `03333333
